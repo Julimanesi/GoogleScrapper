@@ -17,12 +17,18 @@ namespace GoogleScrapper
         public string NombreVideo { get; set; }
         public int IndexDuracion { get; set; }
         public int IndexFecha { get; set; }
+        public bool AltaCalidad { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
 
-        public VideoScrapper(string nombreVideo,int indexDuracion = 0, int indexFecha = 0)
+        public VideoScrapper(string nombreVideo,int indexDuracion = 0, int indexFecha = 0, bool altaCalidad = false, DateTime fechaInicio= new DateTime(), DateTime fechaFin = new DateTime())
         {
             NombreVideo = nombreVideo;
             IndexDuracion = indexDuracion;
             IndexFecha = indexFecha;
+            AltaCalidad = altaCalidad;
+            FechaInicio = fechaInicio;
+            FechaFin = fechaFin;
         }
 
         public List<ResultadoVideo> ObtenerLinksVideos(int pagina = 0)
@@ -30,10 +36,18 @@ namespace GoogleScrapper
             List<ResultadoVideo> resultadoVideoList = new List<ResultadoVideo>();
             string request = Form1.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
 
-            if (IndexDuracion != 0)
-                request += "&tbs=dur:" + GetCodigoDuracion(IndexDuracion);
-            if (IndexFecha != 0)
-                request += GetCodigoFecha(IndexFecha);
+            if (IndexDuracion != 0 || IndexFecha != 0 || AltaCalidad)
+            {
+                request += "&tbs=";
+                List<string> tbsParam = new List<string>();
+                if (IndexDuracion != 0)
+                    tbsParam.Add("dur:" + GetCodigoDuracion(IndexDuracion));
+                if (IndexFecha != 0)
+                    tbsParam.Add(GetCodigoFecha(IndexFecha));
+                if (AltaCalidad)
+                    tbsParam.Add("hq:h");
+                request+= String.Join(",", tbsParam);
+            }
             if (pagina != 0)
                 request += "&start=" + pagina * 10;
 
@@ -61,21 +75,30 @@ namespace GoogleScrapper
             return resultadoVideoList.DistinctBy(x => x.URLVideo).ToList();
         }
 
-        public int GetNroPaginas(ref Label NumeroPagTotales)
+        public int GetNroPaginas()
         {
-            int nroPaginas = 0;
+            int nroPaginas = 1;
             string request = Form1.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
-            if (IndexDuracion != 0)
-                request += "&tbs=dur:" + GetCodigoDuracion(IndexDuracion);
-            if (IndexFecha != 0)
-                request += GetCodigoFecha(IndexFecha);
+
+            if (IndexDuracion != 0 || IndexFecha != 0 || AltaCalidad)
+            {
+                request += "&tbs=";
+                List<string> tbsParam = new List<string>();
+                if (IndexDuracion != 0)
+                    tbsParam.Add("dur:" + GetCodigoDuracion(IndexDuracion));
+                if (IndexFecha != 0)
+                    tbsParam.Add(GetCodigoFecha(IndexFecha));
+                if (AltaCalidad)
+                    tbsParam.Add("hq:h");
+                request += String.Join(",", tbsParam);
+            }
+
             var htmlDoc = web.Load(request);
             
             while (htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[3]/div/div/div[1]/a") != null)
             {
                 htmlDoc = web.Load($"{request}&start={nroPaginas*10}");
                 nroPaginas++;
-                NumeroPagTotales.Text = $"Numero de paginas encontradas:{nroPaginas}";
             }
             return nroPaginas;
         }
@@ -109,19 +132,22 @@ namespace GoogleScrapper
             switch (index)
             {
                 case 1:
-                    resp = "&tbs=qdr:h";
+                    resp = "qdr:h";
                     break;
                 case 2:
-                    resp = "&tbs=qdr:d";
+                    resp = "qdr:d";
                     break;
                 case 3:
-                    resp = "&tbs=qdr:w";
+                    resp = "qdr:w";
                     break;
                 case 4:
-                    resp = "&tbs=qdr:m";
+                    resp = "qdr:m";
                     break;
                 case 5:
-                    resp = "&tbs=qdr:y";
+                    resp = "qdr:y";
+                    break;
+                case 6:
+                    resp = $"cdr:1,cd_min:{FechaInicio.ToString("M/d/yyyy")},cd_max:{FechaFin.ToString("M/d/yyyy")}";//cdr:1,cd_min:2/2/2023,cd_max:7/21/2023
                     break;
                 default:
                     break;
