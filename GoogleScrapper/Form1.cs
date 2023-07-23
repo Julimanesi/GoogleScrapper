@@ -8,6 +8,7 @@ namespace GoogleScrapper
     {
         public static string URLGoogle = "https://www.google.com/search?q=";
         private string ArchivoListaReprodcAux = "ListaReproducAux.m3u";
+        private bool TodosSelecciodados = false;
 
         public Form1()
         {
@@ -18,7 +19,7 @@ namespace GoogleScrapper
             FechaFinDTP.MaxDate = DateTime.Now;
         }
 
-        private async void BuscarVideoBTN_Click(object sender, EventArgs e)
+        private void BuscarVideoBTN_Click(object sender, EventArgs e)
         {
             //Pongo a 0 cada vez que presiono el boton buscar
             resultadoVideoBindingSource.DataSource = new BindingSource();
@@ -27,6 +28,7 @@ namespace GoogleScrapper
             NumeroPagTotalesLabel.Text= "Numero de Paginas encontradas: Calculando...";
             VideoPorPaginaLabel.Text = "Videos Por Pagina:";
             PaginasVisitadasLabel.Text = "Paginas Visitadas:";
+            NumResultadosActulabel.Text = $"Numero de Resultados Actuales:";
             panelResultado.Visible = false;
             //inicializo variables locales
             if (FechaInicioDTP.Value > FechaFinDTP.Value)
@@ -36,7 +38,7 @@ namespace GoogleScrapper
             }
             panelProgreso.Visible = true;
             VideoScrapper videoScrapper = new VideoScrapper(BuscarVideoTB.Text,DuracionVideoCB.SelectedIndex,FechaVideoCB.SelectedIndex,AltaCalidadCB.Checked,FechaInicioDTP.Value,FechaFinDTP.Value);
-            List<string> ListaEstractores = await GetListaExtractores();
+            List<string> ListaEstractores = GetListaExtractores();
             List<ResultadoVideo> resultadoVideos = new List<ResultadoVideo>();
             int i = 0;
             VideoNumPagprogressBar.Maximum = videoScrapper.GetNroPaginas();
@@ -47,6 +49,7 @@ namespace GoogleScrapper
                 VideoNumPagprogressBar.Value++;
                 resultadoVideos = resultadoVideos.DistinctBy(x=>x.URLVideo).ToList();
                 PaginasVisitadasLabel.Text = $"Paginas Visitadas:({i})";
+                NumResultadosActulabel.Text = $"Numero de Resultados Actuales: {resultadoVideos.Count}";
             } 
             while (resultadoVideos.Count < NumMinResultVideoNumeric.Value && VideoNumPagprogressBar.Maximum > i);
 
@@ -63,45 +66,60 @@ namespace GoogleScrapper
         }
 
 
-        private async Task<List<string>> GetListaExtractores()
+        private List<string> GetListaExtractores()
         {
             List<string> extractores = new List<string>();
-            using (Process ytdl = new Process())
+            try
             {
-                ytdl.StartInfo.FileName = "yt-dlp.exe";
-                ytdl.StartInfo.Arguments = "--list-extractors";
-                ytdl.StartInfo.UseShellExecute = false;
-                ytdl.StartInfo.CreateNoWindow = true;
-                ytdl.StartInfo.RedirectStandardOutput = true;
-                ytdl.Start();
+                using (Process ytdl = new Process())
+                {
+                    ytdl.StartInfo.FileName = "yt-dlp.exe";
+                    ytdl.StartInfo.Arguments = "--list-extractors";
+                    ytdl.StartInfo.UseShellExecute = false;
+                    ytdl.StartInfo.CreateNoWindow = true;
+                    ytdl.StartInfo.RedirectStandardOutput = true;
+                    ytdl.Start();
 
-                extractores.AddRange(ytdl.StandardOutput.ReadToEnd().Split('\n'));
+                    extractores.AddRange(ytdl.StandardOutput.ReadToEnd().Split('\n'));
 
-                //ytdl.WaitForExit();
-                await ytdl.WaitForExitAsync();
+                    ytdl.WaitForExit();
+                }
+            }catch(Exception e)
+            {
+
             }
             return extractores;
         }
 
         private bool YtdlPuedeReproducir(string Url)
         {
-            bool resp = true;
-            using (Process ytdl = new Process())
+            try
             {
-                ytdl.StartInfo.FileName = "yt-dlp.exe";
-                ytdl.StartInfo.Arguments = $"-s {Url}";
-                ytdl.StartInfo.UseShellExecute = false;
-                ytdl.StartInfo.CreateNoWindow = true;
-                ytdl.StartInfo.RedirectStandardOutput = true;
-                ytdl.StartInfo.RedirectStandardError = true;
-                ytdl.Start();
+                bool resp = true;
+                using (Process ytdl = new Process())
+                {
+                    ytdl.StartInfo.FileName = "yt-dlp.exe";
+                    ytdl.StartInfo.Arguments = $"-s {Url}";
+                    ytdl.StartInfo.UseShellExecute = false;
+                    ytdl.StartInfo.CreateNoWindow = true;
+                    ytdl.StartInfo.RedirectStandardOutput = true;
+                    ytdl.StartInfo.RedirectStandardError = true;
+                    ytdl.Start();
 
-                var procesoOutput = ytdl.StandardError.ReadToEnd();
-                resp = procesoOutput == null || !procesoOutput.Contains("ERROR");
+                    var procesoOutput = ytdl.StandardError.ReadToEnd();
+                    resp = procesoOutput == null || !procesoOutput.Contains("ERROR");
 
-                ytdl.WaitForExit();
+                    if (!ytdl.WaitForExit(1000 * 20))
+                    {
+                        ytdl.Kill(); 
+                        resp = false;
+                    }
+                }
+                return resp;
+            }catch(Exception e)
+            {
+                return false;
             }
-            return resp;
         }
 
         private List<ResultadoVideo> ObtenerVideosReproduciblesPorPagina(VideoScrapper videoScrapper, List<string> ListaEstractores ,int pagina)
@@ -115,56 +133,70 @@ namespace GoogleScrapper
             VideoPorPaginaLabel.Text = $"Videos Por Pagina Actual({resultadoVideos.Count}):";
 
             List<ResultadoVideo> resultadoVideosReproducibles = new List<ResultadoVideo>();
-            foreach (ResultadoVideo resultado in resultadoVideos)
+            try
             {
-                if (YtdlPuedeReproducir(resultado.URLVideo))
-                    resultadoVideosReproducibles.Add(resultado);
-                VideoPorPaginaprogressBar.Value++;
+                foreach (ResultadoVideo resultado in resultadoVideos)
+                {
+                    if (YtdlPuedeReproducir(resultado.URLVideo))
+                        resultadoVideosReproducibles.Add(resultado);
+                    VideoPorPaginaprogressBar.Value++;
+                }
+            }
+            catch (Exception e)
+            {
+
             }
             return resultadoVideosReproducibles;
         }
 
         private void LinVideoDoubleClick(object sender, EventArgs e)
         {
-            ResultadoVideo seleccionado = (ResultadoVideo)resultadoVideoBindingSource.Current;
-            if (seleccionado != null) 
+            try
+            {
+                ResultadoVideo seleccionado = (ResultadoVideo)resultadoVideoBindingSource.Current;
+                if (seleccionado != null)
+                {
+                    using (Process smplayer = new Process())
+                    {
+                        smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                        smplayer.StartInfo.Arguments = $" {seleccionado.URLVideo}";
+                        smplayer.StartInfo.UseShellExecute = false;
+                        smplayer.Start();
+                        smplayer.WaitForExit();
+                    }
+                }
+            }
+            catch (Exception )
+            {
+
+            }
+        }
+
+       
+
+        private void AgregarEnviarSmplayer_Click(object sender, EventArgs e)
+        {
+            try
             {
                 using (Process smplayer = new Process())
                 {
                     smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
-                    smplayer.StartInfo.Arguments = $" {seleccionado.URLVideo}";
+                    smplayer.StartInfo.Arguments = $"-add-to-playlist " + GetLinVideosInALine();
                     smplayer.StartInfo.UseShellExecute = false;
                     smplayer.Start();
                     smplayer.WaitForExit();
                 }
             }
-        }
-
-        private void CrearListaReproducAux()
-        {
-            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>) resultadoVideoBindingSource.DataSource;
-            if(ListaVideos!=null && ListaVideos.Count > 0)
+            catch (Exception )
             {
-                File.WriteAllLines(ArchivoListaReprodcAux, ListaVideos.Select(x => x.URLVideo));
-            }
-        }
 
-        private void AgregarEnviarSmplayer_Click(object sender, EventArgs e)
-        {
-            using (Process smplayer = new Process())
-            {
-                smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
-                smplayer.StartInfo.Arguments = $"-add-to-playlist "+ GetLinVideosInALine();
-                smplayer.StartInfo.UseShellExecute = false;
-                smplayer.Start();
-                smplayer.WaitForExit();
             }
         }
 
         private string GetLinVideosInALine()
         {
             string result = "";
-            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>)resultadoVideoBindingSource.DataSource;
+            List<ResultadoVideo> ListaVideos = LinkVideosLB.SelectedItems.Cast<ResultadoVideo>().ToList();
             if (ListaVideos != null && ListaVideos.Count > 0)
             {
                List<string> listaLinkVideosFullPath= ListaVideos.Select(x => new string($"\"{x.URLVideo}\"")).ToList();
@@ -173,21 +205,6 @@ namespace GoogleScrapper
             return result;
         }
 
-        private void ReproducirListaAuxGuardada()
-        {
-            CrearListaReproducAux();
-            if (File.Exists(ArchivoListaReprodcAux))
-            {
-                using (Process smplayer = new Process())
-                {
-                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
-                    smplayer.StartInfo.Arguments = $"-add-to-playlist \"{Path.GetFullPath(ArchivoListaReprodcAux)}\"";
-                    smplayer.StartInfo.UseShellExecute = false;
-                    smplayer.Start();
-                    smplayer.WaitForExit();
-                }
-            }
-        }
 
         private void FechaVideoCB_Changed(object sender, EventArgs e)
         {
@@ -204,6 +221,52 @@ namespace GoogleScrapper
                 FechaFinDTP.Visible = false;
                 FechaIniciolabel.Visible = false;
                 FechaFinlabel.Visible = false;
+            }
+        }
+
+        private void SeleccionarTodosButton_Click(object sender, EventArgs e)
+        {
+            if (TodosSelecciodados)
+            {
+                for (int i = 0; i < LinkVideosLB.Items.Count; i++)
+                {
+                    LinkVideosLB.SetSelected(i, false);
+                    SeleccionarTodosButton.Text = "Deseleccionar Todos";
+                }
+            }
+            else
+            {
+                for (int i = 0; i < LinkVideosLB.Items.Count; i++)
+                {
+                    LinkVideosLB.SetSelected(i, true);
+                    SeleccionarTodosButton.Text = "Seleccionar Todos";
+                }
+            }
+            TodosSelecciodados = !TodosSelecciodados;
+        }
+
+        private void CrearListaReproducAux()
+        {
+            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>)resultadoVideoBindingSource.DataSource;
+            if (ListaVideos != null && ListaVideos.Count > 0)
+            {
+                File.WriteAllLines(ArchivoListaReprodcAux, ListaVideos.Select(x => x.URLVideo));
+            }
+        }
+
+        private void ReproducirListaAuxGuardada()
+        {
+            CrearListaReproducAux();
+            if (File.Exists(ArchivoListaReprodcAux))
+            {
+                using (Process smplayer = new Process())
+                {
+                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                    smplayer.StartInfo.Arguments = $"-add-to-playlist \"{Path.GetFullPath(ArchivoListaReprodcAux)}\"";
+                    smplayer.StartInfo.UseShellExecute = false;
+                    smplayer.Start();
+                    smplayer.WaitForExit();
+                }
             }
         }
     }

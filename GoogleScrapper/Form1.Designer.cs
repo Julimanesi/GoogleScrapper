@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.VideoTag = new System.Windows.Forms.TabPage();
             this.panelResultado = new System.Windows.Forms.Panel();
+            this.SeleccionarTodosButton = new System.Windows.Forms.Button();
             this.ResultadosTotalesLabel = new System.Windows.Forms.Label();
             this.AgregarEnviarSMplayer = new System.Windows.Forms.Button();
             this.panelProgreso = new System.Windows.Forms.Panel();
@@ -57,6 +58,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NumMinResultVideoNumeric = new System.Windows.Forms.NumericUpDown();
             this.ImagenTag = new System.Windows.Forms.TabPage();
+            this.NumResultadosActulabel = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.VideoTag.SuspendLayout();
             this.panelResultado.SuspendLayout();
@@ -93,18 +95,29 @@
             // 
             // panelResultado
             // 
+            this.panelResultado.Controls.Add(this.SeleccionarTodosButton);
             this.panelResultado.Controls.Add(this.ResultadosTotalesLabel);
             this.panelResultado.Controls.Add(this.AgregarEnviarSMplayer);
             this.panelResultado.Location = new System.Drawing.Point(3, 254);
             this.panelResultado.Name = "panelResultado";
-            this.panelResultado.Size = new System.Drawing.Size(1165, 70);
+            this.panelResultado.Size = new System.Drawing.Size(1165, 45);
             this.panelResultado.TabIndex = 20;
             this.panelResultado.Visible = false;
+            // 
+            // SeleccionarTodosButton
+            // 
+            this.SeleccionarTodosButton.Location = new System.Drawing.Point(328, 7);
+            this.SeleccionarTodosButton.Name = "SeleccionarTodosButton";
+            this.SeleccionarTodosButton.Size = new System.Drawing.Size(163, 29);
+            this.SeleccionarTodosButton.TabIndex = 17;
+            this.SeleccionarTodosButton.Text = "Seleccionar Todos";
+            this.SeleccionarTodosButton.UseVisualStyleBackColor = true;
+            this.SeleccionarTodosButton.Click += new System.EventHandler(this.SeleccionarTodosButton_Click);
             // 
             // ResultadosTotalesLabel
             // 
             this.ResultadosTotalesLabel.AutoSize = true;
-            this.ResultadosTotalesLabel.Location = new System.Drawing.Point(223, 37);
+            this.ResultadosTotalesLabel.Location = new System.Drawing.Point(509, 11);
             this.ResultadosTotalesLabel.Name = "ResultadosTotalesLabel";
             this.ResultadosTotalesLabel.Size = new System.Drawing.Size(131, 20);
             this.ResultadosTotalesLabel.TabIndex = 16;
@@ -112,16 +125,17 @@
             // 
             // AgregarEnviarSMplayer
             // 
-            this.AgregarEnviarSMplayer.Location = new System.Drawing.Point(3, 3);
+            this.AgregarEnviarSMplayer.Location = new System.Drawing.Point(5, 6);
             this.AgregarEnviarSMplayer.Name = "AgregarEnviarSMplayer";
-            this.AgregarEnviarSMplayer.Size = new System.Drawing.Size(178, 54);
+            this.AgregarEnviarSMplayer.Size = new System.Drawing.Size(301, 30);
             this.AgregarEnviarSMplayer.TabIndex = 15;
-            this.AgregarEnviarSMplayer.Text = "Agregar/Enviar Lista de Reproccion a Smplayer";
+            this.AgregarEnviarSMplayer.Text = "Agregar/Enviar seleccionados a Smplayer";
             this.AgregarEnviarSMplayer.UseVisualStyleBackColor = true;
             this.AgregarEnviarSMplayer.Click += new System.EventHandler(this.AgregarEnviarSmplayer_Click);
             // 
             // panelProgreso
             // 
+            this.panelProgreso.Controls.Add(this.NumResultadosActulabel);
             this.panelProgreso.Controls.Add(this.VideoNumPagprogressBar);
             this.panelProgreso.Controls.Add(this.VideoPorPaginaprogressBar);
             this.panelProgreso.Controls.Add(this.VideoPorPaginaLabel);
@@ -185,10 +199,12 @@
             this.LinkVideosLB.DataSource = this.resultadoVideoBindingSource;
             this.LinkVideosLB.DisplayMember = "Title";
             this.LinkVideosLB.FormattingEnabled = true;
+            this.LinkVideosLB.HorizontalScrollbar = true;
             this.LinkVideosLB.ItemHeight = 20;
-            this.LinkVideosLB.Location = new System.Drawing.Point(3, 322);
+            this.LinkVideosLB.Location = new System.Drawing.Point(3, 302);
             this.LinkVideosLB.Name = "LinkVideosLB";
-            this.LinkVideosLB.Size = new System.Drawing.Size(1165, 304);
+            this.LinkVideosLB.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.LinkVideosLB.Size = new System.Drawing.Size(1165, 324);
             this.LinkVideosLB.TabIndex = 9;
             this.LinkVideosLB.ValueMember = "URLVideo";
             this.LinkVideosLB.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
@@ -370,6 +386,15 @@
             this.ImagenTag.Text = "Imagen";
             this.ImagenTag.UseVisualStyleBackColor = true;
             // 
+            // NumResultadosActulabel
+            // 
+            this.NumResultadosActulabel.AutoSize = true;
+            this.NumResultadosActulabel.Location = new System.Drawing.Point(478, 13);
+            this.NumResultadosActulabel.Name = "NumResultadosActulabel";
+            this.NumResultadosActulabel.Size = new System.Drawing.Size(223, 20);
+            this.NumResultadosActulabel.TabIndex = 15;
+            this.NumResultadosActulabel.Text = "Numero de Resultados Actuales:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -423,5 +448,7 @@
         private Panel panel1;
         private Label FechaFinlabel;
         private Label FechaIniciolabel;
+        private Button SeleccionarTodosButton;
+        private Label NumResultadosActulabel;
     }
 }
