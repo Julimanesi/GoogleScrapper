@@ -36,9 +36,9 @@
             this.ResultadosTotalesLabel = new System.Windows.Forms.Label();
             this.AgregarEnviarSMplayer = new System.Windows.Forms.Button();
             this.panelProgreso = new System.Windows.Forms.Panel();
+            this.ResultadosActualesProgressBar = new System.Windows.Forms.ProgressBar();
+            this.NumResultadosActulabel = new System.Windows.Forms.Label();
             this.VideoNumPagprogressBar = new System.Windows.Forms.ProgressBar();
-            this.VideoPorPaginaprogressBar = new System.Windows.Forms.ProgressBar();
-            this.VideoPorPaginaLabel = new System.Windows.Forms.Label();
             this.PaginasVisitadasLabel = new System.Windows.Forms.Label();
             this.NumeroPagTotalesLabel = new System.Windows.Forms.Label();
             this.LinkVideosLB = new System.Windows.Forms.ListBox();
@@ -58,7 +58,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NumMinResultVideoNumeric = new System.Windows.Forms.NumericUpDown();
             this.ImagenTag = new System.Windows.Forms.TabPage();
-            this.NumResultadosActulabel = new System.Windows.Forms.Label();
+            this.VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
             this.tabControl1.SuspendLayout();
             this.VideoTag.SuspendLayout();
             this.panelResultado.SuspendLayout();
@@ -98,9 +98,9 @@
             this.panelResultado.Controls.Add(this.SeleccionarTodosButton);
             this.panelResultado.Controls.Add(this.ResultadosTotalesLabel);
             this.panelResultado.Controls.Add(this.AgregarEnviarSMplayer);
-            this.panelResultado.Location = new System.Drawing.Point(3, 254);
+            this.panelResultado.Location = new System.Drawing.Point(3, 237);
             this.panelResultado.Name = "panelResultado";
-            this.panelResultado.Size = new System.Drawing.Size(1165, 45);
+            this.panelResultado.Size = new System.Drawing.Size(1165, 47);
             this.panelResultado.TabIndex = 20;
             this.panelResultado.Visible = false;
             // 
@@ -135,48 +135,45 @@
             // 
             // panelProgreso
             // 
+            this.panelProgreso.Controls.Add(this.ResultadosActualesProgressBar);
             this.panelProgreso.Controls.Add(this.NumResultadosActulabel);
             this.panelProgreso.Controls.Add(this.VideoNumPagprogressBar);
-            this.panelProgreso.Controls.Add(this.VideoPorPaginaprogressBar);
-            this.panelProgreso.Controls.Add(this.VideoPorPaginaLabel);
             this.panelProgreso.Controls.Add(this.PaginasVisitadasLabel);
             this.panelProgreso.Controls.Add(this.NumeroPagTotalesLabel);
             this.panelProgreso.Location = new System.Drawing.Point(3, 147);
             this.panelProgreso.Name = "panelProgreso";
-            this.panelProgreso.Size = new System.Drawing.Size(1165, 107);
+            this.panelProgreso.Size = new System.Drawing.Size(1165, 84);
             this.panelProgreso.TabIndex = 19;
             this.panelProgreso.Visible = false;
             // 
+            // ResultadosActualesProgressBar
+            // 
+            this.ResultadosActualesProgressBar.Location = new System.Drawing.Point(255, 39);
+            this.ResultadosActualesProgressBar.Name = "ResultadosActualesProgressBar";
+            this.ResultadosActualesProgressBar.Size = new System.Drawing.Size(289, 29);
+            this.ResultadosActualesProgressBar.TabIndex = 16;
+            // 
+            // NumResultadosActulabel
+            // 
+            this.NumResultadosActulabel.AutoSize = true;
+            this.NumResultadosActulabel.Location = new System.Drawing.Point(5, 44);
+            this.NumResultadosActulabel.Name = "NumResultadosActulabel";
+            this.NumResultadosActulabel.Size = new System.Drawing.Size(223, 20);
+            this.NumResultadosActulabel.TabIndex = 15;
+            this.NumResultadosActulabel.Text = "Numero de Resultados Actuales:";
+            // 
             // VideoNumPagprogressBar
             // 
-            this.VideoNumPagprogressBar.Location = new System.Drawing.Point(631, 53);
+            this.VideoNumPagprogressBar.Location = new System.Drawing.Point(699, 40);
             this.VideoNumPagprogressBar.Name = "VideoNumPagprogressBar";
-            this.VideoNumPagprogressBar.Size = new System.Drawing.Size(522, 28);
+            this.VideoNumPagprogressBar.Size = new System.Drawing.Size(454, 28);
             this.VideoNumPagprogressBar.Step = 1;
             this.VideoNumPagprogressBar.TabIndex = 12;
-            // 
-            // VideoPorPaginaprogressBar
-            // 
-            this.VideoPorPaginaprogressBar.Location = new System.Drawing.Point(208, 53);
-            this.VideoPorPaginaprogressBar.Maximum = 10;
-            this.VideoPorPaginaprogressBar.Name = "VideoPorPaginaprogressBar";
-            this.VideoPorPaginaprogressBar.Size = new System.Drawing.Size(254, 25);
-            this.VideoPorPaginaprogressBar.Step = 1;
-            this.VideoPorPaginaprogressBar.TabIndex = 10;
-            // 
-            // VideoPorPaginaLabel
-            // 
-            this.VideoPorPaginaLabel.AutoSize = true;
-            this.VideoPorPaginaLabel.Location = new System.Drawing.Point(5, 58);
-            this.VideoPorPaginaLabel.Name = "VideoPorPaginaLabel";
-            this.VideoPorPaginaLabel.Size = new System.Drawing.Size(176, 20);
-            this.VideoPorPaginaLabel.TabIndex = 11;
-            this.VideoPorPaginaLabel.Text = "Videos Por Pagina Actual:";
             // 
             // PaginasVisitadasLabel
             // 
             this.PaginasVisitadasLabel.AutoSize = true;
-            this.PaginasVisitadasLabel.Location = new System.Drawing.Point(481, 57);
+            this.PaginasVisitadasLabel.Location = new System.Drawing.Point(541, 44);
             this.PaginasVisitadasLabel.Name = "PaginasVisitadasLabel";
             this.PaginasVisitadasLabel.Size = new System.Drawing.Size(125, 20);
             this.PaginasVisitadasLabel.TabIndex = 13;
@@ -201,10 +198,10 @@
             this.LinkVideosLB.FormattingEnabled = true;
             this.LinkVideosLB.HorizontalScrollbar = true;
             this.LinkVideosLB.ItemHeight = 20;
-            this.LinkVideosLB.Location = new System.Drawing.Point(3, 302);
+            this.LinkVideosLB.Location = new System.Drawing.Point(3, 282);
             this.LinkVideosLB.Name = "LinkVideosLB";
             this.LinkVideosLB.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.LinkVideosLB.Size = new System.Drawing.Size(1165, 324);
+            this.LinkVideosLB.Size = new System.Drawing.Size(1165, 344);
             this.LinkVideosLB.TabIndex = 9;
             this.LinkVideosLB.ValueMember = "URLVideo";
             this.LinkVideosLB.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
@@ -386,14 +383,12 @@
             this.ImagenTag.Text = "Imagen";
             this.ImagenTag.UseVisualStyleBackColor = true;
             // 
-            // NumResultadosActulabel
+            // VerificarVideosbackgrWorker
             // 
-            this.NumResultadosActulabel.AutoSize = true;
-            this.NumResultadosActulabel.Location = new System.Drawing.Point(478, 13);
-            this.NumResultadosActulabel.Name = "NumResultadosActulabel";
-            this.NumResultadosActulabel.Size = new System.Drawing.Size(223, 20);
-            this.NumResultadosActulabel.TabIndex = 15;
-            this.NumResultadosActulabel.Text = "Numero de Resultados Actuales:";
+            this.VerificarVideosbackgrWorker.WorkerReportsProgress = true;
+            this.VerificarVideosbackgrWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BWVerificarVideo_Dowork);
+            this.VerificarVideosbackgrWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BWVerificarVideo_Progreso);
+            this.VerificarVideosbackgrWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWVerificarVideo_Resultado);
             // 
             // Form1
             // 
@@ -433,10 +428,8 @@
         private NumericUpDown NumMinResultVideoNumeric;
         private ListBox LinkVideosLB;
         private BindingSource resultadoVideoBindingSource;
-        private ProgressBar VideoPorPaginaprogressBar;
         private Label PaginasVisitadasLabel;
         private ProgressBar VideoNumPagprogressBar;
-        private Label VideoPorPaginaLabel;
         private Label NumeroPagTotalesLabel;
         private Button AgregarEnviarSMplayer;
         private CheckBox AltaCalidadCB;
@@ -450,5 +443,7 @@
         private Label FechaIniciolabel;
         private Button SeleccionarTodosButton;
         private Label NumResultadosActulabel;
+        private System.ComponentModel.BackgroundWorker VerificarVideosbackgrWorker;
+        private ProgressBar ResultadosActualesProgressBar;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
@@ -75,7 +76,7 @@ namespace GoogleScrapper
             return resultadoVideoList.DistinctBy(x => x.URLVideo).ToList();
         }
 
-        public int GetNroPaginas()
+        public int GetNroPaginas(BackgroundWorker worker)
         {
             int nroPaginas = 1;
             string request = Form1.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
@@ -95,10 +96,11 @@ namespace GoogleScrapper
 
             var htmlDoc = web.Load(request);
             
-            while (htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[3]/div/div/div[1]/a") != null)
+            while (htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[3]/div/div/div[1]/a") != null || htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[4]/div/div/div[1]/a") != null)
             {
                 htmlDoc = web.Load($"{request}&start={nroPaginas*10}");
                 nroPaginas++;
+                worker.ReportProgress(0, new ProgresoTotal(0, 0, nroPaginas));
             }
             return nroPaginas;
         }

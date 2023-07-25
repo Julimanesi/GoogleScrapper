@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GoogleScrapper
+{
+    public class EjecucionProcesos
+    {
+        private string ArchivoListaReprodcAux = "ListaReproducAux.m3u";
+
+
+        public static bool YtdlPuedeReproducir(string Url)
+        {
+            try
+            {
+                bool resp = true;
+                using (Process ytdl = new Process())
+                {
+                    ytdl.StartInfo.FileName = "yt-dlp.exe";
+                    ytdl.StartInfo.Arguments = $"-s {Url}";
+                    ytdl.StartInfo.UseShellExecute = false;
+                    ytdl.StartInfo.CreateNoWindow = true;
+                    ytdl.StartInfo.RedirectStandardOutput = true;
+                    ytdl.StartInfo.RedirectStandardError = true;
+                    ytdl.Start();
+
+                    var procesoOutput = ytdl.StandardError.ReadToEnd();
+                    resp = procesoOutput == null || !procesoOutput.Contains("ERROR");
+
+                    if (!ytdl.WaitForExit(1000 * 5))
+                    {
+                        ytdl.Kill();
+                        resp = false;
+                    }
+                }
+                return resp;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public static List<string> GetListaExtractores()
+        {
+            List<string> extractores = new List<string>();
+            try
+            {
+                using (Process ytdl = new Process())
+                {
+                    ytdl.StartInfo.FileName = "yt-dlp.exe";
+                    ytdl.StartInfo.Arguments = "--list-extractors";
+                    ytdl.StartInfo.UseShellExecute = false;
+                    ytdl.StartInfo.CreateNoWindow = true;
+                    ytdl.StartInfo.RedirectStandardOutput = true;
+                    ytdl.Start();
+
+                    extractores.AddRange(ytdl.StandardOutput.ReadToEnd().Split('\n'));
+
+                    ytdl.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message,"Error al Obtener la lista de Extractores");
+            }
+            return extractores;
+        }
+
+        public static void ReproducirUnVideo(string URLVideo)
+        {
+            try
+            {
+                using (Process smplayer = new Process())
+                {
+                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                    smplayer.StartInfo.Arguments = $" {URLVideo}";
+                    smplayer.StartInfo.UseShellExecute = false;
+                    smplayer.Start();
+                    smplayer.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error al Reproducir el Video seleccionado en SMPlayer");
+            }
+        }
+        public static void EnviarListaReproducASMPlayer(string ListaUrls)
+        {
+            try
+            {
+                using (Process smplayer = new Process())
+                {
+                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                    smplayer.StartInfo.Arguments = $"-add-to-playlist " + ListaUrls;
+                    smplayer.StartInfo.UseShellExecute = false;
+                    smplayer.Start();
+                    smplayer.WaitForExit();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error al Enviar la Lista de Reproducion a SMPlayer");
+            }
+        }
+
+
+
+        private void ReproducirListaAuxGuardada(BindingSource resultadoVideoBindingSource)
+        {
+            CrearListaReproducAux(resultadoVideoBindingSource);
+            if (File.Exists(ArchivoListaReprodcAux))
+            {
+                using (Process smplayer = new Process())
+                {
+                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                    smplayer.StartInfo.Arguments = $"-add-to-playlist \"{Path.GetFullPath(ArchivoListaReprodcAux)}\"";
+                    smplayer.StartInfo.UseShellExecute = false;
+                    smplayer.Start();
+                    smplayer.WaitForExit();
+                }
+            }
+        }
+
+        private void CrearListaReproducAux(BindingSource resultadoVideoBindingSource)
+        {
+            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>)resultadoVideoBindingSource.DataSource;
+            if (ListaVideos != null && ListaVideos.Count > 0)
+            {
+                File.WriteAllLines(ArchivoListaReprodcAux, ListaVideos.Select(x => x.URLVideo));
+            }
+        }
+    }
+}
