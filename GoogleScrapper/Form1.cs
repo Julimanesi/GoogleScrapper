@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Security.Policy;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace GoogleScrapper
 {
@@ -53,26 +54,25 @@ namespace GoogleScrapper
 
         private List<ResultadoVideo> ObtenerVideosReproduciblesPorPagina(VideoScrapper videoScrapper, List<string> ListaEstractores, int pagina)
         {
-            
-            List<ResultadoVideo> resultadoVideos = videoScrapper.ObtenerLinksVideos(pagina);
-            if (SoloListaExtYtdlCB.Checked)
-                //resultadoVideos = resultadoVideos.Where(x => ListaEstractores.Any(c => x.URLVideo.Split(".")[1].ToLower() == c.ToLower())).ToList();
-                resultadoVideos = resultadoVideos.Where(x =>x.URLVideo.Contains("http") && ListaEstractores.Any(c => new Uri(x.URLVideo).Host.Split('.')[new Uri(x.URLVideo).Host.Split('.').Length-2] == c.ToLower())).ToList();
-
-            List<ResultadoVideo> resultadoVideosReproducibles = new List<ResultadoVideo>();
+            var resultadoVideosReproducibles = new ConcurrentBag<ResultadoVideo>();
             try
             {
-                foreach (ResultadoVideo resultado in resultadoVideos)
+                List<ResultadoVideo> resultadoVideos = videoScrapper.ObtenerLinksVideos(pagina);
+                if (SoloListaExtYtdlCB.Checked)
+                    //resultadoVideos = resultadoVideos.Where(x => ListaEstractores.Any(c => x.URLVideo.Split(".")[1].ToLower() == c.ToLower())).ToList();
+                    resultadoVideos = resultadoVideos.Where(x =>x.URLVideo.Contains("http") && ListaEstractores.Any(c => new Uri(x.URLVideo).Host.Split('.')[new Uri(x.URLVideo).Host.Split('.').Length-2] == c.ToLower())).ToList();
+
+                Parallel.ForEach(resultadoVideos, resultado =>
                 {
                     if (EjecucionProcesos.YtdlPuedeReproducir(resultado.URLVideo))
                         resultadoVideosReproducibles.Add(resultado);
-                }
+                });
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, $"Error al Obtener los Videos Reproducibles de la Pagina: {pagina}");
             }
-            return resultadoVideosReproducibles;
+            return resultadoVideosReproducibles.ToList();
         }
 
         private void LinVideoDoubleClick(object sender, EventArgs e)
@@ -85,9 +85,9 @@ namespace GoogleScrapper
                     EjecucionProcesos.ReproducirUnVideo(seleccionado.URLVideo);
                 }
             }
-            catch (Exception)
+            catch (Exception )
             {
-
+                MessageBox.Show("Error al hacer doble click en el video");
             }
         }
 
