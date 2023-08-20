@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,14 @@ namespace GoogleScrapper
     {
         private string ArchivoListaReprodcAux = "ListaReproducAux.m3u";
 
+        private static BackgroundWorker BWSmplayer = new BackgroundWorker();
+
+        public static void Inicializar()
+        {
+            BWSmplayer.DoWork += new DoWorkEventHandler(BWSmplayer_Dowork);
+        }
+
+        #region Youtube-dl
 
         public static bool YtdlPuedeReproducir(string Url)
         {
@@ -43,6 +52,7 @@ namespace GoogleScrapper
                 return false;
             }
         }
+
         public static List<string> GetListaExtractores()
         {
             List<string> extractores = new List<string>();
@@ -69,10 +79,19 @@ namespace GoogleScrapper
             return extractores;
         }
 
+        #endregion
+
+        #region SMPlayer 
+
         public static void ReproducirUnVideo(string URLVideo)
         {
             try
             {
+                if (!BWSmplayer.IsBusy)
+                {
+                    BWSmplayer.RunWorkerAsync();
+                }
+
                 using (Process smplayer = new Process())
                 {
                     smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
@@ -87,10 +106,15 @@ namespace GoogleScrapper
                 MessageBox.Show(e.Message, "Error al Reproducir el Video seleccionado en SMPlayer");
             }
         }
+
         public static void EnviarListaReproducASMPlayer(string ListaUrls)
         {
             try
             {
+                if (!BWSmplayer.IsBusy)
+                {
+                    BWSmplayer.RunWorkerAsync();
+                }
                 using (Process smplayer = new Process())
                 {
                     smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
@@ -105,8 +129,6 @@ namespace GoogleScrapper
                 MessageBox.Show(e.Message, "Error al Enviar la Lista de Reproducion a SMPlayer");
             }
         }
-
-
 
         private void ReproducirListaAuxGuardada(BindingSource resultadoVideoBindingSource)
         {
@@ -123,6 +145,30 @@ namespace GoogleScrapper
                 }
             }
         }
+
+        #endregion
+
+        #region BackgroundWorker
+        private static void BWSmplayer_Dowork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                BackgroundWorker worker = sender as BackgroundWorker;
+                using (Process smplayer = new Process())
+                {
+                    smplayer.StartInfo.FileName = "C:\\Program Files\\SMPlayer\\smplayer.exe";
+                    smplayer.StartInfo.UseShellExecute = false;
+                    smplayer.Start();
+                    smplayer.WaitForExit();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al ejecutar SMPlayer");
+            }
+        }
+
+        #endregion
 
         private void CrearListaReproducAux(BindingSource resultadoVideoBindingSource)
         {

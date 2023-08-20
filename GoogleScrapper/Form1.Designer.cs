@@ -209,7 +209,7 @@
             // 
             // resultadoVideoBindingSource
             // 
-            this.resultadoVideoBindingSource.DataSource = typeof(GoogleScrapper.ResultadoVideo);
+            this.resultadoVideoBindingSource.DataSource = typeof(ResultadoVideo);
             // 
             // panel1
             // 
