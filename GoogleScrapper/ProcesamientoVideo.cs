@@ -24,9 +24,9 @@ namespace GoogleScrapper
                 FechaInicioDTP.Value = FechaFinDTP.Value;
                 FechaInicioDTP.Value.AddDays(-7);
             }
-            NroMinimoResultados = (int)NumMinResultVideoNumeric.Value;
+            NroMinimoResultados = (int)NumMinResultVideoNM.Value;
             panelProgreso.Visible = true;
-            VideoScrapper videoScrapper = new VideoScrapper(BuscarVideoTB.Text, DuracionVideoCB.SelectedIndex, FechaVideoCB.SelectedIndex, AltaCalidadCB.Checked, FechaInicioDTP.Value, FechaFinDTP.Value);
+            VideoScrapper videoScrapper = new VideoScrapper(BuscarVideoTB.Text, DuracionVideoCOMBX.SelectedIndex, FechaVideoCOMBX.SelectedIndex, AltaCalidadCKBX.Checked, FechaInicioDTP.Value, FechaFinDTP.Value);
             VerificarVideosbackgrWorker.RunWorkerAsync(videoScrapper);
             BuscarVideoBTN.Enabled = false;
         }
@@ -61,7 +61,7 @@ namespace GoogleScrapper
 
         private void FechaVideoCB_Changed(object sender, EventArgs e)
         {
-            if (FechaVideoCB.SelectedIndex == 6)
+            if (FechaVideoCOMBX.SelectedIndex == 6)
             {
                 FechaInicioDTP.Visible = true;
                 FechaFinDTP.Visible = true;
@@ -85,7 +85,21 @@ namespace GoogleScrapper
             }
         }
 
-        #endregion 
+        private void DescargVideosBTN_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+           
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                DescargVideosBTN.Enabled = false;
+                DescargVideosBTN.Text = "Descargando Videos...";
+                EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                DescargVideosBTN.Enabled = true;
+                DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            }
+
+        }
+        #endregion
 
         private List<ResultadoVideo> ObtenerVideosReproduciblesPorPagina(VideoScrapper videoScrapper, List<string> ListaEstractores, int pagina)
         {
@@ -93,7 +107,7 @@ namespace GoogleScrapper
             try
             {
                 List<ResultadoVideo> resultadoVideos = videoScrapper.ObtenerLinksVideos(pagina);
-                if (SoloListaExtYtdlCB.Checked)
+                if (SoloListaExtYtdlCKBX.Checked)
                     //resultadoVideos = resultadoVideos.Where(x => ListaEstractores.Any(c => x.URLVideo.Split(".")[1].ToLower() == c.ToLower())).ToList();
                     resultadoVideos = resultadoVideos.Where(x => x.URLVideo.Contains("http") && ListaEstractores.Any(c => new Uri(x.URLVideo).Host.Split('.')[new Uri(x.URLVideo).Host.Split('.').Length - 2] == c.ToLower())).ToList();
 

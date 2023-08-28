@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,15 +36,14 @@ namespace GoogleScrapper
                     ytdl.StartInfo.RedirectStandardOutput = true;
                     ytdl.StartInfo.RedirectStandardError = true;
                     ytdl.Start();
-
-                    var procesoOutput = ytdl.StandardError.ReadToEnd();
-                    resp = procesoOutput == null || !procesoOutput.Contains("ERROR");
-
                     if (!ytdl.WaitForExit(1000 * 5))
                     {
                         ytdl.Kill();
-                        resp = false;
+                        return false;
                     }
+                    var procesoOutput = ytdl.StandardError.ReadToEnd();
+                    resp = procesoOutput == null || !procesoOutput.Contains("ERROR");
+                    
                 }
                 return resp;
             }
@@ -77,6 +77,33 @@ namespace GoogleScrapper
                 MessageBox.Show(e.Message,"Error al Obtener la lista de Extractores");
             }
             return extractores;
+        }
+        public static void DescargarListaReproduc(string ListaUrls, int count, string Directoy)
+        {
+            //try
+            //{
+            //    using (Process ytdl = new Process())
+            //    {
+            //        ytdl.StartInfo.FileName = "yt-dlp.exe";
+            //        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 19 -b:v 0 -profile:v high\"  -P {Directoy} -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata"; //-f mp4
+            //        ytdl.StartInfo.UseShellExecute = false;
+            //        ytdl.StartInfo.CreateNoWindow = true;
+            //        ytdl.StartInfo.RedirectStandardOutput = true;
+            //        ytdl.Start();
+            //        string salida = ytdl.StandardOutput.ReadToEnd();
+            //        ytdl.WaitForExit();
+            //        MessageBox.Show(salida, "Salida de descarga");
+            //        //if (!ytdl.WaitForExit(1000 *20 * count))
+            //        //{
+            //        //    ytdl.Kill();
+            //        //    return;
+            //        //}
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show(e.Message, "Error al Descargar la Lista de Reproducion");
+            //}
         }
 
         #endregion

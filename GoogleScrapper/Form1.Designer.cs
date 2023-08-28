@@ -32,9 +32,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.VideoTag = new System.Windows.Forms.TabPage();
             this.panelResultado = new System.Windows.Forms.Panel();
-            this.SeleccionarTodosButton = new System.Windows.Forms.Button();
+            this.SeleccionarTodosBTN = new System.Windows.Forms.Button();
             this.ResultadosTotalesLabel = new System.Windows.Forms.Label();
-            this.AgregarEnviarSMplayer = new System.Windows.Forms.Button();
+            this.AgregarEnviarSMplayerBTN = new System.Windows.Forms.Button();
             this.panelProgreso = new System.Windows.Forms.Panel();
             this.ResultadosActualesProgressBar = new System.Windows.Forms.ProgressBar();
             this.NumResultadosActulabel = new System.Windows.Forms.Label();
@@ -48,24 +48,25 @@
             this.FechaIniciolabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BuscarVideoTB = new System.Windows.Forms.TextBox();
-            this.SoloListaExtYtdlCB = new System.Windows.Forms.CheckBox();
+            this.SoloListaExtYtdlCKBX = new System.Windows.Forms.CheckBox();
             this.FechaFinDTP = new System.Windows.Forms.DateTimePicker();
             this.BuscarVideoBTN = new System.Windows.Forms.Button();
             this.FechaInicioDTP = new System.Windows.Forms.DateTimePicker();
-            this.DuracionVideoCB = new System.Windows.Forms.ComboBox();
-            this.AltaCalidadCB = new System.Windows.Forms.CheckBox();
-            this.FechaVideoCB = new System.Windows.Forms.ComboBox();
+            this.DuracionVideoCOMBX = new System.Windows.Forms.ComboBox();
+            this.AltaCalidadCKBX = new System.Windows.Forms.CheckBox();
+            this.FechaVideoCOMBX = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.NumMinResultVideoNumeric = new System.Windows.Forms.NumericUpDown();
+            this.NumMinResultVideoNM = new System.Windows.Forms.NumericUpDown();
             this.ImagenTag = new System.Windows.Forms.TabPage();
             this.VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            this.DescargVideosBTN = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.VideoTag.SuspendLayout();
             this.panelResultado.SuspendLayout();
             this.panelProgreso.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultadoVideoBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumMinResultVideoNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMinResultVideoNM)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -95,43 +96,44 @@
             // 
             // panelResultado
             // 
-            this.panelResultado.Controls.Add(this.SeleccionarTodosButton);
+            this.panelResultado.Controls.Add(this.DescargVideosBTN);
+            this.panelResultado.Controls.Add(this.SeleccionarTodosBTN);
             this.panelResultado.Controls.Add(this.ResultadosTotalesLabel);
-            this.panelResultado.Controls.Add(this.AgregarEnviarSMplayer);
+            this.panelResultado.Controls.Add(this.AgregarEnviarSMplayerBTN);
             this.panelResultado.Location = new System.Drawing.Point(3, 237);
             this.panelResultado.Name = "panelResultado";
             this.panelResultado.Size = new System.Drawing.Size(1165, 47);
             this.panelResultado.TabIndex = 20;
             this.panelResultado.Visible = false;
             // 
-            // SeleccionarTodosButton
+            // SeleccionarTodosBTN
             // 
-            this.SeleccionarTodosButton.Location = new System.Drawing.Point(328, 7);
-            this.SeleccionarTodosButton.Name = "SeleccionarTodosButton";
-            this.SeleccionarTodosButton.Size = new System.Drawing.Size(163, 29);
-            this.SeleccionarTodosButton.TabIndex = 17;
-            this.SeleccionarTodosButton.Text = "Seleccionar Todos";
-            this.SeleccionarTodosButton.UseVisualStyleBackColor = true;
-            this.SeleccionarTodosButton.Click += new System.EventHandler(this.SeleccionarTodosButton_Click);
+            this.SeleccionarTodosBTN.Location = new System.Drawing.Point(673, 7);
+            this.SeleccionarTodosBTN.Name = "SeleccionarTodosBTN";
+            this.SeleccionarTodosBTN.Size = new System.Drawing.Size(163, 29);
+            this.SeleccionarTodosBTN.TabIndex = 17;
+            this.SeleccionarTodosBTN.Text = "Seleccionar Todos";
+            this.SeleccionarTodosBTN.UseVisualStyleBackColor = true;
+            this.SeleccionarTodosBTN.Click += new System.EventHandler(this.SeleccionarTodosButton_Click);
             // 
             // ResultadosTotalesLabel
             // 
             this.ResultadosTotalesLabel.AutoSize = true;
-            this.ResultadosTotalesLabel.Location = new System.Drawing.Point(509, 11);
+            this.ResultadosTotalesLabel.Location = new System.Drawing.Point(937, 11);
             this.ResultadosTotalesLabel.Name = "ResultadosTotalesLabel";
             this.ResultadosTotalesLabel.Size = new System.Drawing.Size(131, 20);
             this.ResultadosTotalesLabel.TabIndex = 16;
             this.ResultadosTotalesLabel.Text = "ResultadosTotales:";
             // 
-            // AgregarEnviarSMplayer
+            // AgregarEnviarSMplayerBTN
             // 
-            this.AgregarEnviarSMplayer.Location = new System.Drawing.Point(5, 6);
-            this.AgregarEnviarSMplayer.Name = "AgregarEnviarSMplayer";
-            this.AgregarEnviarSMplayer.Size = new System.Drawing.Size(301, 30);
-            this.AgregarEnviarSMplayer.TabIndex = 15;
-            this.AgregarEnviarSMplayer.Text = "Agregar/Enviar seleccionados a Smplayer";
-            this.AgregarEnviarSMplayer.UseVisualStyleBackColor = true;
-            this.AgregarEnviarSMplayer.Click += new System.EventHandler(this.AgregarEnviarSmplayer_Click);
+            this.AgregarEnviarSMplayerBTN.Location = new System.Drawing.Point(5, 6);
+            this.AgregarEnviarSMplayerBTN.Name = "AgregarEnviarSMplayerBTN";
+            this.AgregarEnviarSMplayerBTN.Size = new System.Drawing.Size(301, 30);
+            this.AgregarEnviarSMplayerBTN.TabIndex = 15;
+            this.AgregarEnviarSMplayerBTN.Text = "Agregar/Enviar seleccionados a Smplayer";
+            this.AgregarEnviarSMplayerBTN.UseVisualStyleBackColor = true;
+            this.AgregarEnviarSMplayerBTN.Click += new System.EventHandler(this.AgregarEnviarSmplayer_Click);
             // 
             // panelProgreso
             // 
@@ -209,7 +211,7 @@
             // 
             // resultadoVideoBindingSource
             // 
-            this.resultadoVideoBindingSource.DataSource = typeof(ResultadoVideo);
+            this.resultadoVideoBindingSource.DataSource = typeof(GoogleScrapper.ResultadoVideo);
             // 
             // panel1
             // 
@@ -217,15 +219,15 @@
             this.panel1.Controls.Add(this.FechaIniciolabel);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.BuscarVideoTB);
-            this.panel1.Controls.Add(this.SoloListaExtYtdlCB);
+            this.panel1.Controls.Add(this.SoloListaExtYtdlCKBX);
             this.panel1.Controls.Add(this.FechaFinDTP);
             this.panel1.Controls.Add(this.BuscarVideoBTN);
             this.panel1.Controls.Add(this.FechaInicioDTP);
-            this.panel1.Controls.Add(this.DuracionVideoCB);
-            this.panel1.Controls.Add(this.AltaCalidadCB);
-            this.panel1.Controls.Add(this.FechaVideoCB);
+            this.panel1.Controls.Add(this.DuracionVideoCOMBX);
+            this.panel1.Controls.Add(this.AltaCalidadCKBX);
+            this.panel1.Controls.Add(this.FechaVideoCOMBX);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.NumMinResultVideoNumeric);
+            this.panel1.Controls.Add(this.NumMinResultVideoNM);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1165, 144);
@@ -267,17 +269,17 @@
             this.BuscarVideoTB.Size = new System.Drawing.Size(550, 27);
             this.BuscarVideoTB.TabIndex = 0;
             // 
-            // SoloListaExtYtdlCB
+            // SoloListaExtYtdlCKBX
             // 
-            this.SoloListaExtYtdlCB.AutoSize = true;
-            this.SoloListaExtYtdlCB.Checked = true;
-            this.SoloListaExtYtdlCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.SoloListaExtYtdlCB.Location = new System.Drawing.Point(631, 15);
-            this.SoloListaExtYtdlCB.Name = "SoloListaExtYtdlCB";
-            this.SoloListaExtYtdlCB.Size = new System.Drawing.Size(207, 24);
-            this.SoloListaExtYtdlCB.TabIndex = 2;
-            this.SoloListaExtYtdlCB.Text = "Solo Lista Extractores yt-dl";
-            this.SoloListaExtYtdlCB.UseVisualStyleBackColor = true;
+            this.SoloListaExtYtdlCKBX.AutoSize = true;
+            this.SoloListaExtYtdlCKBX.Checked = true;
+            this.SoloListaExtYtdlCKBX.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SoloListaExtYtdlCKBX.Location = new System.Drawing.Point(631, 15);
+            this.SoloListaExtYtdlCKBX.Name = "SoloListaExtYtdlCKBX";
+            this.SoloListaExtYtdlCKBX.Size = new System.Drawing.Size(207, 24);
+            this.SoloListaExtYtdlCKBX.TabIndex = 2;
+            this.SoloListaExtYtdlCKBX.Text = "Solo Lista Extractores yt-dl";
+            this.SoloListaExtYtdlCKBX.UseVisualStyleBackColor = true;
             // 
             // FechaFinDTP
             // 
@@ -305,34 +307,34 @@
             this.FechaInicioDTP.TabIndex = 17;
             this.FechaInicioDTP.Visible = false;
             // 
-            // DuracionVideoCB
+            // DuracionVideoCOMBX
             // 
-            this.DuracionVideoCB.FormattingEnabled = true;
-            this.DuracionVideoCB.Items.AddRange(new object[] {
+            this.DuracionVideoCOMBX.FormattingEnabled = true;
+            this.DuracionVideoCOMBX.Items.AddRange(new object[] {
             "Todas las duraciones",
             "Corto (de 0 a 4 min)",
             "Mediana (de 4 a 20 min)",
             "Larga (20 min o más)"});
-            this.DuracionVideoCB.Location = new System.Drawing.Point(61, 60);
-            this.DuracionVideoCB.Name = "DuracionVideoCB";
-            this.DuracionVideoCB.Size = new System.Drawing.Size(264, 28);
-            this.DuracionVideoCB.TabIndex = 4;
-            this.DuracionVideoCB.Text = "Duracion";
+            this.DuracionVideoCOMBX.Location = new System.Drawing.Point(61, 60);
+            this.DuracionVideoCOMBX.Name = "DuracionVideoCOMBX";
+            this.DuracionVideoCOMBX.Size = new System.Drawing.Size(264, 28);
+            this.DuracionVideoCOMBX.TabIndex = 4;
+            this.DuracionVideoCOMBX.Text = "Duracion";
             // 
-            // AltaCalidadCB
+            // AltaCalidadCKBX
             // 
-            this.AltaCalidadCB.AutoSize = true;
-            this.AltaCalidadCB.Location = new System.Drawing.Point(673, 62);
-            this.AltaCalidadCB.Name = "AltaCalidadCB";
-            this.AltaCalidadCB.Size = new System.Drawing.Size(113, 24);
-            this.AltaCalidadCB.TabIndex = 16;
-            this.AltaCalidadCB.Text = "Alta Calidad";
-            this.AltaCalidadCB.UseVisualStyleBackColor = true;
+            this.AltaCalidadCKBX.AutoSize = true;
+            this.AltaCalidadCKBX.Location = new System.Drawing.Point(673, 62);
+            this.AltaCalidadCKBX.Name = "AltaCalidadCKBX";
+            this.AltaCalidadCKBX.Size = new System.Drawing.Size(113, 24);
+            this.AltaCalidadCKBX.TabIndex = 16;
+            this.AltaCalidadCKBX.Text = "Alta Calidad";
+            this.AltaCalidadCKBX.UseVisualStyleBackColor = true;
             // 
-            // FechaVideoCB
+            // FechaVideoCOMBX
             // 
-            this.FechaVideoCB.FormattingEnabled = true;
-            this.FechaVideoCB.Items.AddRange(new object[] {
+            this.FechaVideoCOMBX.FormattingEnabled = true;
+            this.FechaVideoCOMBX.Items.AddRange(new object[] {
             "De Cualquier Fecha",
             "Ultima Hora",
             "Ultimas 24 Horas",
@@ -340,12 +342,12 @@
             "Ultimo Mes",
             "Ultimo Año",
             "Personalizar"});
-            this.FechaVideoCB.Location = new System.Drawing.Point(388, 60);
-            this.FechaVideoCB.Name = "FechaVideoCB";
-            this.FechaVideoCB.Size = new System.Drawing.Size(252, 28);
-            this.FechaVideoCB.TabIndex = 5;
-            this.FechaVideoCB.Text = "Fecha";
-            this.FechaVideoCB.SelectedIndexChanged += new System.EventHandler(this.FechaVideoCB_Changed);
+            this.FechaVideoCOMBX.Location = new System.Drawing.Point(388, 60);
+            this.FechaVideoCOMBX.Name = "FechaVideoCOMBX";
+            this.FechaVideoCOMBX.Size = new System.Drawing.Size(252, 28);
+            this.FechaVideoCOMBX.TabIndex = 5;
+            this.FechaVideoCOMBX.Text = "Fecha";
+            this.FechaVideoCOMBX.SelectedIndexChanged += new System.EventHandler(this.FechaVideoCB_Changed);
             // 
             // label2
             // 
@@ -356,18 +358,18 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "Nro minimo de resultados:";
             // 
-            // NumMinResultVideoNumeric
+            // NumMinResultVideoNM
             // 
-            this.NumMinResultVideoNumeric.Location = new System.Drawing.Point(1074, 15);
-            this.NumMinResultVideoNumeric.Minimum = new decimal(new int[] {
+            this.NumMinResultVideoNM.Location = new System.Drawing.Point(1074, 15);
+            this.NumMinResultVideoNM.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.NumMinResultVideoNumeric.Name = "NumMinResultVideoNumeric";
-            this.NumMinResultVideoNumeric.Size = new System.Drawing.Size(79, 27);
-            this.NumMinResultVideoNumeric.TabIndex = 6;
-            this.NumMinResultVideoNumeric.Value = new decimal(new int[] {
+            this.NumMinResultVideoNM.Name = "NumMinResultVideoNM";
+            this.NumMinResultVideoNM.Size = new System.Drawing.Size(79, 27);
+            this.NumMinResultVideoNM.TabIndex = 6;
+            this.NumMinResultVideoNM.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -390,6 +392,16 @@
             this.VerificarVideosbackgrWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BWVerificarVideo_Progreso);
             this.VerificarVideosbackgrWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWVerificarVideo_Resultado);
             // 
+            // DescargVideosBTN
+            // 
+            this.DescargVideosBTN.Location = new System.Drawing.Point(367, 7);
+            this.DescargVideosBTN.Name = "DescargVideosBTN";
+            this.DescargVideosBTN.Size = new System.Drawing.Size(244, 29);
+            this.DescargVideosBTN.TabIndex = 18;
+            this.DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            this.DescargVideosBTN.UseVisualStyleBackColor = true;
+            this.DescargVideosBTN.Click += new System.EventHandler(this.DescargVideosBTN_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -408,7 +420,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.resultadoVideoBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumMinResultVideoNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumMinResultVideoNM)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -418,21 +430,21 @@
         private TabControl tabControl1;
         private TabPage VideoTag;
         private TabPage ImagenTag;
-        private ComboBox DuracionVideoCB;
+        private ComboBox DuracionVideoCOMBX;
         private Button BuscarVideoBTN;
-        private CheckBox SoloListaExtYtdlCB;
+        private CheckBox SoloListaExtYtdlCKBX;
         private Label label1;
         private TextBox BuscarVideoTB;
-        private ComboBox FechaVideoCB;
+        private ComboBox FechaVideoCOMBX;
         private Label label2;
-        private NumericUpDown NumMinResultVideoNumeric;
+        private NumericUpDown NumMinResultVideoNM;
         private ListBox LinkVideosLB;
         private BindingSource resultadoVideoBindingSource;
         private Label PaginasVisitadasLabel;
         private ProgressBar VideoNumPagprogressBar;
         private Label NumeroPagTotalesLabel;
-        private Button AgregarEnviarSMplayer;
-        private CheckBox AltaCalidadCB;
+        private Button AgregarEnviarSMplayerBTN;
+        private CheckBox AltaCalidadCKBX;
         private DateTimePicker FechaFinDTP;
         private DateTimePicker FechaInicioDTP;
         private Panel panelResultado;
@@ -441,9 +453,10 @@
         private Panel panel1;
         private Label FechaFinlabel;
         private Label FechaIniciolabel;
-        private Button SeleccionarTodosButton;
+        private Button SeleccionarTodosBTN;
         private Label NumResultadosActulabel;
         private System.ComponentModel.BackgroundWorker VerificarVideosbackgrWorker;
         private ProgressBar ResultadosActualesProgressBar;
+        private Button DescargVideosBTN;
     }
 }

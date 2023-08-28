@@ -74,6 +74,7 @@ namespace GoogleScrapper
                     }
                 }
             }
+            resultadoVideoList = resultadoVideoList.Where(x=>!x.URLVideo.Contains("support.google.com")).ToList();
             return resultadoVideoList.DistinctBy(x => x.URLVideo).ToList();
         }
 
