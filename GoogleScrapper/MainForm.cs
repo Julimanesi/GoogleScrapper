@@ -6,11 +6,11 @@ using System.Collections.Concurrent;
 
 namespace GoogleScrapper
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public static string URLGoogle = "https://www.google.com/search?q=";
         private int NroMinimoResultados = 1;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             FechaInicioDTP.Value = DateTime.Now.AddYears(-1);

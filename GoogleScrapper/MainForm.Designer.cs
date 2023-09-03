@@ -1,6 +1,6 @@
 ﻿namespace GoogleScrapper
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.VideoTag = new System.Windows.Forms.TabPage();
             this.panelResultado = new System.Windows.Forms.Panel();
+            this.DescargVideosBTN = new System.Windows.Forms.Button();
             this.SeleccionarTodosBTN = new System.Windows.Forms.Button();
             this.ResultadosTotalesLabel = new System.Windows.Forms.Label();
             this.AgregarEnviarSMplayerBTN = new System.Windows.Forms.Button();
@@ -59,7 +60,6 @@
             this.NumMinResultVideoNM = new System.Windows.Forms.NumericUpDown();
             this.ImagenTag = new System.Windows.Forms.TabPage();
             this.VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            this.DescargVideosBTN = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.VideoTag.SuspendLayout();
             this.panelResultado.SuspendLayout();
@@ -105,6 +105,16 @@
             this.panelResultado.Size = new System.Drawing.Size(1165, 47);
             this.panelResultado.TabIndex = 20;
             this.panelResultado.Visible = false;
+            // 
+            // DescargVideosBTN
+            // 
+            this.DescargVideosBTN.Location = new System.Drawing.Point(367, 7);
+            this.DescargVideosBTN.Name = "DescargVideosBTN";
+            this.DescargVideosBTN.Size = new System.Drawing.Size(244, 29);
+            this.DescargVideosBTN.TabIndex = 18;
+            this.DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            this.DescargVideosBTN.UseVisualStyleBackColor = true;
+            this.DescargVideosBTN.Click += new System.EventHandler(this.DescargVideosBTN_Click);
             // 
             // SeleccionarTodosBTN
             // 
@@ -392,25 +402,15 @@
             this.VerificarVideosbackgrWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BWVerificarVideo_Progreso);
             this.VerificarVideosbackgrWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BWVerificarVideo_Resultado);
             // 
-            // DescargVideosBTN
-            // 
-            this.DescargVideosBTN.Location = new System.Drawing.Point(367, 7);
-            this.DescargVideosBTN.Name = "DescargVideosBTN";
-            this.DescargVideosBTN.Size = new System.Drawing.Size(244, 29);
-            this.DescargVideosBTN.TabIndex = 18;
-            this.DescargVideosBTN.Text = "Descargar Videos Seleccionados";
-            this.DescargVideosBTN.UseVisualStyleBackColor = true;
-            this.DescargVideosBTN.Click += new System.EventHandler(this.DescargVideosBTN_Click);
-            // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1179, 662);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(1197, 709);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "Multimedia Scrapper";
             this.tabControl1.ResumeLayout(false);
             this.VideoTag.ResumeLayout(false);
             this.panelResultado.ResumeLayout(false);

@@ -35,7 +35,7 @@ namespace GoogleScrapper
         public List<ResultadoVideo> ObtenerLinksVideos(int pagina = 0)
         {
             List<ResultadoVideo> resultadoVideoList = new List<ResultadoVideo>();
-            string request = Form1.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
+            string request = MainForm.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
 
             if (IndexDuracion != 0 || IndexFecha != 0 || AltaCalidad)
             {
@@ -81,7 +81,7 @@ namespace GoogleScrapper
         public int GetNroPaginas(BackgroundWorker worker)
         {
             int nroPaginas = 1;
-            string request = Form1.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
+            string request = MainForm.URLGoogle + NombreVideo.Replace(" ", "+") + videoURLSelect;
 
             if (IndexDuracion != 0 || IndexFecha != 0 || AltaCalidad)
             {

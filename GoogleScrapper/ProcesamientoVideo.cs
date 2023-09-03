@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 
 namespace GoogleScrapper
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         #region Eventos Controles
         private void BuscarVideoBTN_Click(object sender, EventArgs e)
@@ -93,11 +93,24 @@ namespace GoogleScrapper
             {
                 DescargVideosBTN.Enabled = false;
                 DescargVideosBTN.Text = "Descargando Videos...";
-                EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                DescargVideosBTN.Enabled = true;
-                DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+                //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
+                descargaVideoForm.Activate();
+                descargaVideoForm.Show();
             }
 
+        }
+
+        private void DescargaVideoForm_Closed(object? sender, System.EventArgs e)
+        {
+            DescargVideosBTN.Enabled = true;
+            DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            if (sender != null)
+            {
+                DescargaVideoForm descargaVideoForm = (DescargaVideoForm)sender;
+                descargaVideoForm.Dispose();
+            }
         }
         #endregion
 
