@@ -49,7 +49,7 @@
             this.SalidaRTextBox.Location = new System.Drawing.Point(0, 0);
             this.SalidaRTextBox.Name = "SalidaRTextBox";
             this.SalidaRTextBox.ReadOnly = true;
-            this.SalidaRTextBox.Size = new System.Drawing.Size(897, 163);
+            this.SalidaRTextBox.Size = new System.Drawing.Size(897, 169);
             this.SalidaRTextBox.TabIndex = 0;
             this.SalidaRTextBox.Text = "";
             this.SalidaRTextBox.Visible = false;
@@ -57,7 +57,7 @@
             // ProgresoDescargaPB
             // 
             this.ProgresoDescargaPB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ProgresoDescargaPB.Location = new System.Drawing.Point(190, 114);
+            this.ProgresoDescargaPB.Location = new System.Drawing.Point(190, 116);
             this.ProgresoDescargaPB.Name = "ProgresoDescargaPB";
             this.ProgresoDescargaPB.Size = new System.Drawing.Size(574, 20);
             this.ProgresoDescargaPB.TabIndex = 1;
@@ -66,7 +66,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 114);
+            this.label1.Location = new System.Drawing.Point(12, 116);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(172, 20);
@@ -77,7 +77,7 @@
             // 
             this.VideosDescargadosLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.VideosDescargadosLabel.AutoSize = true;
-            this.VideosDescargadosLabel.Location = new System.Drawing.Point(12, 36);
+            this.VideosDescargadosLabel.Location = new System.Drawing.Point(12, 24);
             this.VideosDescargadosLabel.Margin = new System.Windows.Forms.Padding(3);
             this.VideosDescargadosLabel.Name = "VideosDescargadosLabel";
             this.VideosDescargadosLabel.Size = new System.Drawing.Size(145, 20);
@@ -87,17 +87,17 @@
             // DetalleDescargaLabel
             // 
             this.DetalleDescargaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.DetalleDescargaLabel.Location = new System.Drawing.Point(12, 140);
+            this.DetalleDescargaLabel.Location = new System.Drawing.Point(12, 142);
             this.DetalleDescargaLabel.Margin = new System.Windows.Forms.Padding(3);
             this.DetalleDescargaLabel.Name = "DetalleDescargaLabel";
-            this.DetalleDescargaLabel.Size = new System.Drawing.Size(873, 20);
+            this.DetalleDescargaLabel.Size = new System.Drawing.Size(752, 59);
             this.DetalleDescargaLabel.TabIndex = 6;
             this.DetalleDescargaLabel.Text = "Detalle Descarga:";
             // 
             // MostrarDetallesBTN
             // 
             this.MostrarDetallesBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MostrarDetallesBTN.Location = new System.Drawing.Point(12, 177);
+            this.MostrarDetallesBTN.Location = new System.Drawing.Point(12, 207);
             this.MostrarDetallesBTN.Name = "MostrarDetallesBTN";
             this.MostrarDetallesBTN.Size = new System.Drawing.Size(141, 29);
             this.MostrarDetallesBTN.TabIndex = 5;
@@ -108,17 +108,17 @@
             // Estadolabel
             // 
             this.Estadolabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Estadolabel.Location = new System.Drawing.Point(12, 62);
+            this.Estadolabel.Location = new System.Drawing.Point(12, 50);
             this.Estadolabel.Margin = new System.Windows.Forms.Padding(3);
             this.Estadolabel.Name = "Estadolabel";
-            this.Estadolabel.Size = new System.Drawing.Size(873, 20);
+            this.Estadolabel.Size = new System.Drawing.Size(873, 43);
             this.Estadolabel.TabIndex = 4;
             this.Estadolabel.Text = "Estado:";
             // 
             // DestinoLabel
             // 
             this.DestinoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.DestinoLabel.Location = new System.Drawing.Point(12, 88);
+            this.DestinoLabel.Location = new System.Drawing.Point(12, 90);
             this.DestinoLabel.Margin = new System.Windows.Forms.Padding(3);
             this.DestinoLabel.Name = "DestinoLabel";
             this.DestinoLabel.Size = new System.Drawing.Size(873, 20);
@@ -137,23 +137,23 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(897, 230);
+            this.panel1.Size = new System.Drawing.Size(897, 260);
             this.panel1.TabIndex = 4;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.SalidaRTextBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 230);
+            this.panel2.Location = new System.Drawing.Point(0, 260);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(897, 163);
+            this.panel2.Size = new System.Drawing.Size(897, 169);
             this.panel2.TabIndex = 5;
             // 
             // DescargaVideoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 393);
+            this.ClientSize = new System.Drawing.Size(897, 429);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(915, 440);

@@ -63,7 +63,7 @@ namespace GoogleScrapper
                 using (Process ytdl = new Process())
                 {
                     ytdl.StartInfo.FileName = "yt-dlp.exe";
-                    //--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 19 -b:v 0 -profile:v high\"
+                    //--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"
                     ytdl.StartInfo.Arguments = $" -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
                     ytdl.StartInfo.UseShellExecute = false;
                     ytdl.StartInfo.CreateNoWindow = true;
@@ -118,9 +118,16 @@ namespace GoogleScrapper
                 if (e.Result != null)
                 {
                     var procesoOutput = (string)e.Result;
-                    if (procesoOutput != null && procesoOutput.Contains("ERROR"))
+                    if (procesoOutput != null)
                     {
-                        Estadolabel.Text = "Estado: "+ procesoOutput;
+                        if (procesoOutput.Contains("ERROR",StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Estadolabel.Text = "Estado: Error al Descargar:" + procesoOutput.Substring(procesoOutput.IndexOf("Error",StringComparison.InvariantCultureIgnoreCase));
+                        }
+                        else
+                        {
+                            Estadolabel.Text = "Estado: Video Descargado!";
+                        }
                     }
                     else
                     {
@@ -161,7 +168,7 @@ namespace GoogleScrapper
 
         private void ObtenerDetallesProgresoDescarga(string salida)
         {
-            string pattern = @"\[download\]\s+(?<porcentaje>.*)\sof\s~?\s(?<tamanioact>.*)\sat\s+(?<veloc>.*)\sETA\s(?<tiempofalt>.*)\s\(?";
+            string pattern = @"\[download\]\s+(?<porcentaje>.*)\s*of\s+~?\s(?<tamanioact>.*)\sat\s+(?<veloc>.*)\sETA\s(?<tiempofalt>.*)(\s\()?";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
             MatchCollection matches = rgx.Matches(salida);
             if (matches.Count > 0)
