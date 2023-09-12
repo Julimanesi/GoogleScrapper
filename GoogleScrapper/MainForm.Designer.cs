@@ -411,6 +411,7 @@
             this.MinimumSize = new System.Drawing.Size(1197, 709);
             this.Name = "MainForm";
             this.Text = "Multimedia Scrapper";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.VideoTag.ResumeLayout(false);
             this.panelResultado.ResumeLayout(false);

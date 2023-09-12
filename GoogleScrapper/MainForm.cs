@@ -20,6 +20,9 @@ namespace GoogleScrapper
             EjecucionProcesos.Inicializar();
         }
 
-        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace GoogleScrapper
         private int CantActualDesc { get; set; } = 0;
         private string Directoy { get; set; } = "";
         private bool MostrandoDetalles = false;
+        private string comprimirVideo = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
         private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
 
         public DescargaVideoForm(string ListaUrls, int count, string Directoy)
@@ -47,7 +48,7 @@ namespace GoogleScrapper
 
         private void DescargaVideoForm_Load(object sender, EventArgs e)
         {
-            DescargarListaReproduc();
+            
         }
 
         private void BWDescargaVideo_Dowork(object sender, DoWorkEventArgs e)
@@ -56,15 +57,20 @@ namespace GoogleScrapper
             {
                 BackgroundWorker worker = sender as BackgroundWorker;
                 //VideoScrapper videoScrapper = (VideoScrapper)e.Argument;
-                string pattern = @"\[download\]\s+(?<porcentaje>\d+)";
-                Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+                Regex rgx = new Regex(@"\[download\]\s+(?<porcentaje>\d+)", RegexOptions.IgnoreCase);
                 int progreso = 0;
             
                 using (Process ytdl = new Process())
                 {
                     ytdl.StartInfo.FileName = "yt-dlp.exe";
-                    //--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"
-                    ytdl.StartInfo.Arguments = $" -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                    if (!SoloAudioCKBX.Checked)
+                    {
+                        ytdl.StartInfo.Arguments = $"{(ComprimirVideoCKBX.Checked ? comprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                    }
+                    else
+                    {
+                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                    }
                     ytdl.StartInfo.UseShellExecute = false;
                     ytdl.StartInfo.CreateNoWindow = true;
                     ytdl.StartInfo.RedirectStandardOutput = true;
@@ -99,7 +105,6 @@ namespace GoogleScrapper
             if (e.UserState != null)
             {
                 string salida = (string)e.UserState;
-                SalidaRTextBox.Text += salida + "\n";
                 ObtenerDestinoVideo(salida);
                 ObtenerEstadoDescarga(salida);
                 ObtenerDetallesProgresoDescarga(salida);
@@ -168,17 +173,31 @@ namespace GoogleScrapper
 
         private void ObtenerDetallesProgresoDescarga(string salida)
         {
-            string pattern = @"\[download\]\s+(?<porcentaje>.*)\s*of\s+~?\s(?<tamanioact>.*)\sat\s+(?<veloc>.*)\sETA\s(?<tiempofalt>.*)(\s\()?";
-            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
-            MatchCollection matches = rgx.Matches(salida);
-            if (matches.Count > 0)
+            try
             {
-                string porcentaje = matches[0].Groups["porcentaje"].Value;
-                string tamanioact = matches[0].Groups["tamanioact"].Value;
-                string velocDesc = matches[0].Groups["veloc"].Value;
-                string tiempofalt = matches[0].Groups["tiempofalt"].Value;
+                string pattern = @"\[download\]\s+(?<porcentaje>.*)\s*of\s+~?\s(?<tamanioact>.*)\sat\s+(?<veloc>.*)\sETA\s(?<tiempofalt>.*)(\s\()?";
+                Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+                MatchCollection matches = rgx.Matches(salida);
+                if (matches.Count > 0)
+                {
+                    string porcentaje = matches[0].Groups["porcentaje"].Value;
+                    string tamanioact = matches[0].Groups["tamanioact"].Value;
+                    string velocDesc = matches[0].Groups["veloc"].Value;
+                    string tiempofalt = matches[0].Groups["tiempofalt"].Value;
 
-                DetalleDescargaLabel.Text = $"Detalle Descarga: Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}. Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
+                    DetalleDescargaLabel.Text = $"Detalle Descarga: Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}. Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
+                    List<string> salidaLineas = SalidaRTextBox.Lines.ToList();
+                    int indexremover = salidaLineas.Count - 2;
+                    if (indexremover > 2)
+                    {
+                        salidaLineas.RemoveAt(indexremover);
+                        SalidaRTextBox.Lines = salidaLineas.ToArray();
+                    }
+                }
+                SalidaRTextBox.Text += salida + "\n";
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Descargar la Lista de Reproducion");
             }
         }
 
@@ -190,7 +209,7 @@ namespace GoogleScrapper
                     estado = "Descargando";
                     break;
                 case "info":
-                    estado = "Informando";
+                    estado = "Obteniendo Información";
                     break;
                 case "Metadata":
                     estado = "Agregando metadatos";
@@ -207,8 +226,20 @@ namespace GoogleScrapper
         {
             
             SalidaRTextBox.Visible = !MostrandoDetalles;
-            
+            if (SalidaRTextBox.Visible)
+            {
+                this.SetBounds(this.Location.X, this.Location.Y, 796, 556);
+            }
+            else
+            {
+                this.SetBounds(this.Location.X, this.Location.Y, 796, 405);
+            }
             MostrandoDetalles = !MostrandoDetalles;
+        }
+
+        private void DescargarBTN_Click(object sender, EventArgs e)
+        {
+            DescargarListaReproduc();
         }
     }
 }
