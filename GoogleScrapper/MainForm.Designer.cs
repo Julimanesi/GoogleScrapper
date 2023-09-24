@@ -60,7 +60,7 @@
             NumMinResultVideoNM = new NumericUpDown();
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
-            panel3 = new Panel();
+            BotoneraYoutube = new Panel();
             DescargVideosYouTbBTN = new Button();
             SeleccionarTodosYouTubeBTN = new Button();
             ResultadosTotalesYouTbLabel = new Label();
@@ -90,7 +90,7 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).BeginInit();
             YoutubeTag.SuspendLayout();
-            panel3.SuspendLayout();
+            BotoneraYoutube.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).BeginInit();
@@ -395,7 +395,7 @@
             // YoutubeTag
             // 
             YoutubeTag.Controls.Add(ResultadosYouTubeFlowLayPanel);
-            YoutubeTag.Controls.Add(panel3);
+            YoutubeTag.Controls.Add(BotoneraYoutube);
             YoutubeTag.Controls.Add(panel2);
             YoutubeTag.Location = new Point(4, 29);
             YoutubeTag.Name = "YoutubeTag";
@@ -413,20 +413,19 @@
             ResultadosYouTubeFlowLayPanel.Name = "ResultadosYouTubeFlowLayPanel";
             ResultadosYouTubeFlowLayPanel.Size = new Size(1171, 385);
             ResultadosYouTubeFlowLayPanel.TabIndex = 0;
-            ResultadosYouTubeFlowLayPanel.Resize += Ajustar_imagenes;
             // 
-            // panel3
+            // BotoneraYoutube
             // 
-            panel3.Controls.Add(DescargVideosYouTbBTN);
-            panel3.Controls.Add(SeleccionarTodosYouTubeBTN);
-            panel3.Controls.Add(ResultadosTotalesYouTbLabel);
-            panel3.Controls.Add(AgregarEnviarSMplayerYoutbBTN);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 197);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1171, 47);
-            panel3.TabIndex = 23;
-            panel3.Visible = false;
+            BotoneraYoutube.Controls.Add(DescargVideosYouTbBTN);
+            BotoneraYoutube.Controls.Add(SeleccionarTodosYouTubeBTN);
+            BotoneraYoutube.Controls.Add(ResultadosTotalesYouTbLabel);
+            BotoneraYoutube.Controls.Add(AgregarEnviarSMplayerYoutbBTN);
+            BotoneraYoutube.Dock = DockStyle.Top;
+            BotoneraYoutube.Location = new Point(0, 197);
+            BotoneraYoutube.Name = "BotoneraYoutube";
+            BotoneraYoutube.Size = new Size(1171, 47);
+            BotoneraYoutube.TabIndex = 23;
+            BotoneraYoutube.Visible = false;
             // 
             // DescargVideosYouTbBTN
             // 
@@ -436,6 +435,7 @@
             DescargVideosYouTbBTN.TabIndex = 18;
             DescargVideosYouTbBTN.Text = "Descargar Videos Seleccionados";
             DescargVideosYouTbBTN.UseVisualStyleBackColor = true;
+            DescargVideosYouTbBTN.Click += DescargVideosYouTbBTN_Click;
             // 
             // SeleccionarTodosYouTubeBTN
             // 
@@ -445,6 +445,7 @@
             SeleccionarTodosYouTubeBTN.TabIndex = 17;
             SeleccionarTodosYouTubeBTN.Text = "Seleccionar Todos";
             SeleccionarTodosYouTubeBTN.UseVisualStyleBackColor = true;
+            SeleccionarTodosYouTubeBTN.Click += SeleccionarTodosYouTubeBTN_Click;
             // 
             // ResultadosTotalesYouTbLabel
             // 
@@ -463,6 +464,7 @@
             AgregarEnviarSMplayerYoutbBTN.TabIndex = 15;
             AgregarEnviarSMplayerYoutbBTN.Text = "Agregar/Enviar seleccionados a Smplayer";
             AgregarEnviarSMplayerYoutbBTN.UseVisualStyleBackColor = true;
+            AgregarEnviarSMplayerYoutbBTN.Click += AgregarEnviarSMplayerYoutbBTN_Click;
             // 
             // panel2
             // 
@@ -489,6 +491,8 @@
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label7.ForeColor = SystemColors.InfoText;
             label7.Location = new Point(5, 145);
             label7.Name = "label7";
             label7.Size = new Size(156, 20);
@@ -643,6 +647,7 @@
             Name = "MainForm";
             Text = "Multimedia Scrapper";
             Load += MainForm_Load;
+            Resize += Ajustar_imagenes;
             tabControl1.ResumeLayout(false);
             VideoTag.ResumeLayout(false);
             panelResultado.ResumeLayout(false);
@@ -655,8 +660,8 @@
             ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).EndInit();
             YoutubeTag.ResumeLayout(false);
             YoutubeTag.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            BotoneraYoutube.ResumeLayout(false);
+            BotoneraYoutube.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).EndInit();
@@ -711,7 +716,7 @@
         private ComboBox FechaYouTubeVideoCB;
         private Label label6;
         private NumericUpDown MaxResultYoutubeNM;
-        private Panel panel3;
+        private Panel BotoneraYoutube;
         private Button DescargVideosYouTbBTN;
         private Button SeleccionarTodosYouTubeBTN;
         private Label ResultadosTotalesYouTbLabel;

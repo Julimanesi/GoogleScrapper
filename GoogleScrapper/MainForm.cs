@@ -3,6 +3,10 @@ using System.ComponentModel;
 using System.Security.Policy;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using Newtonsoft.Json;
+using Google.Apis.YouTube.v3.Data;
+using static System.Windows.Forms.LinkLabel;
+using System.Linq;
 
 namespace GoogleScrapper
 {
@@ -10,6 +14,11 @@ namespace GoogleScrapper
     {
         public static string URLGoogle = "https://www.google.com/search?q=";
         private int NroMinimoResultados = 1;
+        public static decimal NroAureo { get; } = 1.61803M;
+        private List<string> LinksVideosYoutube = new List<string>();
+        private List<PanelYoutube> panelResultadoYoutubes = new List<PanelYoutube>();
+        private bool TodosPanelesYoutubeSeleccionados = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -23,6 +32,22 @@ namespace GoogleScrapper
         private void MainForm_Load(object sender, EventArgs e)
         {
             //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
+        }
+
+        public void DescargarVideos(string listaVideos) 
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                DescargVideosBTN.Enabled = false;
+                DescargVideosBTN.Text = "Descargando Videos...";
+                //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
+                descargaVideoForm.Activate();
+                descargaVideoForm.Show();
+            }
         }
 
         #region Google Video Scrapper
@@ -106,19 +131,7 @@ namespace GoogleScrapper
 
         private void DescargVideosBTN_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-
-            if (folderDialog.ShowDialog() == DialogResult.OK)
-            {
-                DescargVideosBTN.Enabled = false;
-                DescargVideosBTN.Text = "Descargando Videos...";
-                //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
-                descargaVideoForm.Activate();
-                descargaVideoForm.Show();
-            }
-
+            DescargarVideos(GetLinVideosInALine());
         }
 
         private void DescargaVideoForm_Closed(object? sender, System.EventArgs e)
@@ -220,7 +233,16 @@ namespace GoogleScrapper
 
         private void BuscarYoutubeBTN_Click(object sender, EventArgs e)
         {
-            RenderizarResultados((int)NumColumnasResultNM.Value);
+            ResultadosYouTubeFlowLayPanel.Controls.Clear();
+            int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
+            var searchListResponse = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
+            foreach (var searchResult in searchListResponse.Items)
+            {
+                PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                panelResultadoYoutubes.Add(panelResultado);
+            }
+            ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
+            BotoneraYoutube.Visible = true;
         }
         private void Ajustar_imagenes(object sender, EventArgs e)
         {
@@ -232,15 +254,41 @@ namespace GoogleScrapper
         }
         private void RenderizarResultados(int CantColum = 3)
         {
-            ResultadosYouTubeFlowLayPanel.Controls.Clear();
-            int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * CantColum + 20)) / CantColum;
-            for (int i = 0; i < 10; i++)
+            int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * CantColum + 21)) / CantColum;
+            foreach (PanelYoutube panelResultado in panelResultadoYoutubes)
             {
-                ResultadosYouTubeFlowLayPanel.Controls.Add(new PanelResultadoYoutube(ancho, ancho, "titulo", ""));
+                panelResultado.VolverARenderizar(ancho, (int)(ancho / NroAureo));
             }
         }
+
         #endregion
 
-        
+        private void AgregarEnviarSMplayerYoutbBTN_Click(object sender, EventArgs e)
+        {
+            EjecucionProcesos.EnviarListaReproducASMPlayer(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)));
+        }
+
+        private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
+        {
+            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j=>j.seleccionado).Select(x=>x.Link)));
+        }
+
+        private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
+        {
+            foreach (PanelYoutube panelResultado in panelResultadoYoutubes)
+            {
+                panelResultado.seleccionado = TodosPanelesYoutubeSeleccionados;
+                panelResultado.OnSeleccionado();
+            }
+            if (TodosPanelesYoutubeSeleccionados)
+            {
+                SeleccionarTodosYouTubeBTN.Text = "Seleccionar todos";
+            }
+            else
+            {
+                SeleccionarTodosYouTubeBTN.Text = "Deseleccionar todos";
+            }
+            TodosPanelesYoutubeSeleccionados = !TodosPanelesYoutubeSeleccionados;
+        }
     }
 }

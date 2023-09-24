@@ -68,8 +68,8 @@ namespace GoogleScrapper
                         ytdl.StartInfo.Arguments = $"{(ComprimirVideoCKBX.Checked ? comprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
                     }
                     else
-                    {
-                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                    {   //Descargar solo musica/audio
+                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
                     }
                     ytdl.StartInfo.UseShellExecute = false;
                     ytdl.StartInfo.CreateNoWindow = true;

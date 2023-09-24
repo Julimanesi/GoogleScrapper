@@ -130,6 +130,7 @@ namespace GoogleScrapper
             }
         }
 
+        #region No usado
         private void ReproducirListaAuxGuardada(BindingSource resultadoVideoBindingSource)
         {
             CrearListaReproducAux(resultadoVideoBindingSource);
@@ -145,6 +146,15 @@ namespace GoogleScrapper
                 }
             }
         }
+        private void CrearListaReproducAux(BindingSource resultadoVideoBindingSource)
+        {
+            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>)resultadoVideoBindingSource.DataSource;
+            if (ListaVideos != null && ListaVideos.Count > 0)
+            {
+                File.WriteAllLines(ArchivoListaReprodcAux, ListaVideos.Select(x => x.URLVideo));
+            }
+        }
+        #endregion
 
         #endregion
 
@@ -170,13 +180,6 @@ namespace GoogleScrapper
 
         #endregion
 
-        private void CrearListaReproducAux(BindingSource resultadoVideoBindingSource)
-        {
-            List<ResultadoVideo> ListaVideos = (List<ResultadoVideo>)resultadoVideoBindingSource.DataSource;
-            if (ListaVideos != null && ListaVideos.Count > 0)
-            {
-                File.WriteAllLines(ArchivoListaReprodcAux, ListaVideos.Select(x => x.URLVideo));
-            }
-        }
+        
     }
 }

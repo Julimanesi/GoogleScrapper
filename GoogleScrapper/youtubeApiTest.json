@@ -1,0 +1,1712 @@
+{
+  "kind": "youtube#searchListResponse",
+  "etag": "0KSJuhAE4uWaHI5ogkIw66eRNZE",
+  "nextPageToken": "CDIQAA",
+  "regionCode": "AR",
+  "pageInfo": {
+    "totalResults": 1000000,
+    "resultsPerPage": 50
+  },
+  "items": [
+    {
+      "kind": "youtube#searchResult",
+      "etag": "xLEWT4_D1bbRvFHnLLB7hCCK-a4",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "QSOjj8Q_9b4"
+      },
+      "snippet": {
+        "publishedAt": "2011-03-15T04:51:04Z",
+        "channelId": "UCO0x5KaxUscG9zlnWJwZvWQ",
+        "title": "Dragon Ball Z - We Gotta Power (Opening 2 HQ Audio).mp4",
+        "description": "We Gotta Power 2006 remix opening 2 HQ audio.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/QSOjj8Q_9b4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/QSOjj8Q_9b4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/QSOjj8Q_9b4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Yuusuke Takahashi",
+        "liveBroadcastContent": "none",
+        "publishTime": "2011-03-15T04:51:04Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "ju4W0OzQXD2eRMhP2WoExGam50I",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "bdiDfmoKH8M"
+      },
+      "snippet": {
+        "publishedAt": "2016-09-22T16:58:20Z",
+        "channelId": "UCLpbjEBBmKSaAz7vWaDrK3g",
+        "title": "We Gotta Power   Dragonball Z ~ Hironobu Kageyama w  lyrics",
+        "description": "abonnés vous et laisser un like MERCI.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bdiDfmoKH8M/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bdiDfmoKH8M/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bdiDfmoKH8M/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "直径[chokkei]",
+        "liveBroadcastContent": "none",
+        "publishTime": "2016-09-22T16:58:20Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "DKW6ZV73CMtd9Kj4ROTpAscd3wA",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "_Nv0OGlUHEY"
+      },
+      "snippet": {
+        "publishedAt": "2017-09-11T17:06:56Z",
+        "channelId": "UCUu2wCrHdEQAiUlLVgA5VUA",
+        "title": "Dragon Ball Z Opening 2 -&quot;We Gotta Power&quot; -Hironobu Kageyama (Sub español 1080p)",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/_Nv0OGlUHEY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/_Nv0OGlUHEY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/_Nv0OGlUHEY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Lina VDA",
+        "liveBroadcastContent": "none",
+        "publishTime": "2017-09-11T17:06:56Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "lG1yuPqTwlAF7FuMdoRi077RS2A",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "OSS_SzPDtSg"
+      },
+      "snippet": {
+        "publishedAt": "2020-08-10T16:38:51Z",
+        "channelId": "UCaQE0mqdbGiZFlt-HbQtJhQ",
+        "title": "Dragon Ball Z Kakarot - We Gotta Power (AMV)",
+        "description": "Dragon Ball Z Kakarot - We Gotta Power (AMV) Recently just beat Dragon Ball Z Kakarot and one of my favorite parts of the game ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OSS_SzPDtSg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OSS_SzPDtSg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OSS_SzPDtSg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Dmolition",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-08-10T16:38:51Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "XrMvz-kKQxGzGg342Sj4oOVpavU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "eaGh5e5Y4C4"
+      },
+      "snippet": {
+        "publishedAt": "2013-12-17T17:34:44Z",
+        "channelId": "UCxLUV_VWa2rnrkakWnbJu9g",
+        "title": "Dragon Ball Z El Poder Nuestro Es HD Version Completa Opening Latino 2013",
+        "description": "imagenes de dragon ball ultimate tenkaichi y/o el video original VIDEO: Editado por [gogeta saiyan] para los fans de DRAGON ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/eaGh5e5Y4C4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/eaGh5e5Y4C4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/eaGh5e5Y4C4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Edson :v",
+        "liveBroadcastContent": "none",
+        "publishTime": "2013-12-17T17:34:44Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "rouZGXhSWiUWepDVDD-vtHhmwaA",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "mSxzas7IO8c"
+      },
+      "snippet": {
+        "publishedAt": "2014-10-13T23:36:04Z",
+        "channelId": "UCPKefHWY-z2l1O6_rEt5n5Q",
+        "title": "We Gotta Power -  Hironobu kageyama Concierto HD",
+        "description": "Concierto de Hironobu Kageyama.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mSxzas7IO8c/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mSxzas7IO8c/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mSxzas7IO8c/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Ron Alejandro",
+        "liveBroadcastContent": "none",
+        "publishTime": "2014-10-13T23:36:04Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "MDdvlYND4gvAmvAzMqmY3gOzcJw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "DsBaC3_S-As"
+      },
+      "snippet": {
+        "publishedAt": "2015-06-14T03:03:48Z",
+        "channelId": "UCyroXgtnc2dswNlQVFmZy-g",
+        "title": "Dragon Ball Z - We Gotta Power - Second Japanese Theme Song (1080p)",
+        "description": "\"We Gotta Power\" was the second opening theme song used in Dragon Ball Z. Like collecting Dragon Ball action figures?",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/DsBaC3_S-As/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/DsBaC3_S-As/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/DsBaC3_S-As/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "DBZ Figures",
+        "liveBroadcastContent": "none",
+        "publishTime": "2015-06-14T03:03:48Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "PGfMGAy5DKL8dai3WfKnz8KWU7E",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "BDvD-KGqt2E"
+      },
+      "snippet": {
+        "publishedAt": "2013-03-16T22:03:00Z",
+        "channelId": "UCAN6kkC8GKMVJlPfWTHNqpA",
+        "title": "We Gotta Power (2013 Remaster)",
+        "description": "From Dragon Ball Z 20th Century-SONGS BEST released on February 27, 2013.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BDvD-KGqt2E/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BDvD-KGqt2E/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BDvD-KGqt2E/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "EnigmoMusic",
+        "liveBroadcastContent": "none",
+        "publishTime": "2013-03-16T22:03:00Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "YaRVUjh7NiWxXB7eeOZ0B0xj78c",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "dDY1im_Bl18"
+      },
+      "snippet": {
+        "publishedAt": "2021-01-13T11:00:23Z",
+        "channelId": "UCaMrelL4hFkL8z5PV8dZSTw",
+        "title": "DRAGON BALL Z｜WE GOTTA POWER [Studio aLf]",
+        "description": "You can stream and download my song right here! 〓 Spotify ▷ https://spoti.fi/3rDfL23 〓 iTunes ▷ https://apple.co/2WATggg ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/dDY1im_Bl18/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/dDY1im_Bl18/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/dDY1im_Bl18/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Studio aLf",
+        "liveBroadcastContent": "none",
+        "publishTime": "2021-01-13T11:00:23Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "-TWjRP8L2FewacmUvV6TiXd7YtI",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "NIj2LZNisXg"
+      },
+      "snippet": {
+        "publishedAt": "2009-06-15T03:15:35Z",
+        "channelId": "UCRcsURh67uKo7erk3oEYarA",
+        "title": "Dragon Ball Z Opening 02 - We Gotta Power [Latino]",
+        "description": "Segundo opening de DBZ perteneciente a la ultima temporada de este anime..si te gusta el video calificalo :D :D.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NIj2LZNisXg/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NIj2LZNisXg/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NIj2LZNisXg/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Edgar Barreto",
+        "liveBroadcastContent": "none",
+        "publishTime": "2009-06-15T03:15:35Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "NJPVizP7WLSZ4M3h9R2T8IBw-XU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "QtBml73oeso"
+      },
+      "snippet": {
+        "publishedAt": "2020-09-05T11:30:14Z",
+        "channelId": "UCAYrMNl92jw6cpjdpBP8JyA",
+        "title": "Dragon Ball Z Opening「We Gotta Power 」Ru&#39;s Piano Cover",
+        "description": "Dragon Ball Z OP - We Gotta Power [Piano Cover] Piano Arranged and Performed by RuRu - FB Page: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/QtBml73oeso/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/QtBml73oeso/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/QtBml73oeso/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Ru's Piano Ru味春捲",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-09-05T11:30:14Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "HXZ7s34pZGqVGY7iwcxxF6sZbQM",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "Oz0N01F-ZG0"
+      },
+      "snippet": {
+        "publishedAt": "2018-05-23T17:34:09Z",
+        "channelId": "UCJbR4SetBGArnYcFHtyHXZw",
+        "title": "We Gotta Power - Dragon Ball Z (ENGLISH COVER)",
+        "description": "PURCHASE/LISTEN ON: iTunes: http://bit.ly/wgpitunes Google Play: http://bit.ly/wgpgplay Spotify: http://bit.ly/wgpspotify Amazon: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Oz0N01F-ZG0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Oz0N01F-ZG0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Oz0N01F-ZG0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "JorporXx (Mark de Groot)",
+        "liveBroadcastContent": "none",
+        "publishTime": "2018-05-23T17:34:09Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "txuZO9qNq-Bd5iOyAqZxOJbw9t0",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "7IOMAQLZ67s"
+      },
+      "snippet": {
+        "publishedAt": "2020-01-18T19:26:22Z",
+        "channelId": "UC7oBnWNfpbJRmTkFUSg7tng",
+        "title": "Dragon Ball Z: Kakarot OST - WE GOTTA POWER (Instrumental)",
+        "description": "I have nothing witty or clever to write, this is just a godlike intrumental version. Playlist: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7IOMAQLZ67s/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7IOMAQLZ67s/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7IOMAQLZ67s/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Booden Radio",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-01-18T19:26:22Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "EKGB9IHV-TIS39c-MRbGtgH-ncM",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "iBNHkQLNiD0"
+      },
+      "snippet": {
+        "publishedAt": "2018-09-03T02:44:03Z",
+        "channelId": "UCxNHoPzGagd7YxvWavZj8Ag",
+        "title": "Dragon Ball Z - We Gotta Power (Opening 2) | English Vocal Cover feat. Redyy",
+        "description": "Subscribe and hit the bell icon to get notified as soon as I release new content! Spotify, iTunes, Soundcloud, Google Play, Amazon ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iBNHkQLNiD0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iBNHkQLNiD0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iBNHkQLNiD0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Friedrich Habetler Music",
+        "liveBroadcastContent": "none",
+        "publishTime": "2018-09-03T02:44:03Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "hM24RpzT-1cViTlqca285v4KKHw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "SL7j4cpGeNE"
+      },
+      "snippet": {
+        "publishedAt": "2022-05-24T20:03:01Z",
+        "channelId": "UC-ZZ6AC-ZOAVEr0LEdtAlsw",
+        "title": "『AMV』 Dragon Ball Z OP.2 - We Gotta Power",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/SL7j4cpGeNE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/SL7j4cpGeNE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/SL7j4cpGeNE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "『AMV』 R-Maldonado84",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-05-24T20:03:01Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Vics5e0TFALzC_4GO5WyGouVKXU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "Dsh783TeHuk"
+      },
+      "snippet": {
+        "publishedAt": "2018-08-17T15:00:01Z",
+        "channelId": "UCxNHoPzGagd7YxvWavZj8Ag",
+        "title": "Dragon Ball Z - We Gotta Power (Opening 2) | Epic Rock Cover",
+        "description": "Subscribe and hit the bell icon to get notified as soon as I release new content! Spotify, iTunes, Soundcloud, Google Play, Amazon ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Dsh783TeHuk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Dsh783TeHuk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Dsh783TeHuk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Friedrich Habetler Music",
+        "liveBroadcastContent": "none",
+        "publishTime": "2018-08-17T15:00:01Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "L9qtxjijYe9P42eHSBn6RVMOlbI",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "V3OQxSwiJAA"
+      },
+      "snippet": {
+        "publishedAt": "2022-02-19T08:45:15Z",
+        "channelId": "UCzhMWf7Hb9p8EmW7YoX7-dw",
+        "title": "Hironobu Kageyama - We Gotta Power  [DBGBH2022] live 2022",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/V3OQxSwiJAA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/V3OQxSwiJAA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/V3OQxSwiJAA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "ГОКИБУРИ",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-02-19T08:45:15Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "2zreHcBlMbcr3U4Ju8YKM2C63ZU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "sR721JCblE0"
+      },
+      "snippet": {
+        "publishedAt": "2019-12-31T05:37:56Z",
+        "channelId": "UC--fRVO4uE1p_W-nG8vHRCQ",
+        "title": "We gotta power | Sub español | DBZ",
+        "description": "Segundo opening de Dragon Ball Z Compuesto por: Keiju Ishikawa Escrito por: Yukinojo Mori Interpretado por: Hironobu ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sR721JCblE0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sR721JCblE0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sR721JCblE0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Nikki Blaack",
+        "liveBroadcastContent": "none",
+        "publishTime": "2019-12-31T05:37:56Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "vyupD-8rqQtTQV_LLwcFnH5yQjQ",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "xMw6dVfLmak"
+      },
+      "snippet": {
+        "publishedAt": "2020-12-29T16:00:14Z",
+        "channelId": "UCo5HJNjfdSoPWsdAHLsvSxQ",
+        "title": "Escucho/Analizo We Gotta Power/El Poder Nuestro Es (op 2 Dragon Ball Z) | ShaunTrack",
+        "description": "Bienvenidos a mi sección de \"vídeo-análisis\" musical. O, como he bautizado: Shaun-álisis :) Hoy voy a analizar la versión ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/xMw6dVfLmak/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/xMw6dVfLmak/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/xMw6dVfLmak/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "ShaunTrack",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-12-29T16:00:14Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "swgwXgxoBLaBrEj-tUQZf5fLJJo",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "DF_d9XS1Lw0"
+      },
+      "snippet": {
+        "publishedAt": "2011-10-01T07:39:52Z",
+        "channelId": "UCMACuzEAXL2m2ZoPILcMiLA",
+        "title": "[AMV] ドラゴンボールZ Dragon Ball Z 七龍珠Z - We Gotta Power",
+        "description": "MUSIC:影山ヒロノブ- \" We Gotta Power\" VIDEO:ドラゴンボールZ & ドラゴンボールZ 改.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/DF_d9XS1Lw0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/DF_d9XS1Lw0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/DF_d9XS1Lw0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Wayne Lee",
+        "liveBroadcastContent": "none",
+        "publishTime": "2011-10-01T07:39:52Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Nziax2qvAGRI3b_HV0vJMM4Cu6A",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "bELGx621C4Y"
+      },
+      "snippet": {
+        "publishedAt": "2017-02-25T17:12:20Z",
+        "channelId": "UCJB7C49yg0-S8Ena7TnKGoQ",
+        "title": "Dragon Ball Super - WE GOTTA POWER (DBZ Intro)",
+        "description": "So this kinda happened out of nowhere lmao, I worked on this for pure fun (as all my videos are), but I've been loving this new ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/bELGx621C4Y/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/bELGx621C4Y/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/bELGx621C4Y/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "ForeverRed3000",
+        "liveBroadcastContent": "none",
+        "publishTime": "2017-02-25T17:12:20Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Z1GWXMC9-nKNzy0yIKdZUFLkEUU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "2HuOm98CzQ4"
+      },
+      "snippet": {
+        "publishedAt": "2020-03-11T23:04:35Z",
+        "channelId": "UCC_4FIJOZs0RMXCk6ybirGA",
+        "title": "MARCELO CARVALHO | DRAGON BALL Z | WE GOTTA POWER | Temos A Força",
+        "description": "MARCELO CARVALHO - DRAGON BALL Z - WE GOTTA POWER - Temos A Força ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/2HuOm98CzQ4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/2HuOm98CzQ4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/2HuOm98CzQ4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Marcelo Carvalho",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-03-11T23:04:35Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "y72ppjqZeecJj6BC2VHdSPxqpnI",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "H4LuuVdMcoQ"
+      },
+      "snippet": {
+        "publishedAt": "2022-04-20T15:00:13Z",
+        "channelId": "UC_WZ51MntYJj_7lZ8ulfp-Q",
+        "title": "Dragon Ball Z - We Gotta Power [Epic Orchestral Cover]",
+        "description": "My orchestration for the opening of the Majin Buu Saga, I remixed the song \"Seigi Wo Ai Suru Mono!\" (a variation of We Gotta ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/H4LuuVdMcoQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/H4LuuVdMcoQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/H4LuuVdMcoQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Android Orchestra",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-04-20T15:00:13Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "HQxGCNfLEeMhg1aZwoGwK0FZp5c",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "vcQMA7RVmiQ"
+      },
+      "snippet": {
+        "publishedAt": "2012-12-17T18:06:15Z",
+        "channelId": "UCOqaDv8VDE9CXLOSJ7mWGDA",
+        "title": "DBZ - Opening 2 We Gotta Power - FULL HD",
+        "description": "Second opening of Dragon Ball Z, \"We Gotta Power\" by Hironobu Kageyama. Segundo opening de Dragon Ball Z, \"We Gotta ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vcQMA7RVmiQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vcQMA7RVmiQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vcQMA7RVmiQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "OpAnimeXD",
+        "liveBroadcastContent": "none",
+        "publishTime": "2012-12-17T18:06:15Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "i0kN1-FbUWkimsL_Dh_tTYAwvqs",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "OOvdGGiudqc"
+      },
+      "snippet": {
+        "publishedAt": "2012-01-18T17:27:51Z",
+        "channelId": "UCbbE6c6onuI4NSA1YC9EMIQ",
+        "title": "Dragon Ball Z 2nd Opening &#39;&#39;We Got Power&#39;&#39; [1080p]",
+        "description": "The 2nd opening of Dragon Ball Z: ''We Got Power''. Song Singed by: Hironobu Kageyama Dragon Ball Z © 2005 BIRD ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/OOvdGGiudqc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/OOvdGGiudqc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/OOvdGGiudqc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "UltraDemon234",
+        "liveBroadcastContent": "none",
+        "publishTime": "2012-01-18T17:27:51Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "XJolxmBnYFQ8rjr2-ei132isoHw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "pM_yZg8Y7SY"
+      },
+      "snippet": {
+        "publishedAt": "2021-08-08T19:05:33Z",
+        "channelId": "UCco_dRFdC0Mqea8v1zGBWzw",
+        "title": "Dragon Ball Z - We Gotta Power (DBZ Opening 2) | 80&#39;s Remix",
+        "description": "Join the new Discord Server: https://discord.gg/7zgMtajKgt\u200b Hey, everyone, it is your Blue Haired Majin here! Make sure that you ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/pM_yZg8Y7SY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/pM_yZg8Y7SY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/pM_yZg8Y7SY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "MajinBlue",
+        "liveBroadcastContent": "none",
+        "publishTime": "2021-08-08T19:05:33Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "5oVjXa2hd5VABV-aNyYR9xS0Ijs",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "9MubRFC6668"
+      },
+      "snippet": {
+        "publishedAt": "2014-12-10T14:18:00Z",
+        "channelId": "UCHepS8efzwBDBEfRgeRqjAw",
+        "title": "Dragon Ball Z Opening (We Gotta Power) (Latino)",
+        "description": "IMPORTANTE: Opening de Dragon Ball Z Tema: (We Gotta Power) Interprete: Vers Jap: Hironobu Kageyama / Vers Lat: Adrián ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/9MubRFC6668/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/9MubRFC6668/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/9MubRFC6668/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "TheAnimeMusicHQ",
+        "liveBroadcastContent": "none",
+        "publishTime": "2014-12-10T14:18:00Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "yB6Opx27N_PLxUolfQyUxNu6n8k",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "MpJdBJCjsL8"
+      },
+      "snippet": {
+        "publishedAt": "2022-10-22T15:21:44Z",
+        "channelId": "UCRFq2pf52HYMmmPG-k74AKg",
+        "title": "「4K 60FPS Creditless 」We Gotta Power! - Dragon Ball Z Opening 2",
+        "description": "The second opening of Dragon Ball Z. Song name: We Gotta Power! Artist & Vocals: Hironobu Kageyama Lyrics: Yukinojō Mori ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/MpJdBJCjsL8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/MpJdBJCjsL8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/MpJdBJCjsL8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Dre4m | ドリーム",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-10-22T15:21:44Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "kvnjWGuMxOBPQFNwUwTUxNtP0cQ",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "rqcna7fB9IM"
+      },
+      "snippet": {
+        "publishedAt": "2011-08-26T19:57:07Z",
+        "channelId": "UCiuM-MoaMZxa3VxgTqqtM_Q",
+        "title": "Dragon Ball Z Opening - We Gotta Power English Remastered (HD 720p)",
+        "description": "Dragon Ball Z Opening - We Gotta Power Cha La English Version. Watch in HD.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/rqcna7fB9IM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/rqcna7fB9IM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/rqcna7fB9IM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "SRB2DBZUnleashed",
+        "liveBroadcastContent": "none",
+        "publishTime": "2011-08-26T19:57:07Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "KiWUWTWwoznOPhQL3PeMwBUrMMs",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "CQ_ozwGh9tQ"
+      },
+      "snippet": {
+        "publishedAt": "2018-07-28T16:58:39Z",
+        "channelId": "UCGr76TNBMEocXtvyES3STHA",
+        "title": "Dragon Ball Z BGM - We Gotta Power (Action) (M1703)",
+        "description": "BGM M1703 \"We Gotta Power (Action)\" also know as \"Arranged Action Theme\" Soundtrack by Shunsuke Kikuchi (†) Original ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/CQ_ozwGh9tQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/CQ_ozwGh9tQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/CQ_ozwGh9tQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "RafaStaryDBGM",
+        "liveBroadcastContent": "none",
+        "publishTime": "2018-07-28T16:58:39Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "KB9oOmrsqrtPNWCzxMwYVsO6H7A",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "pYnLO7MVKno"
+      },
+      "snippet": {
+        "publishedAt": "2015-07-30T16:15:55Z",
+        "channelId": "UC_OsK7euB1Dxo_ktAnCaSjQ",
+        "title": "CHA-LA HEAD CHA-LA - Dragonball Z (Opening Theme) [OST Full]",
+        "description": "OST- Dragonball Z Title: CHA-LA HEAD CHA-LA Artist: Hironobu Kageyama Anime Music Video.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/pYnLO7MVKno/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/pYnLO7MVKno/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/pYnLO7MVKno/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Dwyane Curry",
+        "liveBroadcastContent": "none",
+        "publishTime": "2015-07-30T16:15:55Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "B36xu2Kf9tSLUOsbmr1KFgMedh0",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "Of4UPXWLy_s"
+      },
+      "snippet": {
+        "publishedAt": "2020-04-27T16:30:02Z",
+        "channelId": "UC1CBvjLWxoc_Cu5uUfA1NBw",
+        "title": "DBZ - We Gotta Power epic Mashup: Hironobu Kageyama, Anísio Mello, Adrián Barba &amp; Fred Röttcher",
+        "description": "Four languages mashup of the song We Gotta Power, the second opening theme from Dragon Ball Z animated series.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Of4UPXWLy_s/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Of4UPXWLy_s/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Of4UPXWLy_s/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Vai Fiz",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-04-27T16:30:02Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Y3PTVQU_STCpO3p-kffrtRCQHXo",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "iHPYMw5sL5s"
+      },
+      "snippet": {
+        "publishedAt": "2022-09-10T16:30:05Z",
+        "channelId": "UCXjCGyhwKKvhj9aavdjCt1Q",
+        "title": "Dragon Ball Super - We Gotta Power [Edit/AMV]!",
+        "description": "Hope you'll enjoy this video ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Subscribe For more edits !",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iHPYMw5sL5s/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iHPYMw5sL5s/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iHPYMw5sL5s/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "SKORH",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-09-10T16:30:05Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "lJqf84BM4EiOZjX0_wHFeLkdoio",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "feEozXKj6X0"
+      },
+      "snippet": {
+        "publishedAt": "2014-09-14T19:36:03Z",
+        "channelId": "UCWAyKBEB5mZNzpuLZZV3ViQ",
+        "title": "Dragon Ball   We gotta power 2005 version",
+        "description": "Twitch channel gamer -https://www.twitch.tv/candyyqueen.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/feEozXKj6X0/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/feEozXKj6X0/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/feEozXKj6X0/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "CandyyQueen",
+        "liveBroadcastContent": "none",
+        "publishTime": "2014-09-14T19:36:03Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "3bemkzubmEKGI6orKJq9N1DwGFE",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "yLNXOcNv_5g"
+      },
+      "snippet": {
+        "publishedAt": "2011-07-01T14:11:34Z",
+        "channelId": "UCVLkGPCzEU-F_T4Tv2L2nSQ",
+        "title": "Dragon Ball - We Gotta Power Lyrics",
+        "description": "Dragon Ball - We Gotta Power.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/yLNXOcNv_5g/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/yLNXOcNv_5g/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/yLNXOcNv_5g/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "João Paulo Correia",
+        "liveBroadcastContent": "none",
+        "publishTime": "2011-07-01T14:11:34Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "RoNXXwa67MA5TMxWD4K5CsAD3gU",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "Gv1c2G-R5yo"
+      },
+      "snippet": {
+        "publishedAt": "2011-09-09T07:57:22Z",
+        "channelId": "UCe8s1cuCMsto_QoNfeh2v_g",
+        "title": "ドラゴンボールZ OP WE GOTTA POWER",
+        "description": "ドラゴンボールZのオープニングテーマです。",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Gv1c2G-R5yo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Gv1c2G-R5yo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Gv1c2G-R5yo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "jp053",
+        "liveBroadcastContent": "none",
+        "publishTime": "2011-09-09T07:57:22Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "WVTMGUqdzX8DVJ0PZvEvY4oTP9E",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "vLYs8-Hd3yE"
+      },
+      "snippet": {
+        "publishedAt": "2021-03-07T21:32:19Z",
+        "channelId": "UCyRUkRLzLjEnJNd1i8IY8mQ",
+        "title": "[HD] Dragon Ball Z Full Opening 2 - We Gotta Power by Hironobu Kageyama + Romaji and English Lyrics",
+        "description": "Dragon Ball Z (Full Opening 2) Song: We Gotta Power Artist: Hironobu Kageyama Romaji Lyrics: Hachamecha ga Oshiyosete ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/vLYs8-Hd3yE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/vLYs8-Hd3yE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/vLYs8-Hd3yE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Cosplay Galaxy",
+        "liveBroadcastContent": "none",
+        "publishTime": "2021-03-07T21:32:19Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "k3ooK__v-T9jep-boylSiR0QyRs",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "8WOSqH0FnMI"
+      },
+      "snippet": {
+        "publishedAt": "2015-07-16T20:57:41Z",
+        "channelId": "UCBT3SZY5q-4p27LQo66k_Rw",
+        "title": "Versão Forró Dragon Ball Z - We Gotta Power",
+        "description": "DRAGON BALL Z VERSÃO FORRÓ - WE GOTTA POWER ABERTURA OFICIAL DRAGON BALL Z - POSSO PRESSENTIR O ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/8WOSqH0FnMI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/8WOSqH0FnMI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/8WOSqH0FnMI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Denilson Felix sanfoneiro",
+        "liveBroadcastContent": "none",
+        "publishTime": "2015-07-16T20:57:41Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "ZxJ2RxTVwHr_UZw-LR_kRnFBvhE",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "apNuTIeQB9E"
+      },
+      "snippet": {
+        "publishedAt": "2022-07-12T14:40:14Z",
+        "channelId": "UCf2H-yxyeMC9UIIplQnou_w",
+        "title": "NEW ULTRA Super Vegito Gameplay Trailer (WE GOTTA POWER) - Dragon Ball Legends",
+        "description": "SuperVegito #DragonBallLegends #ULTRAVegito.",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/apNuTIeQB9E/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/apNuTIeQB9E/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/apNuTIeQB9E/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Ultra Instinct Rosé Z",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-07-12T14:40:14Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "Hb9VLvX_GiTG0ND-blrTTjngVpE",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "GDui5jrsRZE"
+      },
+      "snippet": {
+        "publishedAt": "2018-06-25T21:43:20Z",
+        "channelId": "UC1Aoma1nZHrotGvENvJ2eng",
+        "title": "Dragon Ball Z - We Gotta Power - Toei Official English Version with LYRICS",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/GDui5jrsRZE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/GDui5jrsRZE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/GDui5jrsRZE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "WhatDeHeel",
+        "liveBroadcastContent": "none",
+        "publishTime": "2018-06-25T21:43:20Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "KR8eQMTSfOsk2whui1WtHLBIJ5o",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "sUtmqZ634qY"
+      },
+      "snippet": {
+        "publishedAt": "2021-04-21T01:29:59Z",
+        "channelId": "UCaSg7S3Cnjg1Hcw28yPQi0w",
+        "title": "WE GOTTA POWER (2005 ver.)",
+        "description": "Provided to YouTube by Space Shower FUGA WE GOTTA POWER (2005 ver.) · Kageyama Hironobu Cha-La Head-Cha-La ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/sUtmqZ634qY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/sUtmqZ634qY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/sUtmqZ634qY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Hironobu Kageyama - Topic",
+        "liveBroadcastContent": "none",
+        "publishTime": "2021-04-21T01:29:59Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "zH9i49qEJguGeR7_mQM3AMYsJ4Q",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "iY-RVcNkql8"
+      },
+      "snippet": {
+        "publishedAt": "2022-09-04T09:33:20Z",
+        "channelId": "UCOi9j4oS4XZsaF9Hc_D7w7A",
+        "title": "Dragon Ball Super: Super Hero | WE GOTTA POWER | 『AMV』",
+        "description": "Song: WE GOTTA POWER Sung by Hironobu Kageyama 影山ヒロノブ Edited by C C.M 歌: WE GOTTA POWER 影山ヒロノブで ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iY-RVcNkql8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iY-RVcNkql8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iY-RVcNkql8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "C C. M",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-09-04T09:33:20Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "SsRNlCf7dve8YooEEwRkKdP3HIc",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "imzPEwDTKHA"
+      },
+      "snippet": {
+        "publishedAt": "2020-11-17T16:15:03Z",
+        "channelId": "UCPx0YE89uB-1VMBLthKpcEg",
+        "title": "DRAGON BALL Z | WE GOTTA POWER - EASY Piano Tutorial",
+        "description": "How to play We Gotta Power from Opening 2 of Dragon Ball Z! Como tocar a música Nós temos o poder da segunda abertura de ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/imzPEwDTKHA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/imzPEwDTKHA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/imzPEwDTKHA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "The Green Notes",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-11-17T16:15:03Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "jro-CbV11vwICjc87O_YixAzl0s",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "QiCBIDa1LPw"
+      },
+      "snippet": {
+        "publishedAt": "2020-11-03T17:32:51Z",
+        "channelId": "UCfdtOZc_EC9mi10cnap_Brw",
+        "title": "Dragon Ball Z ‘’We Gotta Power’’ OP 2 | METAL COVER by Vincent Moretto",
+        "description": "\"We Gotta Power\" OP2 from Dragon Ball Z - metal cover by Vincent Moretto Original music by Kageyama Hironobu Subscribe: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/QiCBIDa1LPw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/QiCBIDa1LPw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/QiCBIDa1LPw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Vincent Moretto",
+        "liveBroadcastContent": "none",
+        "publishTime": "2020-11-03T17:32:51Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "5VlYGNQhJQ1qprSKKN6OEKZA7b0",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "SOFsRryyLyA"
+      },
+      "snippet": {
+        "publishedAt": "2022-03-10T18:41:29Z",
+        "channelId": "UCv7kyfkg3G5XaddEnCuGaYA",
+        "title": "DRAGON BALL Z Abertura 2 Completa em Português - We Gotta Power/Temos a Força (PT-BR)",
+        "description": "DRAGON BALL Z Abertura 2 Completa em Português - We Gotta Power/Temos a Força (PT-BR) ♬ SPOTIFY ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/SOFsRryyLyA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/SOFsRryyLyA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/SOFsRryyLyA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Miura Jam",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-03-10T18:41:29Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "cKCk144HZfvaP5pgNHhbMq9cPCw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "7z52_6Uc834"
+      },
+      "snippet": {
+        "publishedAt": "2019-06-22T10:00:00Z",
+        "channelId": "UCa7NqDn9JjAaxSvLbWE3tZg",
+        "title": "【女性が歌う】WE GOTTA POWER/影山ヒロノブ【ドラゴンボールZ】アニメ主題歌/OP(フル歌詞付き-cover)（ウィーガットパワー/DRAGON BALL Z）歌ってみた",
+        "description": "毎週月曜日 22:00〜23:00》 YouTube生配信始めました   配信で歌うリクエスト曲などをTwitterにて募集中です❗️ 是非参加して ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/7z52_6Uc834/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/7z52_6Uc834/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/7z52_6Uc834/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "ひろみちゃんねる",
+        "liveBroadcastContent": "none",
+        "publishTime": "2019-06-22T10:00:00Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "B4J5CG4uIEO09ZIb6KSPIhM8Lfw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "Zy8bkUHCRNk"
+      },
+      "snippet": {
+        "publishedAt": "2023-05-21T21:04:47Z",
+        "channelId": "UCPbFld0Tms0LQWCtuogsa_A",
+        "title": "Power comes in response to a need, not a desire! #dbgt #goku #gokujr #pan #gohan #beastgohan #dbs",
+        "description": "The posts are not intended to offend anyone, but to have fun. All rights to Akira Toriyama, Bird Studio, Shueisha jump, Toei ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Zy8bkUHCRNk/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Zy8bkUHCRNk/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Zy8bkUHCRNk/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Dbz_mystic",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-05-21T21:04:47Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "-0dirF1r4h17P67qrKFujcYqYks",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "HzWki4S2Wmc"
+      },
+      "snippet": {
+        "publishedAt": "2022-07-08T22:30:02Z",
+        "channelId": "UCrQfVdsdtQloUF4BO2KHv7w",
+        "title": "[anime lofi] Dragon Ball Z - We Gotta Power // Ren Avel",
+        "description": "from the album \"Future Sight\" - available everywhere Streaming Platforms - https://renavel.lnk.to/listen Instagram : @ren_avel All ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/HzWki4S2Wmc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/HzWki4S2Wmc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/HzWki4S2Wmc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Ren Avel",
+        "liveBroadcastContent": "none",
+        "publishTime": "2022-07-08T22:30:02Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "TjTwy6uXuPt_IHAs0U06FsZGER4",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "uY8ZU9wc9fI"
+      },
+      "snippet": {
+        "publishedAt": "2013-02-25T05:46:34Z",
+        "channelId": "UCjsbgZUyAIcI_4sA8wP7PZA",
+        "title": "Dragon Ball Z | Temos a Força (We Gotta Power) - Completo Português BR",
+        "description": "Segunda parte da canção escrita e gravada por Anísio Mello Jr. especialmente para os fãs. Minhas redes sociais Instagram: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uY8ZU9wc9fI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uY8ZU9wc9fI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uY8ZU9wc9fI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Vin Lee",
+        "liveBroadcastContent": "none",
+        "publishTime": "2013-02-25T05:46:34Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "kTtPh68FRFSk4vrbMv6aNatnJwA",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "-E0TzcyoYPU"
+      },
+      "snippet": {
+        "publishedAt": "2015-05-28T18:30:08Z",
+        "channelId": "UC4ZzCASp9U1gPVW7ZcRTBfg",
+        "title": "WE GOTTA POWER | Dragon Ball Z THEME | Fingerstyle Guitar | Marcos Kaiser",
+        "description": "Lyrics by Yukinojō Mori . Music composed by Keiju Ishikawa. Arranged by Marcos Kaiser | Fingerstyle Guitar Quer aprender a ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/-E0TzcyoYPU/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/-E0TzcyoYPU/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/-E0TzcyoYPU/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "Marcos Kaiser",
+        "liveBroadcastContent": "none",
+        "publishTime": "2015-05-28T18:30:08Z"
+      }
+    }
+  ]
+}
