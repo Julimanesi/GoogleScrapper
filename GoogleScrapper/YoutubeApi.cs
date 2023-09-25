@@ -1,5 +1,6 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
+using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,48 +11,69 @@ namespace GoogleScrapper
 {
     public class YoutubeApi
     {
-        private async Task Run()
+        public string Busqueda { get; set; } = string.Empty;
+        public int maxResults { get; set; }
+        public DateTime fechaInicio { get; set; }
+        public DateTime fechaFin { get; set; }
+        public string regionCode { get; set; } = string.Empty;
+        public SearchResource.ListRequest.VideoDurationEnum videoDuration { get; set; }
+        public SearchResource.ListRequest.OrderEnum orden { get; set; }
+        public SearchResource.ListRequest.SafeSearchEnum safeSearch { get; set; }
+        public SearchResource.ListRequest.VideoCaptionEnum subtitulos { get; set; }
+        public SearchResource.ListRequest.VideoDefinitionEnum definicion { get; set; }
+        public SearchResource.ListRequest.VideoTypeEnum tipo { get; set; }
+        public string categoria { get; set; } = string.Empty;
+        public SearchListResponse? ListaRespuesta { get; set; } 
+
+        public YoutubeApi(string busqueda,int maxResults, DateTime fechaInicio, DateTime fechaFin, string regionCode, SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion, SearchResource.ListRequest.VideoTypeEnum tipo, string categoria)
         {
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            this.Busqueda = busqueda;
+            this.maxResults = maxResults;
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
+            this.regionCode = regionCode;
+            this.videoDuration = videoDuration;
+            this.orden = orden;
+            this.safeSearch = safeSearch;
+            this.subtitulos = subtitulos;
+            this.definicion = definicion;
+            this.categoria = categoria;
+            this.tipo = tipo;
+        }
+
+        //private async Task Run(int maxResults ,DateTime fechaInicio ,DateTime fechaFin ,string regionCode,SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion,string categoria)
+        public async Task Run()
+        {
+            try
             {
-                ApiKey = "",//KeyAndPasswords.YoutubeApiKey,
-                ApplicationName = this.GetType().ToString()
-            });
-
-            var searchListRequest = youtubeService.Search.List("snippet");
-            searchListRequest.Q = "Google"; // Replace with your search term.
-            searchListRequest.MaxResults = 50;
-
-            // Call the search.list method to retrieve results matching the specified query term.
-            var searchListResponse = await searchListRequest.ExecuteAsync();
-
-            List<string> videos = new List<string>();
-            List<string> channels = new List<string>();
-            List<string> playlists = new List<string>();
-
-            // Add each result to the appropriate list, and then display the lists of
-            // matching videos, channels, and playlists.
-            foreach (var searchResult in searchListResponse.Items)
-            {
-                switch (searchResult.Id.Kind)
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
-                    case "youtube#video":
-                        videos.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.VideoId));
-                        break;
+                    ApiKey = KeyAndPasswords.YoutubeApiKey,
+                    ApplicationName = this.GetType().ToString()
+                });
 
-                    case "youtube#channel":
-                        channels.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.ChannelId));
-                        break;
-
-                    case "youtube#playlist":
-                        playlists.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.PlaylistId));
-                        break;
-                }
+                var searchListRequest = youtubeService.Search.List("snippet");
+                searchListRequest.Q = Busqueda; // Replace with your search term.
+                searchListRequest.Type = "video";
+                searchListRequest.MaxResults = this.maxResults;
+                searchListRequest.PublishedAfter = this.fechaInicio.ToString("yyyy-MM-ddTHH:mm:ssZ");
+                searchListRequest.PublishedBefore = this.fechaFin.ToString("yyyy-MM-ddTHH:mm:ssZ");
+                searchListRequest.RegionCode = this.regionCode;
+                searchListRequest.VideoDuration = this.videoDuration;
+                searchListRequest.Order = this.orden;
+                searchListRequest.SafeSearch = this.safeSearch;
+                searchListRequest.VideoCaption = this.subtitulos;
+                searchListRequest.VideoDefinition = this.definicion;
+                if(this.categoria != null && this.categoria!= "")
+                    searchListRequest.VideoCategoryId = this.categoria;
+                searchListRequest.VideoType = this.tipo;
+                // Call the search.list method to retrieve results matching the specified query term.
+                ListaRespuesta = await searchListRequest.ExecuteAsync();
             }
-
-            Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
-            Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
-            Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al buscar videos en Youtube(API)");
+            }
         }
     }
 }

@@ -66,6 +66,19 @@
             ResultadosTotalesYouTbLabel = new Label();
             AgregarEnviarSMplayerYoutbBTN = new Button();
             panel2 = new Panel();
+            CategoriaComboBox = new ComboBox();
+            label14 = new Label();
+            label13 = new Label();
+            DefinicionComboBox = new ComboBox();
+            label12 = new Label();
+            SubtitulosComboBox = new ComboBox();
+            label11 = new Label();
+            SafeSearchComboBox = new ComboBox();
+            label10 = new Label();
+            OrdenComboBox = new ComboBox();
+            label9 = new Label();
+            PaisComboBox = new ComboBox();
+            label8 = new Label();
             label7 = new Label();
             NumColumnasResultNM = new NumericUpDown();
             label3 = new Label();
@@ -76,12 +89,12 @@
             BuscarYoutubeBTN = new Button();
             InicioYoutbDTP = new DateTimePicker();
             DuracionYoutubeVideoCBX = new ComboBox();
-            AltaCalidadYouTBCKBOX = new CheckBox();
-            FechaYouTubeVideoCB = new ComboBox();
             label6 = new Label();
             MaxResultYoutubeNM = new NumericUpDown();
             ImagenTag = new TabPage();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            TipoComboBox = new ComboBox();
+            label15 = new Label();
             tabControl1.SuspendLayout();
             VideoTag.SuspendLayout();
             panelResultado.SuspendLayout();
@@ -468,6 +481,21 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(label15);
+            panel2.Controls.Add(TipoComboBox);
+            panel2.Controls.Add(CategoriaComboBox);
+            panel2.Controls.Add(label14);
+            panel2.Controls.Add(label13);
+            panel2.Controls.Add(DefinicionComboBox);
+            panel2.Controls.Add(label12);
+            panel2.Controls.Add(SubtitulosComboBox);
+            panel2.Controls.Add(label11);
+            panel2.Controls.Add(SafeSearchComboBox);
+            panel2.Controls.Add(label10);
+            panel2.Controls.Add(OrdenComboBox);
+            panel2.Controls.Add(label9);
+            panel2.Controls.Add(PaisComboBox);
+            panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(NumColumnasResultNM);
             panel2.Controls.Add(label3);
@@ -478,8 +506,6 @@
             panel2.Controls.Add(BuscarYoutubeBTN);
             panel2.Controls.Add(InicioYoutbDTP);
             panel2.Controls.Add(DuracionYoutubeVideoCBX);
-            panel2.Controls.Add(AltaCalidadYouTBCKBOX);
-            panel2.Controls.Add(FechaYouTubeVideoCB);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(MaxResultYoutubeNM);
             panel2.Dock = DockStyle.Top;
@@ -487,6 +513,117 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1171, 197);
             panel2.TabIndex = 22;
+            // 
+            // CategoriaComboBox
+            // 
+            CategoriaComboBox.FormattingEnabled = true;
+            CategoriaComboBox.Location = new Point(861, 14);
+            CategoriaComboBox.Name = "CategoriaComboBox";
+            CategoriaComboBox.Size = new Size(285, 28);
+            CategoriaComboBox.TabIndex = 36;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(778, 16);
+            label14.Name = "label14";
+            label14.Size = new Size(77, 20);
+            label14.TabIndex = 35;
+            label14.Text = "Categoria:";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(523, 145);
+            label13.Name = "label13";
+            label13.Size = new Size(80, 20);
+            label13.TabIndex = 33;
+            label13.Text = "Definicion:";
+            // 
+            // DefinicionComboBox
+            // 
+            DefinicionComboBox.FormattingEnabled = true;
+            DefinicionComboBox.Location = new Point(607, 142);
+            DefinicionComboBox.Name = "DefinicionComboBox";
+            DefinicionComboBox.Size = new Size(168, 28);
+            DefinicionComboBox.TabIndex = 32;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(257, 145);
+            label12.Name = "label12";
+            label12.Size = new Size(78, 20);
+            label12.TabIndex = 31;
+            label12.Text = "Subtitulos:";
+            // 
+            // SubtitulosComboBox
+            // 
+            SubtitulosComboBox.FormattingEnabled = true;
+            SubtitulosComboBox.Location = new Point(341, 142);
+            SubtitulosComboBox.Name = "SubtitulosComboBox";
+            SubtitulosComboBox.Size = new Size(168, 28);
+            SubtitulosComboBox.TabIndex = 30;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(607, 107);
+            label11.Name = "label11";
+            label11.Size = new Size(127, 20);
+            label11.TabIndex = 29;
+            label11.Text = "Busqueda Segura:";
+            // 
+            // SafeSearchComboBox
+            // 
+            SafeSearchComboBox.FormattingEnabled = true;
+            SafeSearchComboBox.Location = new Point(740, 103);
+            SafeSearchComboBox.Name = "SafeSearchComboBox";
+            SafeSearchComboBox.Size = new Size(168, 28);
+            SafeSearchComboBox.TabIndex = 28;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(374, 106);
+            label10.Name = "label10";
+            label10.Size = new Size(53, 20);
+            label10.TabIndex = 27;
+            label10.Text = "Orden:";
+            // 
+            // OrdenComboBox
+            // 
+            OrdenComboBox.FormattingEnabled = true;
+            OrdenComboBox.Location = new Point(433, 103);
+            OrdenComboBox.Name = "OrdenComboBox";
+            OrdenComboBox.Size = new Size(168, 28);
+            OrdenComboBox.TabIndex = 26;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(114, 106);
+            label9.Name = "label9";
+            label9.Size = new Size(37, 20);
+            label9.TabIndex = 25;
+            label9.Text = "Pais:";
+            // 
+            // PaisComboBox
+            // 
+            PaisComboBox.FormattingEnabled = true;
+            PaisComboBox.Location = new Point(157, 104);
+            PaisComboBox.Name = "PaisComboBox";
+            PaisComboBox.Size = new Size(195, 28);
+            PaisComboBox.TabIndex = 24;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(8, 63);
+            label8.Name = "label8";
+            label8.Size = new Size(72, 20);
+            label8.TabIndex = 23;
+            label8.Text = "Duracion:";
             // 
             // label7
             // 
@@ -513,7 +650,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(678, 107);
+            label3.Location = new Point(689, 63);
             label3.Name = "label3";
             label3.Size = new Size(73, 20);
             label3.TabIndex = 20;
@@ -523,7 +660,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(168, 110);
+            label4.Location = new Point(294, 63);
             label4.Name = "label4";
             label4.Size = new Size(90, 20);
             label4.TabIndex = 19;
@@ -543,12 +680,12 @@
             // 
             BuscarYoutubVideoTB.Location = new Point(61, 13);
             BuscarYoutubVideoTB.Name = "BuscarYoutubVideoTB";
-            BuscarYoutubVideoTB.Size = new Size(550, 27);
+            BuscarYoutubVideoTB.Size = new Size(701, 27);
             BuscarYoutubVideoTB.TabIndex = 0;
             // 
             // FinYoutbDTP
             // 
-            FinYoutbDTP.Location = new Point(757, 102);
+            FinYoutbDTP.Location = new Point(768, 58);
             FinYoutbDTP.Name = "FinYoutbDTP";
             FinYoutbDTP.Size = new Size(295, 27);
             FinYoutbDTP.TabIndex = 18;
@@ -566,7 +703,7 @@
             // 
             // InicioYoutbDTP
             // 
-            InicioYoutbDTP.Location = new Point(264, 105);
+            InicioYoutbDTP.Location = new Point(390, 58);
             InicioYoutbDTP.Name = "InicioYoutbDTP";
             InicioYoutbDTP.Size = new Size(293, 27);
             InicioYoutbDTP.TabIndex = 17;
@@ -576,36 +713,16 @@
             // 
             DuracionYoutubeVideoCBX.FormattingEnabled = true;
             DuracionYoutubeVideoCBX.Items.AddRange(new object[] { "Todas las duraciones", "Corto (de 0 a 4 min)", "Mediana (de 4 a 20 min)", "Larga (20 min o más)" });
-            DuracionYoutubeVideoCBX.Location = new Point(61, 60);
+            DuracionYoutubeVideoCBX.Location = new Point(86, 60);
             DuracionYoutubeVideoCBX.Name = "DuracionYoutubeVideoCBX";
-            DuracionYoutubeVideoCBX.Size = new Size(264, 28);
+            DuracionYoutubeVideoCBX.Size = new Size(202, 28);
             DuracionYoutubeVideoCBX.TabIndex = 4;
             DuracionYoutubeVideoCBX.Text = "Duracion";
-            // 
-            // AltaCalidadYouTBCKBOX
-            // 
-            AltaCalidadYouTBCKBOX.AutoSize = true;
-            AltaCalidadYouTBCKBOX.Location = new Point(673, 62);
-            AltaCalidadYouTBCKBOX.Name = "AltaCalidadYouTBCKBOX";
-            AltaCalidadYouTBCKBOX.Size = new Size(113, 24);
-            AltaCalidadYouTBCKBOX.TabIndex = 16;
-            AltaCalidadYouTBCKBOX.Text = "Alta Calidad";
-            AltaCalidadYouTBCKBOX.UseVisualStyleBackColor = true;
-            // 
-            // FechaYouTubeVideoCB
-            // 
-            FechaYouTubeVideoCB.FormattingEnabled = true;
-            FechaYouTubeVideoCB.Items.AddRange(new object[] { "De Cualquier Fecha", "Ultima Hora", "Ultimas 24 Horas", "Ultima Semana", "Ultimo Mes", "Ultimo Año", "Personalizar" });
-            FechaYouTubeVideoCB.Location = new Point(388, 60);
-            FechaYouTubeVideoCB.Name = "FechaYouTubeVideoCB";
-            FechaYouTubeVideoCB.Size = new Size(252, 28);
-            FechaYouTubeVideoCB.TabIndex = 5;
-            FechaYouTubeVideoCB.Text = "Fecha";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(883, 17);
+            label6.Location = new Point(802, 145);
             label6.Name = "label6";
             label6.Size = new Size(188, 20);
             label6.TabIndex = 7;
@@ -613,12 +730,14 @@
             // 
             // MaxResultYoutubeNM
             // 
-            MaxResultYoutubeNM.Location = new Point(1074, 15);
+            MaxResultYoutubeNM.Location = new Point(993, 143);
+            MaxResultYoutubeNM.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             MaxResultYoutubeNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             MaxResultYoutubeNM.Name = "MaxResultYoutubeNM";
             MaxResultYoutubeNM.Size = new Size(79, 27);
             MaxResultYoutubeNM.TabIndex = 6;
-            MaxResultYoutubeNM.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            MaxResultYoutubeNM.TextAlign = HorizontalAlignment.Right;
+            MaxResultYoutubeNM.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
             // ImagenTag
             // 
@@ -636,6 +755,23 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
+            // 
+            // TipoComboBox
+            // 
+            TipoComboBox.FormattingEnabled = true;
+            TipoComboBox.Location = new Point(985, 103);
+            TipoComboBox.Name = "TipoComboBox";
+            TipoComboBox.Size = new Size(168, 28);
+            TipoComboBox.TabIndex = 37;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(937, 107);
+            label15.Name = "label15";
+            label15.Size = new Size(42, 20);
+            label15.TabIndex = 38;
+            label15.Text = "Tipo:";
             // 
             // MainForm
             // 
@@ -712,8 +848,6 @@
         private Button BuscarYoutubeBTN;
         private DateTimePicker InicioYoutbDTP;
         private ComboBox DuracionYoutubeVideoCBX;
-        private CheckBox AltaCalidadYouTBCKBOX;
-        private ComboBox FechaYouTubeVideoCB;
         private Label label6;
         private NumericUpDown MaxResultYoutubeNM;
         private Panel BotoneraYoutube;
@@ -724,5 +858,20 @@
         private FlowLayoutPanel ResultadosYouTubeFlowLayPanel;
         private NumericUpDown NumColumnasResultNM;
         private Label label7;
+        private Label label8;
+        private Label label9;
+        private ComboBox PaisComboBox;
+        private Label label10;
+        private ComboBox OrdenComboBox;
+        private Label label11;
+        private ComboBox SafeSearchComboBox;
+        private Label label12;
+        private ComboBox SubtitulosComboBox;
+        private Label label13;
+        private ComboBox DefinicionComboBox;
+        private Label label14;
+        private ComboBox CategoriaComboBox;
+        private ComboBox TipoComboBox;
+        private Label label15;
     }
 }

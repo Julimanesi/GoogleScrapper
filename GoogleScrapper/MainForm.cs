@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 using Google.Apis.YouTube.v3.Data;
 using static System.Windows.Forms.LinkLabel;
 using System.Linq;
+using Google.Apis.YouTube.v3;
+using System.Globalization;
+using static Google.Apis.YouTube.v3.SearchResource.ListRequest;
 
 namespace GoogleScrapper
 {
@@ -18,6 +21,7 @@ namespace GoogleScrapper
         private List<string> LinksVideosYoutube = new List<string>();
         private List<PanelYoutube> panelResultadoYoutubes = new List<PanelYoutube>();
         private bool TodosPanelesYoutubeSeleccionados = false;
+        private YoutubeApi? YoutubeApi;
 
         public MainForm()
         {
@@ -26,7 +30,29 @@ namespace GoogleScrapper
             FechaFinDTP.Value = DateTime.Now;
             FechaInicioDTP.MaxDate = DateTime.Now;
             FechaFinDTP.MaxDate = DateTime.Now;
+            InicioYoutbDTP.Value = DateTime.Now.AddYears(-50);
+            FinYoutbDTP.Value = DateTime.Now;
+            InicioYoutbDTP.MaxDate = DateTime.Now;
+            FinYoutbDTP.MaxDate = DateTime.Now;
             EjecucionProcesos.Inicializar();
+            DuracionYoutubeVideoCBX.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoDurationEnum));
+            var allregions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Where(x => !x.Equals(CultureInfo.InvariantCulture))
+            .Where(x => !x.IsNeutralCulture).Select(x => new RegionInfo(x.LCID)).DistinctBy(x => x.GeoId).OrderBy(x => x.EnglishName).ToList();
+            PaisComboBox.DataSource = allregions;
+            PaisComboBox.ValueMember = "Name";
+            PaisComboBox.DisplayMember = "EnglishName";
+            OrdenComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.OrderEnum));
+            SafeSearchComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.SafeSearchEnum));
+            SubtitulosComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoCaptionEnum));
+            DefinicionComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoDefinitionEnum));
+            TipoComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoTypeEnum));
+            var Categorias = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.VideoCategoryListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiCategVideoUs.json"));
+            var ListCategorias = Categorias.Items.Select(x => new { x.Id, x.Snippet.Title }).OrderBy(x => x.Title).ToList();
+            ListCategorias.Add(new { Id = "", Title = "Ninguna" });
+            CategoriaComboBox.DataSource = ListCategorias;
+            CategoriaComboBox.ValueMember = "Id";
+            CategoriaComboBox.DisplayMember = "Title";
+            CategoriaComboBox.SelectedIndex = ListCategorias.FindIndex(x => x.Id == "");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -34,7 +60,7 @@ namespace GoogleScrapper
             //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
         }
 
-        public void DescargarVideos(string listaVideos) 
+        public void DescargarVideos(string listaVideos)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
 
@@ -231,18 +257,24 @@ namespace GoogleScrapper
 
         #region Youtube Video Scrapper
 
-        private void BuscarYoutubeBTN_Click(object sender, EventArgs e)
+        private async void BuscarYoutubeBTN_Click(object sender, EventArgs e)
         {
-            ResultadosYouTubeFlowLayPanel.Controls.Clear();
-            int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
-            var searchListResponse = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
-            foreach (var searchResult in searchListResponse.Items)
+            YoutubeApi = new YoutubeApi(BuscarYoutubVideoTB.Text, (int)MaxResultYoutubeNM.Value, InicioYoutbDTP.Value, FinYoutbDTP.Value,PaisComboBox.SelectedValue.ToString(),(VideoDurationEnum) DuracionYoutubeVideoCBX.SelectedItem,(OrderEnum) OrdenComboBox.SelectedItem,(SafeSearchEnum) SafeSearchComboBox.SelectedItem, (VideoCaptionEnum)SubtitulosComboBox.SelectedItem, (VideoDefinitionEnum)DefinicionComboBox.SelectedItem, (VideoTypeEnum)TipoComboBox.SelectedItem,(string) CategoriaComboBox.SelectedValue);
+            await YoutubeApi.Run();
+            var searchListResponse = YoutubeApi.ListaRespuesta;//JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
+            if (searchListResponse != null && searchListResponse.Items.Any())
             {
-                PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
-                panelResultadoYoutubes.Add(panelResultado);
+                ResultadosYouTubeFlowLayPanel.Controls.Clear();
+                int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
+
+                foreach (var searchResult in searchListResponse.Items)
+                {
+                    PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                    panelResultadoYoutubes.Add(panelResultado);
+                }
+                ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
+                BotoneraYoutube.Visible = true;
             }
-            ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
-            BotoneraYoutube.Visible = true;
         }
         private void Ajustar_imagenes(object sender, EventArgs e)
         {
@@ -270,7 +302,7 @@ namespace GoogleScrapper
 
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
-            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j=>j.seleccionado).Select(x=>x.Link)));
+            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)));
         }
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
