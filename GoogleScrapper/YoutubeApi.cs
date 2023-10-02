@@ -21,11 +21,15 @@ namespace GoogleScrapper
         public SearchResource.ListRequest.SafeSearchEnum safeSearch { get; set; }
         public SearchResource.ListRequest.VideoCaptionEnum subtitulos { get; set; }
         public SearchResource.ListRequest.VideoDefinitionEnum definicion { get; set; }
-        public SearchResource.ListRequest.VideoTypeEnum tipo { get; set; }
-        public string categoria { get; set; } = string.Empty;
-        public SearchListResponse? ListaRespuesta { get; set; } 
+        public SearchResource.ListRequest.VideoTypeEnum tipoVideo { get; set; }
+        public string CategoriaVideo { get; set; } = string.Empty;
+        public string TipoBusqueda { get; set; } = string.Empty;
+        public SearchListResponse? ListaRespuesta { get; set; }
+        public SearchResource.ListRequest.ChannelTypeEnum TipoCanal { get; set; }
+        public string Idioma { get; set; } = string.Empty;
+        public string Pais { get; set; } = string.Empty;
 
-        public YoutubeApi(string busqueda,int maxResults, DateTime fechaInicio, DateTime fechaFin, string regionCode, SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion, SearchResource.ListRequest.VideoTypeEnum tipo, string categoria)
+        public YoutubeApi(string busqueda,int maxResults, DateTime fechaInicio, DateTime fechaFin, string regionCode, SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion, SearchResource.ListRequest.VideoTypeEnum tipoVideo, string categoriaVideo,string tipoBusqueda, SearchResource.ListRequest.ChannelTypeEnum tipocanal, string idioma,string pais)
         {
             this.Busqueda = busqueda;
             this.maxResults = maxResults;
@@ -37,8 +41,12 @@ namespace GoogleScrapper
             this.safeSearch = safeSearch;
             this.subtitulos = subtitulos;
             this.definicion = definicion;
-            this.categoria = categoria;
-            this.tipo = tipo;
+            this.CategoriaVideo = categoriaVideo;
+            this.tipoVideo = tipoVideo;
+            this.TipoBusqueda = tipoBusqueda;
+            TipoCanal = tipocanal;
+            Idioma = idioma;
+            Pais = pais;
         }
 
         //private async Task Run(int maxResults ,DateTime fechaInicio ,DateTime fechaFin ,string regionCode,SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion,string categoria)
@@ -54,19 +62,27 @@ namespace GoogleScrapper
 
                 var searchListRequest = youtubeService.Search.List("snippet");
                 searchListRequest.Q = Busqueda; // Replace with your search term.
-                searchListRequest.Type = "video";
+                searchListRequest.Type = TipoBusqueda;
                 searchListRequest.MaxResults = this.maxResults;
                 searchListRequest.PublishedAfter = this.fechaInicio.ToString("yyyy-MM-ddTHH:mm:ssZ");
                 searchListRequest.PublishedBefore = this.fechaFin.ToString("yyyy-MM-ddTHH:mm:ssZ");
                 searchListRequest.RegionCode = this.regionCode;
-                searchListRequest.VideoDuration = this.videoDuration;
-                searchListRequest.Order = this.orden;
+                searchListRequest.RegionCode = Pais;
+                if (Idioma != "" && Idioma != "iv")
+                    searchListRequest.RelevanceLanguage = Idioma;
                 searchListRequest.SafeSearch = this.safeSearch;
-                searchListRequest.VideoCaption = this.subtitulos;
-                searchListRequest.VideoDefinition = this.definicion;
-                if(this.categoria != null && this.categoria!= "")
-                    searchListRequest.VideoCategoryId = this.categoria;
-                searchListRequest.VideoType = this.tipo;
+                searchListRequest.Order = this.orden;
+                if (TipoBusqueda == "video")
+                {
+                    searchListRequest.VideoDuration = this.videoDuration;
+                    searchListRequest.VideoCaption = this.subtitulos;
+                    searchListRequest.VideoDefinition = this.definicion;
+                    if (this.CategoriaVideo != null && this.CategoriaVideo != "")
+                        searchListRequest.VideoCategoryId = this.CategoriaVideo;
+                    searchListRequest.VideoType = this.tipoVideo;
+                }
+                if (TipoBusqueda == "channel")
+                    searchListRequest.ChannelType = TipoCanal;
                 // Call the search.list method to retrieve results matching the specified query term.
                 ListaRespuesta = await searchListRequest.ExecuteAsync();
             }

@@ -41,18 +41,32 @@ namespace GoogleScrapper
             PaisComboBox.DataSource = allregions;
             PaisComboBox.ValueMember = "Name";
             PaisComboBox.DisplayMember = "EnglishName";
+            PaisComboBox.SelectedIndex = allregions.FindIndex(x => x.Name == "US");
             OrdenComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.OrderEnum));
             SafeSearchComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.SafeSearchEnum));
             SubtitulosComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoCaptionEnum));
             DefinicionComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoDefinitionEnum));
-            TipoComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoTypeEnum));
+            TipoVideoComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.VideoTypeEnum));
+            TipoCanalComboBox.DataSource = Enum.GetValues(typeof(SearchResource.ListRequest.ChannelTypeEnum));
             var Categorias = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.VideoCategoryListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiCategVideoUs.json"));
             var ListCategorias = Categorias.Items.Select(x => new { x.Id, x.Snippet.Title }).OrderBy(x => x.Title).ToList();
             ListCategorias.Add(new { Id = "", Title = "Ninguna" });
-            CategoriaComboBox.DataSource = ListCategorias;
-            CategoriaComboBox.ValueMember = "Id";
-            CategoriaComboBox.DisplayMember = "Title";
-            CategoriaComboBox.SelectedIndex = ListCategorias.FindIndex(x => x.Id == "");
+            VideoCategoriaComboBox.DataSource = ListCategorias;
+            VideoCategoriaComboBox.ValueMember = "Id";
+            VideoCategoriaComboBox.DisplayMember = "Title";
+            VideoCategoriaComboBox.SelectedIndex = ListCategorias.FindIndex(x => x.Id == "");
+            var ListaTipoBusqueda = new[] {
+                new { Nombre = "Video", Valor = "video" },
+                new { Nombre = "Lista de Reproduccion", Valor = "playlist" },
+                new { Nombre = "Canal", Valor = "channel" }
+            };
+            TipoBusquedaComboBox.DataSource = ListaTipoBusqueda;
+            TipoBusquedaComboBox.ValueMember = "Valor";
+            TipoBusquedaComboBox.DisplayMember = "Nombre";
+            var alllanguages = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+            IdiomaComboBox.DataSource = alllanguages;
+            IdiomaComboBox.DisplayMember = "DisplayName";
+            IdiomaComboBox.ValueMember = "TwoLetterISOLanguageName";
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -259,9 +273,10 @@ namespace GoogleScrapper
 
         private async void BuscarYoutubeBTN_Click(object sender, EventArgs e)
         {
-            YoutubeApi = new YoutubeApi(BuscarYoutubVideoTB.Text, (int)MaxResultYoutubeNM.Value, InicioYoutbDTP.Value, FinYoutbDTP.Value,PaisComboBox.SelectedValue.ToString(),(VideoDurationEnum) DuracionYoutubeVideoCBX.SelectedItem,(OrderEnum) OrdenComboBox.SelectedItem,(SafeSearchEnum) SafeSearchComboBox.SelectedItem, (VideoCaptionEnum)SubtitulosComboBox.SelectedItem, (VideoDefinitionEnum)DefinicionComboBox.SelectedItem, (VideoTypeEnum)TipoComboBox.SelectedItem,(string) CategoriaComboBox.SelectedValue);
-            await YoutubeApi.Run();
-            var searchListResponse = YoutubeApi.ListaRespuesta;//JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
+            YoutubeApi = new YoutubeApi(BuscarYoutubVideoTB.Text, (int)MaxResultYoutubeNM.Value, InicioYoutbDTP.Value, FinYoutbDTP.Value, PaisComboBox.SelectedValue.ToString(), (VideoDurationEnum)DuracionYoutubeVideoCBX.SelectedItem, (OrderEnum)OrdenComboBox.SelectedItem, (SafeSearchEnum)SafeSearchComboBox.SelectedItem, (VideoCaptionEnum)SubtitulosComboBox.SelectedItem, (VideoDefinitionEnum)DefinicionComboBox.SelectedItem, (VideoTypeEnum)TipoVideoComboBox.SelectedItem, (string)VideoCategoriaComboBox.SelectedValue, (string)TipoBusquedaComboBox.SelectedValue, (ChannelTypeEnum)TipoCanalComboBox.SelectedItem, (string)IdiomaComboBox.SelectedValue, (string)PaisComboBox.SelectedValue);
+            //await YoutubeApi.Run();
+            //var searchListResponse = YoutubeApi.ListaRespuesta;
+            var searchListResponse = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
@@ -274,6 +289,7 @@ namespace GoogleScrapper
                 }
                 ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
                 BotoneraYoutube.Visible = true;
+                ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
             }
         }
         private void Ajustar_imagenes(object sender, EventArgs e)
@@ -322,5 +338,25 @@ namespace GoogleScrapper
             }
             TodosPanelesYoutubeSeleccionados = !TodosPanelesYoutubeSeleccionados;
         }
+
+        private void TipoBusquedaComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (TipoBusquedaComboBox.SelectedIndex)
+            {
+                case 0:
+                    FiltroVideoYTPanel.Visible = true;
+                    TipoCanalComboBox.Visible = false;
+                    break;
+                case 2:
+                    FiltroVideoYTPanel.Visible = false;
+                    TipoCanalComboBox.Visible = true;
+                    break;
+                case 1:
+                    FiltroVideoYTPanel.Visible = false;
+                    TipoCanalComboBox.Visible = false;
+                    break;
+            }
+        }
+
     }
 }
