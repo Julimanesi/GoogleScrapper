@@ -25,9 +25,14 @@ namespace GoogleScrapper
         public string CategoriaVideo { get; set; } = string.Empty;
         public string TipoBusqueda { get; set; } = string.Empty;
         public SearchListResponse? ListaRespuesta { get; set; }
+        public PlaylistItemListResponse? ItemsListaReprodRespuesta { get; set; }
         public SearchResource.ListRequest.ChannelTypeEnum TipoCanal { get; set; }
         public string Idioma { get; set; } = string.Empty;
         public string Pais { get; set; } = string.Empty;
+
+        public YoutubeApi()
+        {
+        }
 
         public YoutubeApi(string busqueda,int maxResults, DateTime fechaInicio, DateTime fechaFin, string regionCode, SearchResource.ListRequest.VideoDurationEnum videoDuration, SearchResource.ListRequest.OrderEnum orden, SearchResource.ListRequest.SafeSearchEnum safeSearch, SearchResource.ListRequest.VideoCaptionEnum subtitulos, SearchResource.ListRequest.VideoDefinitionEnum definicion, SearchResource.ListRequest.VideoTypeEnum tipoVideo, string categoriaVideo,string tipoBusqueda, SearchResource.ListRequest.ChannelTypeEnum tipocanal, string idioma,string pais)
         {
@@ -89,6 +94,26 @@ namespace GoogleScrapper
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al buscar videos en Youtube(API)");
+            }
+        }
+
+        public async Task GetPlaylistItems(string playListId)
+        {
+            try
+            {
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = KeyAndPasswords.YoutubeApiKey,
+                    ApplicationName = this.GetType().ToString()
+                });
+                var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet");
+                playlistItemsListRequest.PlaylistId = playListId;
+                playlistItemsListRequest.MaxResults = 50;
+                ItemsListaReprodRespuesta = await playlistItemsListRequest.ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al buscar videos de la lista de reproducción en Youtube(API)");
             }
         }
     }

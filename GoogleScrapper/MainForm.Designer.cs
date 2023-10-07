@@ -66,6 +66,8 @@
             ResultadosTotalesYouTbLabel = new Label();
             AgregarEnviarSMplayerYoutbBTN = new Button();
             panel2 = new Panel();
+            ObtenerVideosCanalBTN = new Button();
+            ObtenerVideosListaReprBTN = new Button();
             FiltroVideoYTPanel = new Panel();
             label18 = new Label();
             IdCanalTBX = new TextBox();
@@ -105,8 +107,6 @@
             label16 = new Label();
             ImagenTag = new TabPage();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            button1 = new Button();
-            button2 = new Button();
             tabControl1.SuspendLayout();
             VideoTag.SuspendLayout();
             panelResultado.SuspendLayout();
@@ -495,8 +495,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(button2);
-            panel2.Controls.Add(button1);
+            panel2.Controls.Add(ObtenerVideosListaReprBTN);
             panel2.Controls.Add(FiltroVideoYTPanel);
             panel2.Controls.Add(label19);
             panel2.Controls.Add(IdiomaComboBox);
@@ -525,6 +524,27 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1171, 326);
             panel2.TabIndex = 22;
+            // 
+            // ObtenerVideosCanalBTN
+            // 
+            ObtenerVideosCanalBTN.Location = new Point(444, 13);
+            ObtenerVideosCanalBTN.Name = "ObtenerVideosCanalBTN";
+            ObtenerVideosCanalBTN.Size = new Size(207, 29);
+            ObtenerVideosCanalBTN.TabIndex = 50;
+            ObtenerVideosCanalBTN.Text = "Obtener videos de Canal";
+            ObtenerVideosCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosCanalBTN.Click += ObtenerVideosCanalBTN_Click;
+            // 
+            // ObtenerVideosListaReprBTN
+            // 
+            ObtenerVideosListaReprBTN.Location = new Point(382, 284);
+            ObtenerVideosListaReprBTN.Name = "ObtenerVideosListaReprBTN";
+            ObtenerVideosListaReprBTN.Size = new Size(297, 29);
+            ObtenerVideosListaReprBTN.TabIndex = 49;
+            ObtenerVideosListaReprBTN.Text = "Obtener videos de lista de Reproduccion";
+            ObtenerVideosListaReprBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosListaReprBTN.Visible = false;
+            ObtenerVideosListaReprBTN.Click += ObtenerVideosListaReprBTN_Click;
             // 
             // FiltroVideoYTPanel
             // 
@@ -567,7 +587,7 @@
             TipoVideoComboBox.FormattingEnabled = true;
             TipoVideoComboBox.Location = new Point(115, 9);
             TipoVideoComboBox.Name = "TipoVideoComboBox";
-            TipoVideoComboBox.Size = new Size(188, 28);
+            TipoVideoComboBox.Size = new Size(216, 28);
             TipoVideoComboBox.TabIndex = 37;
             // 
             // DuracionYoutubeVideoCBX
@@ -594,7 +614,7 @@
             SubtitulosComboBox.FormattingEnabled = true;
             SubtitulosComboBox.Location = new Point(573, 43);
             SubtitulosComboBox.Name = "SubtitulosComboBox";
-            SubtitulosComboBox.Size = new Size(168, 28);
+            SubtitulosComboBox.Size = new Size(191, 28);
             SubtitulosComboBox.TabIndex = 30;
             // 
             // label12
@@ -611,7 +631,7 @@
             DefinicionComboBox.FormattingEnabled = true;
             DefinicionComboBox.Location = new Point(457, 9);
             DefinicionComboBox.Name = "DefinicionComboBox";
-            DefinicionComboBox.Size = new Size(168, 28);
+            DefinicionComboBox.Size = new Size(211, 28);
             DefinicionComboBox.TabIndex = 32;
             // 
             // label13
@@ -838,6 +858,7 @@
             // FiltroCanalYT
             // 
             FiltroCanalYT.Anchor = AnchorStyles.None;
+            FiltroCanalYT.Controls.Add(ObtenerVideosCanalBTN);
             FiltroCanalYT.Controls.Add(TipoCanalComboBox);
             FiltroCanalYT.Controls.Add(label16);
             FiltroCanalYT.Location = new Point(1, 222);
@@ -879,24 +900,6 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(382, 284);
-            button1.Name = "button1";
-            button1.Size = new Size(297, 29);
-            button1.TabIndex = 49;
-            button1.Text = "Obtener videos de lista de Reproduccion";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(774, 284);
-            button2.Name = "button2";
-            button2.Size = new Size(207, 29);
-            button2.TabIndex = 50;
-            button2.Text = "Obtener videos de Canal";
-            button2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1012,7 +1015,7 @@
         private Panel FiltroCanalYT;
         private Panel FiltroVideoYTPanel;
         private Label label16;
-        private Button button2;
-        private Button button1;
+        private Button ObtenerVideosCanalBTN;
+        private Button ObtenerVideosListaReprBTN;
     }
 }

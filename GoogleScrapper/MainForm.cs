@@ -22,6 +22,7 @@ namespace GoogleScrapper
         private List<PanelYoutube> panelResultadoYoutubes = new List<PanelYoutube>();
         private bool TodosPanelesYoutubeSeleccionados = false;
         private YoutubeApi? YoutubeApi;
+        private string PlaylistId { get; set; } = "";
 
         public MainForm()
         {
@@ -346,17 +347,32 @@ namespace GoogleScrapper
                 case 0:
                     FiltroVideoYTPanel.Visible = true;
                     TipoCanalComboBox.Visible = false;
+                    ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 2:
                     FiltroVideoYTPanel.Visible = false;
                     TipoCanalComboBox.Visible = true;
+                    ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 1:
                     FiltroVideoYTPanel.Visible = false;
                     TipoCanalComboBox.Visible = false;
+                    ObtenerVideosListaReprBTN.Visible = true;
                     break;
             }
         }
 
+        private async void ObtenerVideosListaReprBTN_Click(object sender, EventArgs e)
+        {
+            if(YoutubeApi != null)
+            {
+                 await YoutubeApi.GetPlaylistItems(PlaylistId);
+            }
+        }
+
+        private void ObtenerVideosCanalBTN_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

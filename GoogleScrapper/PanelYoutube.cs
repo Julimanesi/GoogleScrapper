@@ -19,6 +19,8 @@ namespace GoogleScrapper
         private PictureBox ImagenVideoPicBx = new PictureBox();
         public bool seleccionado { get; set; } = false;
         private string BaseUrlYouTube { get; } = "https://www.youtube.com/watch?v=";
+        private string BaseUrlYouTubeChannel { get; } = "https://www.youtube.com/channel/";
+        private string BaseUrlYouTubePlaylist { get; } = "https://www.youtube.com/playlist?list=";
         public string Link { get; set; } = "";
         public PanelYoutube(int ancho, int altoimagen, Google.Apis.YouTube.v3.Data.SearchResult resultado)
         {
@@ -61,7 +63,21 @@ namespace GoogleScrapper
             this.Controls.Add(OtrosDatosVideoLB);
             this.Controls.Add(ImagenVideoPicBx);
             this.Controls.Add(TituloVideoLB);
-            Link = BaseUrlYouTube + resultado.Id.VideoId;
+            //youtube#
+            string tipo = resultado.Id.Kind.Substring(resultado.Id.Kind.IndexOf("youtube#"));
+            switch (tipo)
+            {
+                case "video":
+                    Link = BaseUrlYouTube + resultado.Id.VideoId;
+                    break;
+                case "channel":
+                    Link = BaseUrlYouTubeChannel + resultado.Id.ChannelId;
+                    break;
+                case "playlist":
+                    Link = BaseUrlYouTubePlaylist + resultado.Id.PlaylistId;
+                    break;
+            }
+            
         }
 
         public void VolverARenderizar(int ancho, int altoimagen)
