@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
+using Google.Apis.YouTube.v3.Data;
+using Microsoft.VisualBasic.Devices;
 
 namespace GoogleScrapper
 {
@@ -48,7 +50,7 @@ namespace GoogleScrapper
 
         private void DescargaVideoForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BWDescargaVideo_Dowork(object sender, DoWorkEventArgs e)
@@ -59,7 +61,7 @@ namespace GoogleScrapper
                 //VideoScrapper videoScrapper = (VideoScrapper)e.Argument;
                 Regex rgx = new Regex(@"\[download\]\s+(?<porcentaje>\d+)", RegexOptions.IgnoreCase);
                 int progreso = 0;
-            
+
                 using (Process ytdl = new Process())
                 {
                     ytdl.StartInfo.FileName = "yt-dlp.exe";
@@ -79,10 +81,10 @@ namespace GoogleScrapper
                     while (!ytdl.StandardOutput.EndOfStream)
                     {
                         string? linea = ytdl.StandardOutput.ReadLine();
-                        if(linea != null) 
+                        if (linea != null)
                         {
                             MatchCollection matches = rgx.Matches(linea);
-                            if(matches.Count > 0)
+                            if (matches.Count > 0)
                             {
                                 progreso = int.Parse(matches[0].Groups["porcentaje"].Value);
                             }
@@ -123,23 +125,25 @@ namespace GoogleScrapper
                 if (e.Result != null)
                 {
                     var procesoOutput = (string)e.Result;
+                    string algo = SoloAudioCKBX.Checked ? "Audio" : "Video";
                     if (procesoOutput != null)
                     {
-                        if (procesoOutput.Contains("ERROR",StringComparison.InvariantCultureIgnoreCase))
+                        if (procesoOutput.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            Estadolabel.Text = "Estado: Error al Descargar:" + procesoOutput.Substring(procesoOutput.IndexOf("Error",StringComparison.InvariantCultureIgnoreCase));
+                            Estadolabel.Text = "Estado: Error al Descargar:" + procesoOutput.Substring(procesoOutput.IndexOf("Error", StringComparison.InvariantCultureIgnoreCase));
                         }
                         else
                         {
-                            Estadolabel.Text = "Estado: Video Descargado!";
+                            Estadolabel.Text = $"Estado: {algo} Descargado!";
                         }
                     }
                     else
                     {
-                        Estadolabel.Text = "Estado: Video Descargado!";
+                        Estadolabel.Text = $"Estado: {algo} Descargado!";
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al Descargar la Lista de Reproducion");
             }
@@ -150,7 +154,7 @@ namespace GoogleScrapper
             }
         }
 
-        private void ObtenerDestinoVideo(string salida) 
+        private void ObtenerDestinoVideo(string salida)
         {
             string pattern = @"\[download\]\s+Destination:\s+(?<destino>.*)";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -162,12 +166,12 @@ namespace GoogleScrapper
         }
         private void ObtenerEstadoDescarga(string salida)
         {
-            string pattern = @"\[(?<estado>\w+)\]";
+            string pattern = @"\[(?<estado>\w+)\](?<descripcion>.*)";
             Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
             MatchCollection matches = rgx.Matches(salida);
             if (matches.Count > 0)
             {
-                Estadolabel.Text = "Estado: " + parsearEstado(matches[0].Groups["estado"].Value);
+                Estadolabel.Text = "Estado: " + parsearEstado(matches[0].Groups["estado"].Value, matches[0].Groups["descripcion"].Value);
             }
         }
 
@@ -185,7 +189,7 @@ namespace GoogleScrapper
                     string velocDesc = matches[0].Groups["veloc"].Value;
                     string tiempofalt = matches[0].Groups["tiempofalt"].Value;
 
-                    DetalleDescargaLabel.Text = $"Detalle Descarga: Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}. Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
+                    DetalleDescargaLabel.Text = $"Detalle Descarga:\n            Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}.\n           Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
                     List<string> salidaLineas = SalidaRTextBox.Lines.ToList();
                     int indexremover = salidaLineas.Count - 2;
                     if (indexremover > 2)
@@ -195,15 +199,16 @@ namespace GoogleScrapper
                     }
                 }
                 SalidaRTextBox.Text += salida + "\n";
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al Descargar la Lista de Reproducion");
             }
         }
 
-        private string parsearEstado(string estado)
+        private string parsearEstado(string estado, string Descripcion = "")
         {
-            switch(estado)
+            switch (estado)
             {
                 case "download":
                     estado = "Descargando";
@@ -213,10 +218,11 @@ namespace GoogleScrapper
                     break;
                 case "Metadata":
                     estado = "Agregando metadatos";
-                    if(!Estadolabel.Text.Contains("metadatos"))
+                    if (!Estadolabel.Text.Contains("metadatos"))
                         CantActualDesc++;
                     break;
                 default:
+                    estado = Descripcion;
                     break;
             }
             return estado;
@@ -224,7 +230,7 @@ namespace GoogleScrapper
 
         private void MostrarDetallesBTN_Click(object sender, EventArgs e)
         {
-            
+
             SalidaRTextBox.Visible = !MostrandoDetalles;
             if (SalidaRTextBox.Visible)
             {

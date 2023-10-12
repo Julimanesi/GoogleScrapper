@@ -75,16 +75,30 @@ namespace GoogleScrapper
             //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
         }
 
-        public void DescargarVideos(string listaVideos)
+        public void DescargarVideos(string listaVideos,int cant, char tipo)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
 
             if (folderDialog.ShowDialog() == DialogResult.OK)
             {
-                DescargVideosBTN.Enabled = false;
-                DescargVideosBTN.Text = "Descargando Videos...";
+                switch (tipo)
+                {
+                    case 'G':
+                        DescargVideosBTN.Enabled = false;
+                        DescargVideosBTN.Text = "Descargando Videos...";
+                        break;
+                    case 'Y':
+                        DescargVideosYouTbBTN.Enabled = false;
+                        DescargVideosYouTbBTN.Text = "Descargando Videos...";
+                        break;
+                    case 'D':
+                        DescargaDirecVideosBTN.Enabled = false;
+                        DescargaDirecVideosBTN.Text = "Descargando Videos...";
+                        break;
+                }
+               
                 //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
+                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath);
                 descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
                 descargaVideoForm.Activate();
                 descargaVideoForm.Show();
@@ -172,13 +186,17 @@ namespace GoogleScrapper
 
         private void DescargVideosBTN_Click(object sender, EventArgs e)
         {
-            DescargarVideos(GetLinVideosInALine());
+            DescargarVideos(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, 'G');
         }
 
         private void DescargaVideoForm_Closed(object? sender, System.EventArgs e)
         {
             DescargVideosBTN.Enabled = true;
             DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            DescargVideosYouTbBTN.Enabled = true;
+            DescargVideosYouTbBTN.Text = "Descargar Videos Seleccionados";
+            DescargaDirecVideosBTN.Enabled = true;
+            DescargaDirecVideosBTN.Text = "Descargar Videos/musica";
             if (sender != null)
             {
                 DescargaVideoForm descargaVideoForm = (DescargaVideoForm)sender;
@@ -310,7 +328,7 @@ namespace GoogleScrapper
             }
         }
 
-        #endregion
+        
 
         private void AgregarEnviarSMplayerYoutbBTN_Click(object sender, EventArgs e)
         {
@@ -319,7 +337,7 @@ namespace GoogleScrapper
 
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
-            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)));
+            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)), panelResultadoYoutubes.Count, 'Y');
         }
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
@@ -364,15 +382,21 @@ namespace GoogleScrapper
 
         private async void ObtenerVideosListaReprBTN_Click(object sender, EventArgs e)
         {
-            if(YoutubeApi != null)
+            if (YoutubeApi != null)
             {
-                 await YoutubeApi.GetPlaylistItems(PlaylistId);
+                await YoutubeApi.GetPlaylistItems(PlaylistId);
             }
         }
 
         private void ObtenerVideosCanalBTN_Click(object sender, EventArgs e)
         {
 
+        }
+        #endregion
+
+        private void DescargaDirecVideosBTN_Click(object sender, EventArgs e)
+        {
+            DescargarVideos(string.Join(" ", URLsDDVideosRTB.Lines), URLsDDVideosRTB.Lines.Count(), 'D');
         }
     }
 }

@@ -66,7 +66,6 @@
             ResultadosTotalesYouTbLabel = new Label();
             AgregarEnviarSMplayerYoutbBTN = new Button();
             panel2 = new Panel();
-            ObtenerVideosCanalBTN = new Button();
             ObtenerVideosListaReprBTN = new Button();
             FiltroVideoYTPanel = new Panel();
             label18 = new Label();
@@ -103,10 +102,15 @@
             label6 = new Label();
             MaxResultYoutubeNM = new NumericUpDown();
             FiltroCanalYT = new Panel();
+            ObtenerVideosCanalBTN = new Button();
             TipoCanalComboBox = new ComboBox();
             label16 = new Label();
             ImagenTag = new TabPage();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            Descargatag = new TabPage();
+            URLsDDVideosRTB = new RichTextBox();
+            DescargaDirecVideosBTN = new Button();
+            label20 = new Label();
             tabControl1.SuspendLayout();
             VideoTag.SuspendLayout();
             panelResultado.SuspendLayout();
@@ -121,6 +125,7 @@
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).BeginInit();
             FiltroCanalYT.SuspendLayout();
+            Descargatag.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -128,6 +133,7 @@
             tabControl1.Controls.Add(VideoTag);
             tabControl1.Controls.Add(YoutubeTag);
             tabControl1.Controls.Add(ImagenTag);
+            tabControl1.Controls.Add(Descargatag);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -525,16 +531,6 @@
             panel2.Size = new Size(1171, 326);
             panel2.TabIndex = 22;
             // 
-            // ObtenerVideosCanalBTN
-            // 
-            ObtenerVideosCanalBTN.Location = new Point(444, 13);
-            ObtenerVideosCanalBTN.Name = "ObtenerVideosCanalBTN";
-            ObtenerVideosCanalBTN.Size = new Size(207, 29);
-            ObtenerVideosCanalBTN.TabIndex = 50;
-            ObtenerVideosCanalBTN.Text = "Obtener videos de Canal";
-            ObtenerVideosCanalBTN.UseVisualStyleBackColor = true;
-            ObtenerVideosCanalBTN.Click += ObtenerVideosCanalBTN_Click;
-            // 
             // ObtenerVideosListaReprBTN
             // 
             ObtenerVideosListaReprBTN.Location = new Point(382, 284);
@@ -866,6 +862,16 @@
             FiltroCanalYT.Size = new Size(1168, 56);
             FiltroCanalYT.TabIndex = 48;
             // 
+            // ObtenerVideosCanalBTN
+            // 
+            ObtenerVideosCanalBTN.Location = new Point(444, 13);
+            ObtenerVideosCanalBTN.Name = "ObtenerVideosCanalBTN";
+            ObtenerVideosCanalBTN.Size = new Size(207, 29);
+            ObtenerVideosCanalBTN.TabIndex = 50;
+            ObtenerVideosCanalBTN.Text = "Obtener videos de Canal";
+            ObtenerVideosCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosCanalBTN.Click += ObtenerVideosCanalBTN_Click;
+            // 
             // TipoCanalComboBox
             // 
             TipoCanalComboBox.Anchor = AnchorStyles.None;
@@ -901,6 +907,45 @@
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
             // 
+            // Descargatag
+            // 
+            Descargatag.Controls.Add(label20);
+            Descargatag.Controls.Add(DescargaDirecVideosBTN);
+            Descargatag.Controls.Add(URLsDDVideosRTB);
+            Descargatag.Location = new Point(4, 29);
+            Descargatag.Name = "Descargatag";
+            Descargatag.Size = new Size(1171, 629);
+            Descargatag.TabIndex = 3;
+            Descargatag.Text = "Descarga Directa";
+            Descargatag.UseVisualStyleBackColor = true;
+            // 
+            // URLsDDVideosRTB
+            // 
+            URLsDDVideosRTB.Location = new Point(9, 59);
+            URLsDDVideosRTB.Name = "URLsDDVideosRTB";
+            URLsDDVideosRTB.Size = new Size(902, 169);
+            URLsDDVideosRTB.TabIndex = 0;
+            URLsDDVideosRTB.Text = "";
+            // 
+            // DescargaDirecVideosBTN
+            // 
+            DescargaDirecVideosBTN.Location = new Point(9, 250);
+            DescargaDirecVideosBTN.Name = "DescargaDirecVideosBTN";
+            DescargaDirecVideosBTN.Size = new Size(205, 29);
+            DescargaDirecVideosBTN.TabIndex = 1;
+            DescargaDirecVideosBTN.Text = "Descargar Videos/musica";
+            DescargaDirecVideosBTN.UseVisualStyleBackColor = true;
+            DescargaDirecVideosBTN.Click += DescargaDirecVideosBTN_Click;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(9, 22);
+            label20.Name = "label20";
+            label20.Size = new Size(114, 20);
+            label20.TabIndex = 2;
+            label20.Text = "URLs de Videos:";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -934,6 +979,8 @@
             ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).EndInit();
             FiltroCanalYT.ResumeLayout(false);
             FiltroCanalYT.PerformLayout();
+            Descargatag.ResumeLayout(false);
+            Descargatag.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1017,5 +1064,9 @@
         private Label label16;
         private Button ObtenerVideosCanalBTN;
         private Button ObtenerVideosListaReprBTN;
+        private TabPage Descargatag;
+        private Label label20;
+        private Button DescargaDirecVideosBTN;
+        private RichTextBox URLsDDVideosRTB;
     }
 }
