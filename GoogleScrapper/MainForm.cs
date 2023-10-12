@@ -364,17 +364,17 @@ namespace GoogleScrapper
             {
                 case 0:
                     FiltroVideoYTPanel.Visible = true;
-                    TipoCanalComboBox.Visible = false;
+                    FiltroCanalYT.Visible = false;
                     ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 2:
                     FiltroVideoYTPanel.Visible = false;
-                    TipoCanalComboBox.Visible = true;
+                    FiltroCanalYT.Visible = true;
                     ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 1:
                     FiltroVideoYTPanel.Visible = false;
-                    TipoCanalComboBox.Visible = false;
+                    FiltroCanalYT.Visible = false;
                     ObtenerVideosListaReprBTN.Visible = true;
                     break;
             }
