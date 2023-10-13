@@ -10,6 +10,7 @@ using System.Linq;
 using Google.Apis.YouTube.v3;
 using System.Globalization;
 using static Google.Apis.YouTube.v3.SearchResource.ListRequest;
+using System.Windows.Forms;
 
 namespace GoogleScrapper
 {
@@ -23,7 +24,10 @@ namespace GoogleScrapper
         private bool TodosPanelesYoutubeSeleccionados = false;
         private YoutubeApi? YoutubeApi;
         private string PlaylistId { get; set; } = "";
-
+        private string ResultadoBusqueda { get; set; } = "";
+        private string ResultadoListaVideos { get; set; } = "";
+        private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
+        
         public MainForm()
         {
             InitializeComponent();
@@ -75,7 +79,7 @@ namespace GoogleScrapper
             //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
         }
 
-        public void DescargarVideos(string listaVideos,int cant, char tipo)
+        public void DescargarVideos(string listaVideos, int cant, char tipo)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
 
@@ -96,7 +100,7 @@ namespace GoogleScrapper
                         DescargaDirecVideosBTN.Text = "Descargando Videos...";
                         break;
                 }
-               
+
                 //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
                 DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath);
                 descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
@@ -292,10 +296,23 @@ namespace GoogleScrapper
 
         private async void BuscarYoutubeBTN_Click(object sender, EventArgs e)
         {
-            YoutubeApi = new YoutubeApi(BuscarYoutubVideoTB.Text, (int)MaxResultYoutubeNM.Value, InicioYoutbDTP.Value, FinYoutbDTP.Value, PaisComboBox.SelectedValue.ToString(), (VideoDurationEnum)DuracionYoutubeVideoCBX.SelectedItem, (OrderEnum)OrdenComboBox.SelectedItem, (SafeSearchEnum)SafeSearchComboBox.SelectedItem, (VideoCaptionEnum)SubtitulosComboBox.SelectedItem, (VideoDefinitionEnum)DefinicionComboBox.SelectedItem, (VideoTypeEnum)TipoVideoComboBox.SelectedItem, (string)VideoCategoriaComboBox.SelectedValue, (string)TipoBusquedaComboBox.SelectedValue, (ChannelTypeEnum)TipoCanalComboBox.SelectedItem, (string)IdiomaComboBox.SelectedValue, (string)PaisComboBox.SelectedValue);
-            //await YoutubeApi.Run();
-            //var searchListResponse = YoutubeApi.ListaRespuesta;
-            var searchListResponse = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
+            try
+            {
+                YoutubeApi = new YoutubeApi(BuscarYoutubVideoTB.Text, (int)MaxResultYoutubeNM.Value, InicioYoutbDTP.Value, FinYoutbDTP.Value, PaisComboBox.SelectedValue.ToString(), (VideoDurationEnum)DuracionYoutubeVideoCBX.SelectedItem, (OrderEnum)OrdenComboBox.SelectedItem, (SafeSearchEnum)SafeSearchComboBox.SelectedItem, (VideoCaptionEnum)SubtitulosComboBox.SelectedItem, (VideoDefinitionEnum)DefinicionComboBox.SelectedItem, (VideoTypeEnum)TipoVideoComboBox.SelectedItem, (string)VideoCategoriaComboBox.SelectedValue, (string)TipoBusquedaComboBox.SelectedValue, (ChannelTypeEnum)TipoCanalComboBox.SelectedItem, (string)IdiomaComboBox.SelectedValue, (string)PaisComboBox.SelectedValue);
+                await YoutubeApi.Run();
+                //var searchListResponse = YoutubeApi.ListaRespuesta;
+                //var searchListResponse = JsonConvert.DeserializeObject<Google.Apis.YouTube.v3.Data.SearchListResponse>(File.ReadAllText(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\youtubeApiTest.json"));
+                //CargarResultados(searchListResponse);
+                CargarResultados(YoutubeApi.ListaRespuesta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al hacer la Busqueda");
+            }
+        }
+
+        public void CargarResultados(SearchListResponse? searchListResponse)
+        {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
@@ -309,16 +326,40 @@ namespace GoogleScrapper
                 ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
                 BotoneraYoutube.Visible = true;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
+
+                ResultadoBusqueda = JsonConvert.SerializeObject(searchListResponse);
             }
         }
+        public void CargarResultados(PlaylistItemListResponse? searchListResponse)
+        {
+            if (searchListResponse != null && searchListResponse.Items.Any())
+            {
+                ResultadosYouTubeFlowLayPanel.Controls.Clear();
+                int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
+
+                foreach (var searchResult in searchListResponse.Items)
+                {
+                    PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                    panelResultadoYoutubes.Add(panelResultado);
+                }
+                ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
+                BotoneraYoutube.Visible = true;
+                ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
+
+                ResultadoListaVideos = JsonConvert.SerializeObject(searchListResponse);
+            }
+        }
+
         private void Ajustar_imagenes(object sender, EventArgs e)
         {
             RenderizarResultados((int)NumColumnasResultNM.Value);
         }
+
         private void NumColumnasResultNM_ValueChanged(object sender, EventArgs e)
         {
             RenderizarResultados((int)NumColumnasResultNM.Value);
         }
+
         private void RenderizarResultados(int CantColum = 3)
         {
             int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * CantColum + 21)) / CantColum;
@@ -327,8 +368,6 @@ namespace GoogleScrapper
                 panelResultado.VolverARenderizar(ancho, (int)(ancho / NroAureo));
             }
         }
-
-        
 
         private void AgregarEnviarSMplayerYoutbBTN_Click(object sender, EventArgs e)
         {
@@ -392,11 +431,105 @@ namespace GoogleScrapper
         {
 
         }
+
+        private void IDListaReprodTXBX_TextChanged(object sender, EventArgs e)
+        {
+            ObtenerVideosIDListReprBTN.Visible = IDListaReprodTXBX.Text.Length > 0;
+        }
+
+        private async void ObtenerVideosIDListReprBTN_Click(object sender, EventArgs e)
+        {
+            if (YoutubeApi != null)
+            {
+                await YoutubeApi.GetPlaylistItems(IDListaReprodTXBX.Text);
+                if(YoutubeApi.ItemsListaReprodRespuesta != null)
+                {
+
+                }
+            }
+        }
+        private void GuardarResultadosBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Directory.Exists(PathDirectorioResultadoBusqueda))
+                {
+                    Directory.CreateDirectory(PathDirectorioResultadoBusqueda);
+                }
+                //FileDialog fileDialog = new SaveFileDialog();
+                //fileDialog.Filter = "*.json"; 
+                //fileDialog.AddExtension = true;
+                //if (fileDialog.ShowDialog() == DialogResult.OK)
+                //{
+                //    System.IO.File.WriteAllText(pathDirectorio + fileDialog.FileName, ResultadoBusqueda);
+                //}
+                if (ResultadoBusqueda.Length > 0)
+                {
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, BuscarYoutubVideoTB.Text + ".rbjson"), ResultadoBusqueda, System.Text.Encoding.UTF8);
+                }
+                if (ResultadoListaVideos.Length > 0)
+                {
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, BuscarYoutubVideoTB.Text + ".rljson"), ResultadoListaVideos, System.Text.Encoding.UTF8);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Guardar los Resultados");
+            }
+        }
+        private void AbrirResultadosBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(PathDirectorioResultadoBusqueda))
+                {
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.InitialDirectory = PathDirectorioResultadoBusqueda;
+                    ofd.Filter = "Archivos de Resultado de Busqueda (*.rbjson)|*.rbjson|Archivos de Lista de Videos (*.rljson)|*.rljson"; //All files (*.*)|*.*";
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        var tipo = Path.GetExtension(ofd.FileName);
+                        if (tipo != null) 
+                        {
+                            switch (tipo)
+                            {
+                                case ".rbjson"://Busqueda
+                                    var searchListResponse = JsonConvert.DeserializeObject<SearchListResponse>(File.ReadAllText(ofd.FileName, System.Text.Encoding.UTF8));
+                                    CargarResultados(searchListResponse);
+                                    break;
+                                case ".rljson"://Lista
+                                    var searchListVideoResponse = JsonConvert.DeserializeObject<PlaylistItemListResponse>(File.ReadAllText(ofd.FileName, System.Text.Encoding.UTF8));
+                                    CargarResultados(searchListVideoResponse);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El archivo no tiene el formato correcto", "Error al abrir el archivo");
+                        }
+                    }
+                }
+                else
+                {
+                    Directory.CreateDirectory(PathDirectorioResultadoBusqueda);
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message, "Error al abrir el archivo");
+            }
+        }
         #endregion
+
+        #region Descargar Videos Directamente
 
         private void DescargaDirecVideosBTN_Click(object sender, EventArgs e)
         {
             DescargarVideos(string.Join(" ", URLsDDVideosRTB.Lines), URLsDDVideosRTB.Lines.Count(), 'D');
         }
+
+        #endregion
+
+        
     }
 }

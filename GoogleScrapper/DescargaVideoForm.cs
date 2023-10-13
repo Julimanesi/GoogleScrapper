@@ -71,7 +71,8 @@ namespace GoogleScrapper
                     }
                     else
                     {   //Descargar solo musica/audio
-                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : "%(track)s.%(ext)s";
+                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o {nombreArchivoMusica} {ListaUrls} --add-metadata";
                     }
                     ytdl.StartInfo.UseShellExecute = false;
                     ytdl.StartInfo.CreateNoWindow = true;
@@ -189,7 +190,7 @@ namespace GoogleScrapper
                     string velocDesc = matches[0].Groups["veloc"].Value;
                     string tiempofalt = matches[0].Groups["tiempofalt"].Value;
 
-                    DetalleDescargaLabel.Text = $"Detalle Descarga:\n            Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}.\n           Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
+                    DetalleDescargaLabel.Text = $"Detalle de la Descarga:\n            Porcentaje: {porcentaje}. Tamaño actual: {tamanioact}.\n           Velocidad de descarga: {velocDesc}. Tiempo faltante estimado: {tiempofalt}.";
                     List<string> salidaLineas = SalidaRTextBox.Lines.ToList();
                     int indexremover = salidaLineas.Count - 2;
                     if (indexremover > 2)
@@ -246,6 +247,11 @@ namespace GoogleScrapper
         private void DescargarBTN_Click(object sender, EventArgs e)
         {
             DescargarListaReproduc();
+        }
+
+        private void SoloAudioCKBX_CheckedChanged(object sender, EventArgs e)
+        {
+            ObtenerDatosMusicaCKBX.Visible = SoloAudioCKBX.Checked;
         }
     }
 }

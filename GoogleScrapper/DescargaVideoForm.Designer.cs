@@ -37,6 +37,7 @@
             Estadolabel = new Label();
             DestinoLabel = new Label();
             panel1 = new Panel();
+            ObtenerDatosMusicaCKBX = new CheckBox();
             SoloAudioCKBX = new CheckBox();
             ComprimirVideoCKBX = new CheckBox();
             DescargarBTN = new Button();
@@ -80,7 +81,7 @@
             // 
             VideosDescargadosLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             VideosDescargadosLabel.AutoSize = true;
-            VideosDescargadosLabel.Location = new Point(12, 129);
+            VideosDescargadosLabel.Location = new Point(190, 124);
             VideosDescargadosLabel.Margin = new Padding(3);
             VideosDescargadosLabel.Name = "VideosDescargadosLabel";
             VideosDescargadosLabel.Size = new Size(145, 20);
@@ -93,9 +94,9 @@
             DetalleDescargaLabel.Location = new Point(12, 247);
             DetalleDescargaLabel.Margin = new Padding(3);
             DetalleDescargaLabel.Name = "DetalleDescargaLabel";
-            DetalleDescargaLabel.Size = new Size(752, 59);
+            DetalleDescargaLabel.Size = new Size(863, 59);
             DetalleDescargaLabel.TabIndex = 6;
-            DetalleDescargaLabel.Text = "Detalle Descarga:";
+            DetalleDescargaLabel.Text = "Detalle de la Descarga:";
             // 
             // MostrarDetallesBTN
             // 
@@ -114,7 +115,7 @@
             Estadolabel.Location = new Point(12, 155);
             Estadolabel.Margin = new Padding(3);
             Estadolabel.Name = "Estadolabel";
-            Estadolabel.Size = new Size(752, 43);
+            Estadolabel.Size = new Size(863, 43);
             Estadolabel.TabIndex = 4;
             Estadolabel.Text = "Estado:";
             // 
@@ -130,6 +131,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(ObtenerDatosMusicaCKBX);
             panel1.Controls.Add(SoloAudioCKBX);
             panel1.Controls.Add(ComprimirVideoCKBX);
             panel1.Controls.Add(DescargarBTN);
@@ -146,20 +148,32 @@
             panel1.Size = new Size(887, 365);
             panel1.TabIndex = 4;
             // 
+            // ObtenerDatosMusicaCKBX
+            // 
+            ObtenerDatosMusicaCKBX.AutoSize = true;
+            ObtenerDatosMusicaCKBX.Location = new Point(336, 74);
+            ObtenerDatosMusicaCKBX.Name = "ObtenerDatosMusicaCKBX";
+            ObtenerDatosMusicaCKBX.Size = new Size(199, 24);
+            ObtenerDatosMusicaCKBX.TabIndex = 12;
+            ObtenerDatosMusicaCKBX.Text = "Obtener Datos de Musica";
+            ObtenerDatosMusicaCKBX.UseVisualStyleBackColor = true;
+            ObtenerDatosMusicaCKBX.Visible = false;
+            // 
             // SoloAudioCKBX
             // 
             SoloAudioCKBX.AutoSize = true;
-            SoloAudioCKBX.Location = new Point(202, 99);
+            SoloAudioCKBX.Location = new Point(201, 73);
             SoloAudioCKBX.Name = "SoloAudioCKBX";
             SoloAudioCKBX.Size = new Size(105, 24);
             SoloAudioCKBX.TabIndex = 11;
             SoloAudioCKBX.Text = "Solo Audio";
             SoloAudioCKBX.UseVisualStyleBackColor = true;
+            SoloAudioCKBX.CheckedChanged += SoloAudioCKBX_CheckedChanged;
             // 
             // ComprimirVideoCKBX
             // 
             ComprimirVideoCKBX.AutoSize = true;
-            ComprimirVideoCKBX.Location = new Point(12, 99);
+            ComprimirVideoCKBX.Location = new Point(11, 73);
             ComprimirVideoCKBX.Name = "ComprimirVideoCKBX";
             ComprimirVideoCKBX.Size = new Size(155, 24);
             ComprimirVideoCKBX.TabIndex = 9;
@@ -168,7 +182,7 @@
             // 
             // DescargarBTN
             // 
-            DescargarBTN.Location = new Point(326, 94);
+            DescargarBTN.Location = new Point(12, 120);
             DescargarBTN.Name = "DescargarBTN";
             DescargarBTN.Size = new Size(152, 29);
             DescargarBTN.TabIndex = 8;
@@ -217,5 +231,6 @@
         private Button DescargarBTN;
         private CheckBox ComprimirVideoCKBX;
         private CheckBox SoloAudioCKBX;
+        private CheckBox ObtenerDatosMusicaCKBX;
     }
 }
