@@ -27,7 +27,7 @@ namespace GoogleScrapper
         private string ResultadoBusqueda { get; set; } = "";
         private string ResultadoListaVideos { get; set; } = "";
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
-        
+        private string NombreListaVideos { get; set; } = "";
         public MainForm()
         {
             InitializeComponent();
@@ -421,9 +421,15 @@ namespace GoogleScrapper
 
         private async void ObtenerVideosListaReprBTN_Click(object sender, EventArgs e)
         {
-            if (YoutubeApi != null)
+            if (YoutubeApi == null)
             {
+                YoutubeApi = new YoutubeApi();
+            }
+            if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubePlaylist))
+            {
+                PlaylistId = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubePlaylist)[1];
                 await YoutubeApi.GetPlaylistItems(PlaylistId);
+                CargarResultados(YoutubeApi.ItemsListaReprodRespuesta);
             }
         }
 
@@ -439,13 +445,14 @@ namespace GoogleScrapper
 
         private async void ObtenerVideosIDListReprBTN_Click(object sender, EventArgs e)
         {
-            if (YoutubeApi != null)
+            if (YoutubeApi == null)
             {
-                await YoutubeApi.GetPlaylistItems(IDListaReprodTXBX.Text);
-                if(YoutubeApi.ItemsListaReprodRespuesta != null)
-                {
-
-                }
+                YoutubeApi = new YoutubeApi();
+            }
+            await YoutubeApi.GetPlaylistItems(IDListaReprodTXBX.Text);
+            if(YoutubeApi.ItemsListaReprodRespuesta != null)
+            {
+                CargarResultados(YoutubeApi.ItemsListaReprodRespuesta);
             }
         }
         private void GuardarResultadosBTN_Click(object sender, EventArgs e)

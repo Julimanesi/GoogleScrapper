@@ -19,9 +19,9 @@ namespace GoogleScrapper
 
         private PictureBox ImagenVideoPicBx = new PictureBox();
         public bool seleccionado { get; set; } = false;
-        private string BaseUrlYouTube { get; } = "https://www.youtube.com/watch?v=";
-        private string BaseUrlYouTubeChannel { get; } = "https://www.youtube.com/channel/";
-        private string BaseUrlYouTubePlaylist { get; } = "https://www.youtube.com/playlist?list=";
+        public static string BaseUrlYouTube { get; } = "https://www.youtube.com/watch?v=";
+        public static string BaseUrlYouTubeChannel { get; } = "https://www.youtube.com/channel/";
+        public static string BaseUrlYouTubePlaylist { get; } = "https://www.youtube.com/playlist?list=";
         public string Link { get; set; } = "";
         public TipoResultado TipoResultado { get; set; }  
         
