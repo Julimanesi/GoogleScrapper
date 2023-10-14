@@ -61,6 +61,9 @@
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
             BotoneraYoutube = new Panel();
+            NombreAchivoUltResultTXBX = new TextBox();
+            ObtenerInformacionBTN = new Button();
+            SeleccionSimpleCKBX = new CheckBox();
             ResultadosPorPaginaYouTbLabel = new Label();
             GuardarResultadosBTN = new Button();
             ObtenerVideosCanalBTN = new Button();
@@ -72,16 +75,15 @@
             NumColumnasResultNM = new NumericUpDown();
             label7 = new Label();
             MainYTPanel = new Panel();
-            ObtenerVideosIDCanalBTN = new Button();
-            label22 = new Label();
-            IDCanalTXBX = new TextBox();
-            label18 = new Label();
-            IdCanalTBX = new TextBox();
-            ObtenerVideosIDListReprBTN = new Button();
-            label16 = new Label();
-            BuscarYoutubeBTN = new Button();
+            FiltroBusquedaYTPanel = new Panel();
             AbrirResultadosBTN = new Button();
-            label21 = new Label();
+            label18 = new Label();
+            MaxResultYoutubeNM = new NumericUpDown();
+            IdCanalTBX = new TextBox();
+            label6 = new Label();
+            label16 = new Label();
+            InicioYoutbDTP = new DateTimePicker();
+            FinYoutbDTP = new DateTimePicker();
             FiltroVideoYTPanel = new Panel();
             TipoVideoComboBox = new ComboBox();
             DuracionYoutubeVideoCBX = new ComboBox();
@@ -93,34 +95,38 @@
             label14 = new Label();
             VideoCategoriaComboBox = new ComboBox();
             label15 = new Label();
+            BuscarYoutubVideoTB = new TextBox();
             TipoCanalComboBox = new ComboBox();
-            IDListaReprodTXBX = new TextBox();
+            label5 = new Label();
             label19 = new Label();
+            label4 = new Label();
             IdiomaComboBox = new ComboBox();
+            label3 = new Label();
             label17 = new Label();
+            PaisComboBox = new ComboBox();
             TipoBusquedaComboBox = new ComboBox();
+            label9 = new Label();
             label11 = new Label();
+            OrdenComboBox = new ComboBox();
             SafeSearchComboBox = new ComboBox();
             label10 = new Label();
-            OrdenComboBox = new ComboBox();
-            label9 = new Label();
-            PaisComboBox = new ComboBox();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            BuscarYoutubVideoTB = new TextBox();
-            FinYoutbDTP = new DateTimePicker();
-            InicioYoutbDTP = new DateTimePicker();
-            label6 = new Label();
-            MaxResultYoutubeNM = new NumericUpDown();
+            ObtenerVideosYTPanel = new Panel();
+            label23 = new Label();
+            ObtenerVideosNombreCanalBTN = new Button();
+            NombreCanalTXBX = new TextBox();
+            label22 = new Label();
+            ObtenerVideosIDCanalBTN = new Button();
+            IDListaReprodTXBX = new TextBox();
+            label21 = new Label();
+            IDCanalTXBX = new TextBox();
+            BuscarYoutubeBTN = new Button();
+            ObtenerVideosIDListReprBTN = new Button();
             ImagenTag = new TabPage();
             Descargatag = new TabPage();
             label20 = new Label();
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            ObtenerVideosYTPanel = new Panel();
-            FiltroBusquedaYTPanel = new Panel();
             tabControl1.SuspendLayout();
             VideoTag.SuspendLayout();
             panelResultado.SuspendLayout();
@@ -132,11 +138,11 @@
             BotoneraYoutube.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).BeginInit();
             MainYTPanel.SuspendLayout();
-            FiltroVideoYTPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).BeginInit();
-            Descargatag.SuspendLayout();
-            ObtenerVideosYTPanel.SuspendLayout();
             FiltroBusquedaYTPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).BeginInit();
+            FiltroVideoYTPanel.SuspendLayout();
+            ObtenerVideosYTPanel.SuspendLayout();
+            Descargatag.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -460,6 +466,9 @@
             // 
             // BotoneraYoutube
             // 
+            BotoneraYoutube.Controls.Add(NombreAchivoUltResultTXBX);
+            BotoneraYoutube.Controls.Add(ObtenerInformacionBTN);
+            BotoneraYoutube.Controls.Add(SeleccionSimpleCKBX);
             BotoneraYoutube.Controls.Add(ResultadosPorPaginaYouTbLabel);
             BotoneraYoutube.Controls.Add(GuardarResultadosBTN);
             BotoneraYoutube.Controls.Add(ObtenerVideosCanalBTN);
@@ -477,6 +486,36 @@
             BotoneraYoutube.TabIndex = 23;
             BotoneraYoutube.Visible = false;
             // 
+            // NombreAchivoUltResultTXBX
+            // 
+            NombreAchivoUltResultTXBX.Location = new Point(734, 56);
+            NombreAchivoUltResultTXBX.Name = "NombreAchivoUltResultTXBX";
+            NombreAchivoUltResultTXBX.PlaceholderText = "Nombre del Archivo a guardar";
+            NombreAchivoUltResultTXBX.Size = new Size(214, 27);
+            NombreAchivoUltResultTXBX.TabIndex = 54;
+            // 
+            // ObtenerInformacionBTN
+            // 
+            ObtenerInformacionBTN.Location = new Point(729, 9);
+            ObtenerInformacionBTN.Name = "ObtenerInformacionBTN";
+            ObtenerInformacionBTN.Size = new Size(156, 29);
+            ObtenerInformacionBTN.TabIndex = 53;
+            ObtenerInformacionBTN.Text = "Obtener Información";
+            ObtenerInformacionBTN.UseVisualStyleBackColor = true;
+            ObtenerInformacionBTN.Visible = false;
+            ObtenerInformacionBTN.Click += ObtenerInformacionBTN_Click;
+            // 
+            // SeleccionSimpleCKBX
+            // 
+            SeleccionSimpleCKBX.AutoSize = true;
+            SeleccionSimpleCKBX.Location = new Point(8, 12);
+            SeleccionSimpleCKBX.Name = "SeleccionSimpleCKBX";
+            SeleccionSimpleCKBX.Size = new Size(144, 24);
+            SeleccionSimpleCKBX.TabIndex = 52;
+            SeleccionSimpleCKBX.Text = "Selección Simple";
+            SeleccionSimpleCKBX.UseVisualStyleBackColor = true;
+            SeleccionSimpleCKBX.CheckedChanged += SeleccionSimpleCKBX_CheckedChanged;
+            // 
             // ResultadosPorPaginaYouTbLabel
             // 
             ResultadosPorPaginaYouTbLabel.AutoSize = true;
@@ -488,7 +527,7 @@
             // 
             // GuardarResultadosBTN
             // 
-            GuardarResultadosBTN.Location = new Point(744, 54);
+            GuardarResultadosBTN.Location = new Point(954, 55);
             GuardarResultadosBTN.Name = "GuardarResultadosBTN";
             GuardarResultadosBTN.Size = new Size(194, 29);
             GuardarResultadosBTN.TabIndex = 19;
@@ -498,12 +537,13 @@
             // 
             // ObtenerVideosCanalBTN
             // 
-            ObtenerVideosCanalBTN.Location = new Point(339, 6);
+            ObtenerVideosCanalBTN.Location = new Point(489, 9);
             ObtenerVideosCanalBTN.Name = "ObtenerVideosCanalBTN";
             ObtenerVideosCanalBTN.Size = new Size(207, 29);
             ObtenerVideosCanalBTN.TabIndex = 50;
-            ObtenerVideosCanalBTN.Text = "Obtener videos de Canal";
+            ObtenerVideosCanalBTN.Text = "Obtener videos del Canal";
             ObtenerVideosCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosCanalBTN.Visible = false;
             ObtenerVideosCanalBTN.Click += ObtenerVideosCanalBTN_Click;
             // 
             // DescargVideosYouTbBTN
@@ -547,12 +587,13 @@
             // 
             // ObtenerVideosListaReprBTN
             // 
-            ObtenerVideosListaReprBTN.Location = new Point(8, 6);
+            ObtenerVideosListaReprBTN.Location = new Point(158, 9);
             ObtenerVideosListaReprBTN.Name = "ObtenerVideosListaReprBTN";
-            ObtenerVideosListaReprBTN.Size = new Size(297, 29);
+            ObtenerVideosListaReprBTN.Size = new Size(314, 29);
             ObtenerVideosListaReprBTN.TabIndex = 49;
-            ObtenerVideosListaReprBTN.Text = "Obtener videos de lista de Reproduccion";
+            ObtenerVideosListaReprBTN.Text = "Obtener videos de la Lista de Reproduccion";
             ObtenerVideosListaReprBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosListaReprBTN.Visible = false;
             ObtenerVideosListaReprBTN.Click += ObtenerVideosListaReprBTN_Click;
             // 
             // NumColumnasResultNM
@@ -588,77 +629,37 @@
             MainYTPanel.Size = new Size(1171, 373);
             MainYTPanel.TabIndex = 22;
             // 
-            // ObtenerVideosIDCanalBTN
+            // FiltroBusquedaYTPanel
             // 
-            ObtenerVideosIDCanalBTN.Location = new Point(718, 11);
-            ObtenerVideosIDCanalBTN.Name = "ObtenerVideosIDCanalBTN";
-            ObtenerVideosIDCanalBTN.Size = new Size(319, 29);
-            ObtenerVideosIDCanalBTN.TabIndex = 55;
-            ObtenerVideosIDCanalBTN.Text = "Obtener videos de ID Canal";
-            ObtenerVideosIDCanalBTN.UseVisualStyleBackColor = true;
-            ObtenerVideosIDCanalBTN.Click += ObtenerVideosIDCanalBTN_Click;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(7, 15);
-            label22.Name = "label22";
-            label22.Size = new Size(87, 20);
-            label22.TabIndex = 53;
-            label22.Text = "Id de Canal:";
-            // 
-            // IDCanalTXBX
-            // 
-            IDCanalTXBX.Location = new Point(100, 12);
-            IDCanalTXBX.Name = "IDCanalTXBX";
-            IDCanalTXBX.Size = new Size(592, 27);
-            IDCanalTXBX.TabIndex = 54;
-            IDCanalTXBX.TextChanged += IDCanalTXBX_TextChanged;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Location = new Point(362, 125);
-            label18.Name = "label18";
-            label18.Size = new Size(87, 20);
-            label18.TabIndex = 44;
-            label18.Text = "Id de Canal:";
-            // 
-            // IdCanalTBX
-            // 
-            IdCanalTBX.Location = new Point(455, 122);
-            IdCanalTBX.Name = "IdCanalTBX";
-            IdCanalTBX.Size = new Size(224, 27);
-            IdCanalTBX.TabIndex = 43;
-            // 
-            // ObtenerVideosIDListReprBTN
-            // 
-            ObtenerVideosIDListReprBTN.Location = new Point(718, 45);
-            ObtenerVideosIDListReprBTN.Name = "ObtenerVideosIDListReprBTN";
-            ObtenerVideosIDListReprBTN.Size = new Size(319, 29);
-            ObtenerVideosIDListReprBTN.TabIndex = 51;
-            ObtenerVideosIDListReprBTN.Text = "Obtener videos de ID lista de Reproduccion";
-            ObtenerVideosIDListReprBTN.UseVisualStyleBackColor = true;
-            ObtenerVideosIDListReprBTN.Click += ObtenerVideosIDListReprBTN_Click;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(4, 125);
-            label16.Name = "label16";
-            label16.Size = new Size(104, 20);
-            label16.TabIndex = 40;
-            label16.Text = "Tipo de Canal:";
-            // 
-            // BuscarYoutubeBTN
-            // 
-            BuscarYoutubeBTN.Location = new Point(5, 86);
-            BuscarYoutubeBTN.Name = "BuscarYoutubeBTN";
-            BuscarYoutubeBTN.Size = new Size(94, 29);
-            BuscarYoutubeBTN.TabIndex = 3;
-            BuscarYoutubeBTN.Text = "Buscar";
-            BuscarYoutubeBTN.UseVisualStyleBackColor = true;
-            BuscarYoutubeBTN.Click += BuscarYoutubeBTN_Click;
+            FiltroBusquedaYTPanel.Controls.Add(AbrirResultadosBTN);
+            FiltroBusquedaYTPanel.Controls.Add(label18);
+            FiltroBusquedaYTPanel.Controls.Add(MaxResultYoutubeNM);
+            FiltroBusquedaYTPanel.Controls.Add(IdCanalTBX);
+            FiltroBusquedaYTPanel.Controls.Add(label6);
+            FiltroBusquedaYTPanel.Controls.Add(label16);
+            FiltroBusquedaYTPanel.Controls.Add(InicioYoutbDTP);
+            FiltroBusquedaYTPanel.Controls.Add(FinYoutbDTP);
+            FiltroBusquedaYTPanel.Controls.Add(FiltroVideoYTPanel);
+            FiltroBusquedaYTPanel.Controls.Add(BuscarYoutubVideoTB);
+            FiltroBusquedaYTPanel.Controls.Add(TipoCanalComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(label5);
+            FiltroBusquedaYTPanel.Controls.Add(label19);
+            FiltroBusquedaYTPanel.Controls.Add(label4);
+            FiltroBusquedaYTPanel.Controls.Add(IdiomaComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(label3);
+            FiltroBusquedaYTPanel.Controls.Add(label17);
+            FiltroBusquedaYTPanel.Controls.Add(PaisComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(TipoBusquedaComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(label9);
+            FiltroBusquedaYTPanel.Controls.Add(label11);
+            FiltroBusquedaYTPanel.Controls.Add(OrdenComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(SafeSearchComboBox);
+            FiltroBusquedaYTPanel.Controls.Add(label10);
+            FiltroBusquedaYTPanel.Dock = DockStyle.Top;
+            FiltroBusquedaYTPanel.Location = new Point(0, 0);
+            FiltroBusquedaYTPanel.Name = "FiltroBusquedaYTPanel";
+            FiltroBusquedaYTPanel.Size = new Size(1171, 242);
+            FiltroBusquedaYTPanel.TabIndex = 57;
             // 
             // AbrirResultadosBTN
             // 
@@ -670,14 +671,64 @@
             AbrirResultadosBTN.UseVisualStyleBackColor = true;
             AbrirResultadosBTN.Click += AbrirResultadosBTN_Click;
             // 
-            // label21
+            // label18
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(7, 49);
-            label21.Name = "label21";
-            label21.Size = new Size(197, 20);
-            label21.TabIndex = 45;
-            label21.Text = "Id de Lista de Reproduccion:";
+            label18.AutoSize = true;
+            label18.Location = new Point(362, 125);
+            label18.Name = "label18";
+            label18.Size = new Size(87, 20);
+            label18.TabIndex = 44;
+            label18.Text = "Id de Canal:";
+            // 
+            // MaxResultYoutubeNM
+            // 
+            MaxResultYoutubeNM.Location = new Point(192, 47);
+            MaxResultYoutubeNM.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            MaxResultYoutubeNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            MaxResultYoutubeNM.Name = "MaxResultYoutubeNM";
+            MaxResultYoutubeNM.Size = new Size(79, 27);
+            MaxResultYoutubeNM.TabIndex = 6;
+            MaxResultYoutubeNM.TextAlign = HorizontalAlignment.Right;
+            MaxResultYoutubeNM.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            // 
+            // IdCanalTBX
+            // 
+            IdCanalTBX.Location = new Point(455, 122);
+            IdCanalTBX.Name = "IdCanalTBX";
+            IdCanalTBX.Size = new Size(224, 27);
+            IdCanalTBX.TabIndex = 43;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(1, 49);
+            label6.Name = "label6";
+            label6.Size = new Size(188, 20);
+            label6.TabIndex = 7;
+            label6.Text = "Nro maximo de resultados:";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(4, 125);
+            label16.Name = "label16";
+            label16.Size = new Size(104, 20);
+            label16.TabIndex = 40;
+            label16.Text = "Tipo de Canal:";
+            // 
+            // InicioYoutbDTP
+            // 
+            InicioYoutbDTP.Location = new Point(100, 86);
+            InicioYoutbDTP.Name = "InicioYoutbDTP";
+            InicioYoutbDTP.Size = new Size(293, 27);
+            InicioYoutbDTP.TabIndex = 17;
+            // 
+            // FinYoutbDTP
+            // 
+            FinYoutbDTP.Location = new Point(478, 86);
+            FinYoutbDTP.Name = "FinYoutbDTP";
+            FinYoutbDTP.Size = new Size(295, 27);
+            FinYoutbDTP.TabIndex = 18;
             // 
             // FiltroVideoYTPanel
             // 
@@ -784,6 +835,13 @@
             label15.TabIndex = 38;
             label15.Text = "Tipo de video:";
             // 
+            // BuscarYoutubVideoTB
+            // 
+            BuscarYoutubVideoTB.Location = new Point(168, 4);
+            BuscarYoutubVideoTB.Name = "BuscarYoutubVideoTB";
+            BuscarYoutubVideoTB.Size = new Size(615, 27);
+            BuscarYoutubVideoTB.TabIndex = 0;
+            // 
             // TipoCanalComboBox
             // 
             TipoCanalComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -793,13 +851,14 @@
             TipoCanalComboBox.Size = new Size(229, 28);
             TipoCanalComboBox.TabIndex = 39;
             // 
-            // IDListaReprodTXBX
+            // label5
             // 
-            IDListaReprodTXBX.Location = new Point(213, 46);
-            IDListaReprodTXBX.Name = "IDListaReprodTXBX";
-            IDListaReprodTXBX.Size = new Size(479, 27);
-            IDListaReprodTXBX.TabIndex = 50;
-            IDListaReprodTXBX.TextChanged += IDListaReprodTXBX_TextChanged;
+            label5.AutoSize = true;
+            label5.Location = new Point(112, 7);
+            label5.Name = "label5";
+            label5.Size = new Size(55, 20);
+            label5.TabIndex = 1;
+            label5.Text = "Buscar:";
             // 
             // label19
             // 
@@ -810,6 +869,15 @@
             label19.TabIndex = 46;
             label19.Text = "Idioma:";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(4, 91);
+            label4.Name = "label4";
+            label4.Size = new Size(90, 20);
+            label4.TabIndex = 19;
+            label4.Text = "Fecha Inicio:";
+            // 
             // IdiomaComboBox
             // 
             IdiomaComboBox.FormattingEnabled = true;
@@ -817,6 +885,15 @@
             IdiomaComboBox.Name = "IdiomaComboBox";
             IdiomaComboBox.Size = new Size(259, 28);
             IdiomaComboBox.TabIndex = 45;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(399, 91);
+            label3.Name = "label3";
+            label3.Size = new Size(73, 20);
+            label3.TabIndex = 20;
+            label3.Text = "Fecha Fin:";
             // 
             // label17
             // 
@@ -827,6 +904,14 @@
             label17.TabIndex = 42;
             label17.Text = "Tipo de Busqueda:";
             // 
+            // PaisComboBox
+            // 
+            PaisComboBox.FormattingEnabled = true;
+            PaisComboBox.Location = new Point(927, 47);
+            PaisComboBox.Name = "PaisComboBox";
+            PaisComboBox.Size = new Size(232, 28);
+            PaisComboBox.TabIndex = 24;
+            // 
             // TipoBusquedaComboBox
             // 
             TipoBusquedaComboBox.FormattingEnabled = true;
@@ -836,6 +921,15 @@
             TipoBusquedaComboBox.TabIndex = 41;
             TipoBusquedaComboBox.SelectedIndexChanged += TipoBusquedaComboBox_SelectedIndexChanged;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(884, 49);
+            label9.Name = "label9";
+            label9.Size = new Size(37, 20);
+            label9.TabIndex = 25;
+            label9.Text = "Pais:";
+            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -844,6 +938,14 @@
             label11.Size = new Size(127, 20);
             label11.TabIndex = 29;
             label11.Text = "Busqueda Segura:";
+            // 
+            // OrdenComboBox
+            // 
+            OrdenComboBox.FormattingEnabled = true;
+            OrdenComboBox.Location = new Point(348, 46);
+            OrdenComboBox.Name = "OrdenComboBox";
+            OrdenComboBox.Size = new Size(168, 28);
+            OrdenComboBox.TabIndex = 26;
             // 
             // SafeSearchComboBox
             // 
@@ -862,98 +964,118 @@
             label10.TabIndex = 27;
             label10.Text = "Orden:";
             // 
-            // OrdenComboBox
+            // ObtenerVideosYTPanel
             // 
-            OrdenComboBox.FormattingEnabled = true;
-            OrdenComboBox.Location = new Point(348, 46);
-            OrdenComboBox.Name = "OrdenComboBox";
-            OrdenComboBox.Size = new Size(168, 28);
-            OrdenComboBox.TabIndex = 26;
+            ObtenerVideosYTPanel.BackColor = Color.YellowGreen;
+            ObtenerVideosYTPanel.Controls.Add(label23);
+            ObtenerVideosYTPanel.Controls.Add(ObtenerVideosNombreCanalBTN);
+            ObtenerVideosYTPanel.Controls.Add(NombreCanalTXBX);
+            ObtenerVideosYTPanel.Controls.Add(label22);
+            ObtenerVideosYTPanel.Controls.Add(ObtenerVideosIDCanalBTN);
+            ObtenerVideosYTPanel.Controls.Add(IDListaReprodTXBX);
+            ObtenerVideosYTPanel.Controls.Add(label21);
+            ObtenerVideosYTPanel.Controls.Add(IDCanalTXBX);
+            ObtenerVideosYTPanel.Controls.Add(BuscarYoutubeBTN);
+            ObtenerVideosYTPanel.Controls.Add(ObtenerVideosIDListReprBTN);
+            ObtenerVideosYTPanel.Dock = DockStyle.Bottom;
+            ObtenerVideosYTPanel.Location = new Point(0, 248);
+            ObtenerVideosYTPanel.Name = "ObtenerVideosYTPanel";
+            ObtenerVideosYTPanel.Size = new Size(1171, 125);
+            ObtenerVideosYTPanel.TabIndex = 56;
             // 
-            // label9
+            // label23
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(884, 49);
-            label9.Name = "label9";
-            label9.Size = new Size(37, 20);
-            label9.TabIndex = 25;
-            label9.Text = "Pais:";
+            label23.AutoSize = true;
+            label23.Location = new Point(114, 17);
+            label23.Name = "label23";
+            label23.Size = new Size(133, 20);
+            label23.TabIndex = 56;
+            label23.Text = "Nombre del Canal:";
             // 
-            // PaisComboBox
+            // ObtenerVideosNombreCanalBTN
             // 
-            PaisComboBox.FormattingEnabled = true;
-            PaisComboBox.Location = new Point(927, 47);
-            PaisComboBox.Name = "PaisComboBox";
-            PaisComboBox.Size = new Size(232, 28);
-            PaisComboBox.TabIndex = 24;
+            ObtenerVideosNombreCanalBTN.Location = new Point(825, 13);
+            ObtenerVideosNombreCanalBTN.Name = "ObtenerVideosNombreCanalBTN";
+            ObtenerVideosNombreCanalBTN.Size = new Size(319, 29);
+            ObtenerVideosNombreCanalBTN.TabIndex = 58;
+            ObtenerVideosNombreCanalBTN.Text = "Obtener videos de Nombre Canal";
+            ObtenerVideosNombreCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosNombreCanalBTN.Visible = false;
+            ObtenerVideosNombreCanalBTN.Click += ObtenerVideosNombreCanalBTN_Click;
             // 
-            // label3
+            // NombreCanalTXBX
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(399, 91);
-            label3.Name = "label3";
-            label3.Size = new Size(73, 20);
-            label3.TabIndex = 20;
-            label3.Text = "Fecha Fin:";
+            NombreCanalTXBX.Location = new Point(253, 14);
+            NombreCanalTXBX.Name = "NombreCanalTXBX";
+            NombreCanalTXBX.Size = new Size(546, 27);
+            NombreCanalTXBX.TabIndex = 57;
+            NombreCanalTXBX.TextChanged += NombreCanalTXBX_TextChanged;
             // 
-            // label4
+            // label22
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(4, 91);
-            label4.Name = "label4";
-            label4.Size = new Size(90, 20);
-            label4.TabIndex = 19;
-            label4.Text = "Fecha Inicio:";
+            label22.AutoSize = true;
+            label22.Location = new Point(115, 55);
+            label22.Name = "label22";
+            label22.Size = new Size(87, 20);
+            label22.TabIndex = 53;
+            label22.Text = "Id de Canal:";
             // 
-            // label5
+            // ObtenerVideosIDCanalBTN
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(112, 7);
-            label5.Name = "label5";
-            label5.Size = new Size(55, 20);
-            label5.TabIndex = 1;
-            label5.Text = "Buscar:";
+            ObtenerVideosIDCanalBTN.Location = new Point(826, 51);
+            ObtenerVideosIDCanalBTN.Name = "ObtenerVideosIDCanalBTN";
+            ObtenerVideosIDCanalBTN.Size = new Size(319, 29);
+            ObtenerVideosIDCanalBTN.TabIndex = 55;
+            ObtenerVideosIDCanalBTN.Text = "Obtener videos de ID Canal";
+            ObtenerVideosIDCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosIDCanalBTN.Visible = false;
+            ObtenerVideosIDCanalBTN.Click += ObtenerVideosIDCanalBTN_Click;
             // 
-            // BuscarYoutubVideoTB
+            // IDListaReprodTXBX
             // 
-            BuscarYoutubVideoTB.Location = new Point(168, 4);
-            BuscarYoutubVideoTB.Name = "BuscarYoutubVideoTB";
-            BuscarYoutubVideoTB.Size = new Size(615, 27);
-            BuscarYoutubVideoTB.TabIndex = 0;
+            IDListaReprodTXBX.Location = new Point(321, 86);
+            IDListaReprodTXBX.Name = "IDListaReprodTXBX";
+            IDListaReprodTXBX.Size = new Size(479, 27);
+            IDListaReprodTXBX.TabIndex = 50;
+            IDListaReprodTXBX.TextChanged += IDListaReprodTXBX_TextChanged;
             // 
-            // FinYoutbDTP
+            // label21
             // 
-            FinYoutbDTP.Location = new Point(478, 86);
-            FinYoutbDTP.Name = "FinYoutbDTP";
-            FinYoutbDTP.Size = new Size(295, 27);
-            FinYoutbDTP.TabIndex = 18;
+            label21.AutoSize = true;
+            label21.Location = new Point(115, 89);
+            label21.Name = "label21";
+            label21.Size = new Size(197, 20);
+            label21.TabIndex = 45;
+            label21.Text = "Id de Lista de Reproduccion:";
             // 
-            // InicioYoutbDTP
+            // IDCanalTXBX
             // 
-            InicioYoutbDTP.Location = new Point(100, 86);
-            InicioYoutbDTP.Name = "InicioYoutbDTP";
-            InicioYoutbDTP.Size = new Size(293, 27);
-            InicioYoutbDTP.TabIndex = 17;
+            IDCanalTXBX.Location = new Point(208, 52);
+            IDCanalTXBX.Name = "IDCanalTXBX";
+            IDCanalTXBX.Size = new Size(592, 27);
+            IDCanalTXBX.TabIndex = 54;
+            IDCanalTXBX.TextChanged += IDCanalTXBX_TextChanged;
             // 
-            // label6
+            // BuscarYoutubeBTN
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(1, 49);
-            label6.Name = "label6";
-            label6.Size = new Size(188, 20);
-            label6.TabIndex = 7;
-            label6.Text = "Nro maximo de resultados:";
+            BuscarYoutubeBTN.Location = new Point(5, 13);
+            BuscarYoutubeBTN.Name = "BuscarYoutubeBTN";
+            BuscarYoutubeBTN.Size = new Size(94, 29);
+            BuscarYoutubeBTN.TabIndex = 3;
+            BuscarYoutubeBTN.Text = "Buscar";
+            BuscarYoutubeBTN.UseVisualStyleBackColor = true;
+            BuscarYoutubeBTN.Click += BuscarYoutubeBTN_Click;
             // 
-            // MaxResultYoutubeNM
+            // ObtenerVideosIDListReprBTN
             // 
-            MaxResultYoutubeNM.Location = new Point(192, 47);
-            MaxResultYoutubeNM.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
-            MaxResultYoutubeNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            MaxResultYoutubeNM.Name = "MaxResultYoutubeNM";
-            MaxResultYoutubeNM.Size = new Size(79, 27);
-            MaxResultYoutubeNM.TabIndex = 6;
-            MaxResultYoutubeNM.TextAlign = HorizontalAlignment.Right;
-            MaxResultYoutubeNM.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            ObtenerVideosIDListReprBTN.Location = new Point(826, 85);
+            ObtenerVideosIDListReprBTN.Name = "ObtenerVideosIDListReprBTN";
+            ObtenerVideosIDListReprBTN.Size = new Size(319, 29);
+            ObtenerVideosIDListReprBTN.TabIndex = 51;
+            ObtenerVideosIDListReprBTN.Text = "Obtener videos de ID lista de Reproduccion";
+            ObtenerVideosIDListReprBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosIDListReprBTN.Visible = false;
+            ObtenerVideosIDListReprBTN.Click += ObtenerVideosIDListReprBTN_Click;
             // 
             // ImagenTag
             // 
@@ -1011,54 +1133,6 @@
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
             // 
-            // ObtenerVideosYTPanel
-            // 
-            ObtenerVideosYTPanel.BackColor = Color.YellowGreen;
-            ObtenerVideosYTPanel.Controls.Add(label22);
-            ObtenerVideosYTPanel.Controls.Add(ObtenerVideosIDCanalBTN);
-            ObtenerVideosYTPanel.Controls.Add(IDListaReprodTXBX);
-            ObtenerVideosYTPanel.Controls.Add(label21);
-            ObtenerVideosYTPanel.Controls.Add(IDCanalTXBX);
-            ObtenerVideosYTPanel.Controls.Add(BuscarYoutubeBTN);
-            ObtenerVideosYTPanel.Controls.Add(ObtenerVideosIDListReprBTN);
-            ObtenerVideosYTPanel.Dock = DockStyle.Bottom;
-            ObtenerVideosYTPanel.Location = new Point(0, 248);
-            ObtenerVideosYTPanel.Name = "ObtenerVideosYTPanel";
-            ObtenerVideosYTPanel.Size = new Size(1171, 125);
-            ObtenerVideosYTPanel.TabIndex = 56;
-            // 
-            // FiltroBusquedaYTPanel
-            // 
-            FiltroBusquedaYTPanel.Controls.Add(AbrirResultadosBTN);
-            FiltroBusquedaYTPanel.Controls.Add(label18);
-            FiltroBusquedaYTPanel.Controls.Add(MaxResultYoutubeNM);
-            FiltroBusquedaYTPanel.Controls.Add(IdCanalTBX);
-            FiltroBusquedaYTPanel.Controls.Add(label6);
-            FiltroBusquedaYTPanel.Controls.Add(label16);
-            FiltroBusquedaYTPanel.Controls.Add(InicioYoutbDTP);
-            FiltroBusquedaYTPanel.Controls.Add(FinYoutbDTP);
-            FiltroBusquedaYTPanel.Controls.Add(FiltroVideoYTPanel);
-            FiltroBusquedaYTPanel.Controls.Add(BuscarYoutubVideoTB);
-            FiltroBusquedaYTPanel.Controls.Add(TipoCanalComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(label5);
-            FiltroBusquedaYTPanel.Controls.Add(label19);
-            FiltroBusquedaYTPanel.Controls.Add(label4);
-            FiltroBusquedaYTPanel.Controls.Add(IdiomaComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(label3);
-            FiltroBusquedaYTPanel.Controls.Add(label17);
-            FiltroBusquedaYTPanel.Controls.Add(PaisComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(TipoBusquedaComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(label9);
-            FiltroBusquedaYTPanel.Controls.Add(label11);
-            FiltroBusquedaYTPanel.Controls.Add(OrdenComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(SafeSearchComboBox);
-            FiltroBusquedaYTPanel.Controls.Add(label10);
-            FiltroBusquedaYTPanel.Dock = DockStyle.Top;
-            FiltroBusquedaYTPanel.Location = new Point(0, 0);
-            FiltroBusquedaYTPanel.Name = "FiltroBusquedaYTPanel";
-            FiltroBusquedaYTPanel.Size = new Size(1171, 242);
-            FiltroBusquedaYTPanel.TabIndex = 57;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1086,15 +1160,15 @@
             BotoneraYoutube.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).EndInit();
             MainYTPanel.ResumeLayout(false);
-            FiltroVideoYTPanel.ResumeLayout(false);
-            FiltroVideoYTPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).EndInit();
-            Descargatag.ResumeLayout(false);
-            Descargatag.PerformLayout();
-            ObtenerVideosYTPanel.ResumeLayout(false);
-            ObtenerVideosYTPanel.PerformLayout();
             FiltroBusquedaYTPanel.ResumeLayout(false);
             FiltroBusquedaYTPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).EndInit();
+            FiltroVideoYTPanel.ResumeLayout(false);
+            FiltroVideoYTPanel.PerformLayout();
+            ObtenerVideosYTPanel.ResumeLayout(false);
+            ObtenerVideosYTPanel.PerformLayout();
+            Descargatag.ResumeLayout(false);
+            Descargatag.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1192,5 +1266,11 @@
         private TextBox IDCanalTXBX;
         private Panel ObtenerVideosYTPanel;
         private Panel FiltroBusquedaYTPanel;
+        private CheckBox SeleccionSimpleCKBX;
+        private Button ObtenerInformacionBTN;
+        private TextBox NombreAchivoUltResultTXBX;
+        private Label label23;
+        private Button ObtenerVideosNombreCanalBTN;
+        private TextBox NombreCanalTXBX;
     }
 }

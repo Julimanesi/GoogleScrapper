@@ -23,12 +23,12 @@ namespace GoogleScrapper
         private List<PanelYoutube> panelResultadoYoutubes = new List<PanelYoutube>();
         private bool TodosPanelesYoutubeSeleccionados = false;
         private YoutubeApi? YoutubeApi;
+        public static PanelYoutube? ItemResultadoSeleccionado { get; set; }
 
         private string ResultadoBusqueda { get; set; } = "";
         private string ResultadoListaVideos { get; set; } = "";
 
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
-        private string NombreListaVideos { get; set; } = "";
 
         public MainForm()
         {
@@ -317,13 +317,14 @@ namespace GoogleScrapper
         {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
+                ItemResultadoSeleccionado = null;
                 panelResultadoYoutubes.Clear();
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
                 int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
 
                 foreach (var searchResult in searchListResponse.Items)
                 {
-                    PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                    PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult, panelyoutubeClick);
                     panelResultadoYoutubes.Add(panelResultado);
                 }
                 ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
@@ -331,6 +332,8 @@ namespace GoogleScrapper
                 ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
 
+                NombreAchivoUltResultTXBX.Text = BuscarVideoBTN.Text;
+                CambiarVisibilidadBotonesObtenerVideos();
                 ResultadoBusqueda = JsonConvert.SerializeObject(searchListResponse);
             }
         }
@@ -338,17 +341,20 @@ namespace GoogleScrapper
         {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
+                NombreAchivoUltResultTXBX.Text = ItemResultadoSeleccionado != null ? ItemResultadoSeleccionado.TituloVideoLB.Text : "Sin nombre";
+                ItemResultadoSeleccionado = null;
                 panelResultadoYoutubes.Clear();
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
                 int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
 
-                foreach (var searchResult in searchListResponse.Items.Where(x=>x.Status.PrivacyStatus != "private" && x.Snippet.Title != "Deleted video"))
+                foreach (var searchResult in searchListResponse.Items.Where(x => x.Status.PrivacyStatus != "private" && x.Snippet.Title != "Deleted video"))
                 {
                     try
                     {
-                        PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                        PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult, panelyoutubeClick);
                         panelResultadoYoutubes.Add(panelResultado);
-                    }catch(Exception ex) 
+                    }
+                    catch (Exception ex)
                     {
                         continue;
                     }
@@ -358,6 +364,7 @@ namespace GoogleScrapper
                 ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
 
+                CambiarVisibilidadBotonesObtenerVideos();
                 ResultadoListaVideos = JsonConvert.SerializeObject(searchListResponse);
             }
         }
@@ -430,10 +437,9 @@ namespace GoogleScrapper
         {
             try
             {
-                if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubePlaylist))
+                if (ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.lista)
                 {
-                    var PlaylistId = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubePlaylist)[1];
-                    var resultado = await YoutubeApi.GetPlaylistItems(PlaylistId);
+                    var resultado = await YoutubeApi.GetPlaylistItems(ItemResultadoSeleccionado.ID);
                     if (resultado != null)
                     {
                         CargarResultados(resultado);
@@ -451,10 +457,9 @@ namespace GoogleScrapper
         {
             try
             {
-                if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubeChannel))
+                if (ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.lista)
                 {
-                    var Idcanal = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubeChannel)[1];
-                    ObtenerVideosDesdeIDCanal(Idcanal);
+                    ObtenerVideosDesdeIDCanal(ItemResultadoSeleccionado.ID);
                 }
             }
             catch (Exception ex)
@@ -496,10 +501,25 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el IdCanal");
             }
         }
+        private void ObtenerVideosNombreCanalBTN_Click(object sender, EventArgs e)
+        {
+            try 
+            { 
+                ObtenerVideosDesdeNombreCanal(NombreCanalTXBX.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el Nombre del Canal");
+            }
+        }
 
         private void IDCanalTXBX_TextChanged(object sender, EventArgs e)
         {
             ObtenerVideosIDCanalBTN.Visible = IDCanalTXBX.Text.Length > 0 && IDCanalTXBX.Text != "" && IDCanalTXBX.Text != " ";
+        }
+        private void NombreCanalTXBX_TextChanged(object sender, EventArgs e)
+        {
+            ObtenerVideosNombreCanalBTN.Visible = NombreCanalTXBX.Text.Length > 0 && NombreCanalTXBX.Text != "" && NombreCanalTXBX.Text != " ";
         }
 
         private void GuardarResultadosBTN_Click(object sender, EventArgs e)
@@ -519,11 +539,11 @@ namespace GoogleScrapper
                 //}
                 if (ResultadoBusqueda.Length > 0)
                 {
-                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, BuscarYoutubVideoTB.Text + ".rbjson"), ResultadoBusqueda, System.Text.Encoding.UTF8);
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreAchivoUltResultTXBX.Text}.rbjson"), ResultadoBusqueda, System.Text.Encoding.UTF8);
                 }
                 if (ResultadoListaVideos.Length > 0)
                 {
-                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, BuscarYoutubVideoTB.Text + ".rljson"), ResultadoListaVideos, System.Text.Encoding.UTF8);
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreAchivoUltResultTXBX.Text}.rljson"), ResultadoListaVideos, System.Text.Encoding.UTF8);
                 }
             }
             catch (Exception ex)
@@ -578,12 +598,16 @@ namespace GoogleScrapper
             try
             {
                 var resultado = await YoutubeApi.GetCanalInfo(IdCanal);
-                if (resultado != null)
+                if (resultado != null && resultado.Items != null && resultado.Items.Count > 0)
                 {
                     var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
                     var resultadoVideos = await YoutubeApi.GetPlaylistItems(listasRelacionadas.Uploads);
                     CargarResultados(resultadoVideos);
                     ResultadoListaVideos = JsonConvert.SerializeObject(resultadoVideos);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro el Canal", "Error al Obtener los Videos desde el IdCanal");
                 }
             }
             catch (Exception ex)
@@ -591,6 +615,64 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el IdCanal");
             }
         }
+
+        public async void ObtenerVideosDesdeNombreCanal(string NombreCanal)
+        {
+            try
+            {
+                var resultado = await YoutubeApi.GetCanalInfo(NombreCanal,false);
+                if (resultado != null && resultado.Items != null && resultado.Items.Count > 0)
+                {
+                    var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
+                    var resultadoVideos = await YoutubeApi.GetPlaylistItems(listasRelacionadas.Uploads);
+                    CargarResultados(resultadoVideos);
+                    ResultadoListaVideos = JsonConvert.SerializeObject(resultadoVideos);
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro el Canal", "Error al Obtener los Videos desde el Nombre del Canal");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el Nombre del Canal");
+            }
+        }
+
+        private void SeleccionSimpleCKBX_CheckedChanged(object sender, EventArgs e)
+        {
+            CambiarVisibilidadBotonesObtenerVideos();
+        }
+
+        private void ObtenerInformacionBTN_Click(object sender, EventArgs e)
+        {
+            ///TODO Implementar Funcionalidad Obtener Informacion
+        }
+
+        private void CambiarVisibilidadBotonesObtenerVideos()
+        {
+            ObtenerVideosListaReprBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.lista;
+            ObtenerVideosCanalBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.canal;
+            ObtenerInformacionBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null;
+        }
+        private void panelyoutubeClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SeleccionSimpleCKBX.Checked)
+                {
+                    foreach (var item in panelResultadoYoutubes.Where(x => x != ItemResultadoSeleccionado))
+                    {
+                        item.Deseleccionar();
+                    }
+                }
+                CambiarVisibilidadBotonesObtenerVideos();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         #endregion
 
         #region Descargar Videos Directamente
@@ -603,5 +685,7 @@ namespace GoogleScrapper
         #endregion
 
 
+
+        
     }
 }

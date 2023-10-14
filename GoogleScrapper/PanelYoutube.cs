@@ -13,7 +13,7 @@ namespace GoogleScrapper
 {
     public partial class PanelYoutube : UserControl
     {
-        private Label TituloVideoLB = new Label();
+        public Label TituloVideoLB = new Label();
         private Label DescripcionVideoLB = new Label();
         private Label OtrosDatosVideoLB = new Label();
 
@@ -23,9 +23,10 @@ namespace GoogleScrapper
         public static string BaseUrlYouTubeChannel { get; } = "https://www.youtube.com/channel/";
         public static string BaseUrlYouTubePlaylist { get; } = "https://www.youtube.com/playlist?list=";
         public string Link { get; set; } = "";
+        public string ID { get; set; } = "";
         public TipoResultado TipoResultado { get; set; }  
         
-        public PanelYoutube(int ancho, int altoimagen, Google.Apis.YouTube.v3.Data.SearchResult resultado)
+        public PanelYoutube(int ancho, int altoimagen, Google.Apis.YouTube.v3.Data.SearchResult resultado, EventHandler click)
         {
             InitializeComponent();
             this.Width = ancho;
@@ -37,6 +38,7 @@ namespace GoogleScrapper
             this.ImagenVideoPicBx.Dock = DockStyle.Top;
             this.ImagenVideoPicBx.Height = altoimagen;
             this.ImagenVideoPicBx.Click += panelyoutubeClick;
+            this.ImagenVideoPicBx.Click += click;
             this.ImagenVideoPicBx.DoubleClick += AlDobleClick;
 
             this.TituloVideoLB.Text = resultado.Snippet.Title;
@@ -46,6 +48,7 @@ namespace GoogleScrapper
             this.TituloVideoLB.ForeColor = SystemColors.InfoText;
             this.TituloVideoLB.Size = new Size(ancho, (int)(altoRestante * 0.4M));
             this.TituloVideoLB.Click += panelyoutubeClick;
+            this.TituloVideoLB.Click += click; ;
             this.TituloVideoLB.DoubleClick += AlDobleClick;
 
             this.OtrosDatosVideoLB.Dock = DockStyle.Top;
@@ -53,6 +56,7 @@ namespace GoogleScrapper
             this.OtrosDatosVideoLB.MaximumSize = new Size(ancho, (int)(altoRestante * 0.2M));
             this.OtrosDatosVideoLB.Text = $"Fecha: {resultado.Snippet.PublishedAtDateTimeOffset?.ToString("dd/MM/yyyy")} | Canal: {resultado.Snippet.ChannelTitle}";
             this.OtrosDatosVideoLB.Click += panelyoutubeClick;
+            this.OtrosDatosVideoLB.Click += click;
             this.OtrosDatosVideoLB.DoubleClick += AlDobleClick;
 
             this.DescripcionVideoLB.Dock = DockStyle.Top;
@@ -60,6 +64,7 @@ namespace GoogleScrapper
             this.DescripcionVideoLB.MaximumSize = new Size(ancho, (int)(altoRestante * 0.4M));
             this.DescripcionVideoLB.Text = resultado.Snippet.Description;
             this.DescripcionVideoLB.Click += panelyoutubeClick;
+            this.DescripcionVideoLB.Click += click;
             this.DescripcionVideoLB.DoubleClick += AlDobleClick;
 
             this.Controls.Add(DescripcionVideoLB);
@@ -73,19 +78,22 @@ namespace GoogleScrapper
                 case "video":
                     Link = BaseUrlYouTube + resultado.Id.VideoId;
                     this.TipoResultado = TipoResultado.video;
+                    ID = resultado.Id.VideoId;
                     break;
                 case "channel":
                     Link = BaseUrlYouTubeChannel + resultado.Id.ChannelId;
                     this.TipoResultado = TipoResultado.canal;
+                    ID = resultado.Id.ChannelId;
                     break;
                 case "playlist":
                     Link = BaseUrlYouTubePlaylist + resultado.Id.PlaylistId;
                     this.TipoResultado = TipoResultado.lista;
+                    ID = resultado.Id.PlaylistId;
                     break;
             }
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
         }
-        public PanelYoutube(int ancho, int altoimagen, PlaylistItem resultado)
+        public PanelYoutube(int ancho, int altoimagen, PlaylistItem resultado,EventHandler click)
         {
             InitializeComponent();
             this.Width = ancho;
@@ -97,6 +105,7 @@ namespace GoogleScrapper
             this.ImagenVideoPicBx.Dock = DockStyle.Top;
             this.ImagenVideoPicBx.Height = altoimagen;
             this.ImagenVideoPicBx.Click += panelyoutubeClick;
+            this.ImagenVideoPicBx.Click += click;
             this.ImagenVideoPicBx.DoubleClick += AlDobleClick;
 
             this.TituloVideoLB.Text = resultado.Snippet.Title;
@@ -106,6 +115,7 @@ namespace GoogleScrapper
             this.TituloVideoLB.ForeColor = SystemColors.InfoText;
             this.TituloVideoLB.Size = new Size(ancho, (int)(altoRestante * 0.4M));
             this.TituloVideoLB.Click += panelyoutubeClick;
+            this.TituloVideoLB.Click += click;
             this.TituloVideoLB.DoubleClick += AlDobleClick;
 
             this.OtrosDatosVideoLB.Dock = DockStyle.Top;
@@ -113,6 +123,7 @@ namespace GoogleScrapper
             this.OtrosDatosVideoLB.MaximumSize = new Size(ancho, (int)(altoRestante * 0.2M));
             this.OtrosDatosVideoLB.Text = $"Fecha: {resultado.Snippet.PublishedAtDateTimeOffset?.ToString("dd/MM/yyyy")} | Canal: {resultado.Snippet.ChannelTitle}";
             this.OtrosDatosVideoLB.Click += panelyoutubeClick;
+            this.OtrosDatosVideoLB.Click += click;
             this.OtrosDatosVideoLB.DoubleClick += AlDobleClick;
 
             this.DescripcionVideoLB.Dock = DockStyle.Top;
@@ -120,6 +131,7 @@ namespace GoogleScrapper
             this.DescripcionVideoLB.MaximumSize = new Size(ancho, (int)(altoRestante * 0.4M));
             this.DescripcionVideoLB.Text = resultado.Snippet.Description;
             this.DescripcionVideoLB.Click += panelyoutubeClick;
+            this.DescripcionVideoLB.Click += click;
             this.DescripcionVideoLB.DoubleClick += AlDobleClick;
 
             this.Controls.Add(DescripcionVideoLB);
@@ -162,13 +174,22 @@ namespace GoogleScrapper
             {
                 this.BorderStyle = BorderStyle.None;
                 this.BackColor = Color.Transparent;
+                MainForm.ItemResultadoSeleccionado = null;
             }
             else
             {
                 this.BorderStyle = BorderStyle.Fixed3D;
                 this.BackColor = Color.SkyBlue;
+                MainForm.ItemResultadoSeleccionado = this;
             }
             this.seleccionado = !this.seleccionado;
+        }
+
+        public void Deseleccionar()
+        {
+            this.BorderStyle = BorderStyle.None;
+            this.BackColor = Color.Transparent;
+            this.seleccionado = false;
         }
 
         private void AlDobleClick(object sender, EventArgs e)

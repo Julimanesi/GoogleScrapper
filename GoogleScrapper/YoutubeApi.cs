@@ -117,7 +117,7 @@ namespace GoogleScrapper
             }
         }
 
-        public static async Task<ChannelListResponse?> GetCanalInfo(string canalId)
+        public static async Task<ChannelListResponse?> GetCanalInfo(string identificador,bool esId = true)
         {
             try
             {
@@ -127,7 +127,10 @@ namespace GoogleScrapper
                     //ApplicationName = this.GetType().ToString()
                 });
                 var canalInfo = youtubeService.Channels.List("snippet,contentDetails,statistics");
-                canalInfo.Id= canalId;
+                if(esId)
+                    canalInfo.Id= identificador;
+                else
+                    canalInfo.ForUsername = identificador;
                 canalInfo.MaxResults = 50;
                 return await canalInfo.ExecuteAsync();
             }
