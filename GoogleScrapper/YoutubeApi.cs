@@ -96,7 +96,7 @@ namespace GoogleScrapper
             }
         }
 
-        public static async Task<PlaylistItemListResponse?> GetPlaylistItems(string playListId)
+        public static async Task<PlaylistItemListResponse?> GetPlaylistItems(string playListId, string? pageToken = null)
         {
             try
             {
@@ -108,6 +108,8 @@ namespace GoogleScrapper
                 var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet,contentDetails,status");
                 playlistItemsListRequest.PlaylistId = playListId;
                 playlistItemsListRequest.MaxResults = 50;
+                if (pageToken != null)
+                    playlistItemsListRequest.PageToken = pageToken;
                 return await playlistItemsListRequest.ExecuteAsync();
             }
             catch (Exception ex)
@@ -162,7 +164,7 @@ namespace GoogleScrapper
             }
         }
 
-        public static async Task<PlaylistListResponse?> GetPlayListInfo(string playListId)
+        public static async Task<Playlist?> GetPlayListInfo(string playListId)
         {
             try
             {
@@ -174,7 +176,12 @@ namespace GoogleScrapper
                 var playListInfo = youtubeService.Playlists.List("snippet,status,contentDetails");
                 playListInfo.Id = playListId;
                 playListInfo.MaxResults = 50;
-                return await playListInfo.ExecuteAsync();
+                var resultado = await playListInfo.ExecuteAsync();
+                if(resultado != null && resultado.Items.Count > 0)
+                {
+                    return resultado.Items[0];
+                }
+                return null;
             }
             catch (Exception ex)
             {

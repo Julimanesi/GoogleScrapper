@@ -158,6 +158,7 @@
             ObtenerDatosMusicaCKBX.Text = "Obtener Datos de Musica";
             ObtenerDatosMusicaCKBX.UseVisualStyleBackColor = true;
             ObtenerDatosMusicaCKBX.Visible = false;
+            ObtenerDatosMusicaCKBX.CheckedChanged += ObtenerDatosMusicaCKBX_CheckedChanged;
             // 
             // SoloAudioCKBX
             // 

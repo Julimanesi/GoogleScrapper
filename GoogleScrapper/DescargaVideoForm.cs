@@ -71,7 +71,7 @@ namespace GoogleScrapper
                     }
                     else
                     {   //Descargar solo musica/audio
-                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : "%(track)s.%(ext)s";
+                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : " --continue --embed-thumbnail \"%(track)s.%(ext)s\"";
                         ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o {nombreArchivoMusica} {ListaUrls} --add-metadata";
                     }
                     ytdl.StartInfo.UseShellExecute = false;
@@ -252,6 +252,11 @@ namespace GoogleScrapper
         private void SoloAudioCKBX_CheckedChanged(object sender, EventArgs e)
         {
             ObtenerDatosMusicaCKBX.Visible = SoloAudioCKBX.Checked;
+        }
+
+        private void ObtenerDatosMusicaCKBX_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
