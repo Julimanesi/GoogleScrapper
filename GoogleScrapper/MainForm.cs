@@ -23,11 +23,13 @@ namespace GoogleScrapper
         private List<PanelYoutube> panelResultadoYoutubes = new List<PanelYoutube>();
         private bool TodosPanelesYoutubeSeleccionados = false;
         private YoutubeApi? YoutubeApi;
-        private string PlaylistId { get; set; } = "";
+
         private string ResultadoBusqueda { get; set; } = "";
         private string ResultadoListaVideos { get; set; } = "";
+
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
         private string NombreListaVideos { get; set; } = "";
+
         public MainForm()
         {
             InitializeComponent();
@@ -315,6 +317,7 @@ namespace GoogleScrapper
         {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
+                panelResultadoYoutubes.Clear();
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
                 int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
 
@@ -325,6 +328,7 @@ namespace GoogleScrapper
                 }
                 ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
                 BotoneraYoutube.Visible = true;
+                ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
 
                 ResultadoBusqueda = JsonConvert.SerializeObject(searchListResponse);
@@ -334,16 +338,24 @@ namespace GoogleScrapper
         {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
+                panelResultadoYoutubes.Clear();
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
                 int ancho = (ResultadosYouTubeFlowLayPanel.Width - (ResultadosYouTubeFlowLayPanel.Margin.Horizontal * (int)NumColumnasResultNM.Value + 21)) / (int)NumColumnasResultNM.Value;
 
-                foreach (var searchResult in searchListResponse.Items)
+                foreach (var searchResult in searchListResponse.Items.Where(x=>x.Status.PrivacyStatus != "private" && x.Snippet.Title != "Deleted video"))
                 {
-                    PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
-                    panelResultadoYoutubes.Add(panelResultado);
+                    try
+                    {
+                        PanelYoutube panelResultado = new PanelYoutube(ancho, (int)(ancho / NroAureo), searchResult);
+                        panelResultadoYoutubes.Add(panelResultado);
+                    }catch(Exception ex) 
+                    {
+                        continue;
+                    }
                 }
                 ResultadosYouTubeFlowLayPanel.Controls.AddRange(panelResultadoYoutubes.ToArray());
                 BotoneraYoutube.Visible = true;
+                ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
 
                 ResultadoListaVideos = JsonConvert.SerializeObject(searchListResponse);
@@ -376,7 +388,8 @@ namespace GoogleScrapper
 
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
-            DescargarVideos(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)), panelResultadoYoutubes.Count, 'Y');
+            var listaLinks = panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link);
+            DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y');
         }
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
@@ -403,58 +416,92 @@ namespace GoogleScrapper
             {
                 case 0:
                     FiltroVideoYTPanel.Visible = true;
-                    FiltroCanalYT.Visible = false;
-                    ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 2:
                     FiltroVideoYTPanel.Visible = false;
-                    FiltroCanalYT.Visible = true;
-                    ObtenerVideosListaReprBTN.Visible = false;
                     break;
                 case 1:
                     FiltroVideoYTPanel.Visible = false;
-                    FiltroCanalYT.Visible = false;
-                    ObtenerVideosListaReprBTN.Visible = true;
                     break;
             }
         }
 
         private async void ObtenerVideosListaReprBTN_Click(object sender, EventArgs e)
         {
-            if (YoutubeApi == null)
+            try
             {
-                YoutubeApi = new YoutubeApi();
+                if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubePlaylist))
+                {
+                    var PlaylistId = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubePlaylist)[1];
+                    var resultado = await YoutubeApi.GetPlaylistItems(PlaylistId);
+                    if (resultado != null)
+                    {
+                        CargarResultados(resultado);
+                        ResultadoListaVideos = JsonConvert.SerializeObject(resultado);
+                    }
+                }
             }
-            if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubePlaylist))
+            catch (Exception ex)
             {
-                PlaylistId = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubePlaylist)[1];
-                await YoutubeApi.GetPlaylistItems(PlaylistId);
-                CargarResultados(YoutubeApi.ItemsListaReprodRespuesta);
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos de la Lista de Reproduccion");
             }
         }
 
         private void ObtenerVideosCanalBTN_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (Clipboard.GetText().Contains(PanelYoutube.BaseUrlYouTubeChannel))
+                {
+                    var Idcanal = Clipboard.GetText().Split(PanelYoutube.BaseUrlYouTubeChannel)[1];
+                    ObtenerVideosDesdeIDCanal(Idcanal);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos del Canal");
+            }
         }
 
         private void IDListaReprodTXBX_TextChanged(object sender, EventArgs e)
         {
-            ObtenerVideosIDListReprBTN.Visible = IDListaReprodTXBX.Text.Length > 0;
+            ObtenerVideosIDListReprBTN.Visible = IDListaReprodTXBX.Text.Length > 0 && IDListaReprodTXBX.Text != "" && IDListaReprodTXBX.Text != " ";
         }
 
         private async void ObtenerVideosIDListReprBTN_Click(object sender, EventArgs e)
         {
-            if (YoutubeApi == null)
+            try
             {
-                YoutubeApi = new YoutubeApi();
+                var resultado = await YoutubeApi.GetPlaylistItems(IDListaReprodTXBX.Text);
+                if (resultado != null)
+                {
+                    CargarResultados(resultado);
+                    ResultadoListaVideos = JsonConvert.SerializeObject(resultado);
+                }
             }
-            await YoutubeApi.GetPlaylistItems(IDListaReprodTXBX.Text);
-            if(YoutubeApi.ItemsListaReprodRespuesta != null)
+            catch (Exception ex)
             {
-                CargarResultados(YoutubeApi.ItemsListaReprodRespuesta);
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos de la Lista de Reproduccion");
             }
         }
+
+        private void ObtenerVideosIDCanalBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ObtenerVideosDesdeIDCanal(IDCanalTXBX.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el IdCanal");
+            }
+        }
+
+        private void IDCanalTXBX_TextChanged(object sender, EventArgs e)
+        {
+            ObtenerVideosIDCanalBTN.Visible = IDCanalTXBX.Text.Length > 0 && IDCanalTXBX.Text != "" && IDCanalTXBX.Text != " ";
+        }
+
         private void GuardarResultadosBTN_Click(object sender, EventArgs e)
         {
             try
@@ -496,7 +543,7 @@ namespace GoogleScrapper
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
                         var tipo = Path.GetExtension(ofd.FileName);
-                        if (tipo != null) 
+                        if (tipo != null)
                         {
                             switch (tipo)
                             {
@@ -521,9 +568,27 @@ namespace GoogleScrapper
                     Directory.CreateDirectory(PathDirectorioResultadoBusqueda);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al abrir el archivo");
+            }
+        }
+        public async void ObtenerVideosDesdeIDCanal(string IdCanal)
+        {
+            try
+            {
+                var resultado = await YoutubeApi.GetCanalInfo(IdCanal);
+                if (resultado != null)
+                {
+                    var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
+                    var resultadoVideos = await YoutubeApi.GetPlaylistItems(listasRelacionadas.Uploads);
+                    CargarResultados(resultadoVideos);
+                    ResultadoListaVideos = JsonConvert.SerializeObject(resultadoVideos);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener los Videos desde el IdCanal");
             }
         }
         #endregion
@@ -537,6 +602,6 @@ namespace GoogleScrapper
 
         #endregion
 
-        
+
     }
 }

@@ -83,7 +83,7 @@ namespace GoogleScrapper
                     this.TipoResultado = TipoResultado.lista;
                     break;
             }
-            
+            this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
         }
         public PanelYoutube(int ancho, int altoimagen, PlaylistItem resultado)
         {
@@ -129,7 +129,7 @@ namespace GoogleScrapper
 
             Link = BaseUrlYouTube + resultado.Id;
             this.TipoResultado = TipoResultado.video;
-
+            this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
         }
 
         public void VolverARenderizar(int ancho, int altoimagen)

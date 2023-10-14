@@ -25,7 +25,6 @@ namespace GoogleScrapper
         public string CategoriaVideo { get; set; } = string.Empty;
         public string TipoBusqueda { get; set; } = string.Empty;
         public SearchListResponse? ListaRespuesta { get; set; }
-        public PlaylistItemListResponse? ItemsListaReprodRespuesta { get; set; }
         public SearchResource.ListRequest.ChannelTypeEnum TipoCanal { get; set; }
         public string Idioma { get; set; } = string.Empty;
         public string Pais { get; set; } = string.Empty;
@@ -97,23 +96,87 @@ namespace GoogleScrapper
             }
         }
 
-        public async Task GetPlaylistItems(string playListId)
+        public static async Task<PlaylistItemListResponse?> GetPlaylistItems(string playListId)
         {
             try
             {
                 var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
                     ApiKey = KeyAndPasswords.YoutubeApiKey,
-                    ApplicationName = this.GetType().ToString()
+                    //ApplicationName = this.GetType().ToString()
                 });
-                var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet");
+                var playlistItemsListRequest = youtubeService.PlaylistItems.List("snippet,contentDetails,status");
                 playlistItemsListRequest.PlaylistId = playListId;
                 playlistItemsListRequest.MaxResults = 50;
-                ItemsListaReprodRespuesta = await playlistItemsListRequest.ExecuteAsync();
+                return await playlistItemsListRequest.ExecuteAsync();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al buscar videos de la lista de reproducción en Youtube(API)");
+                return null;
+            }
+        }
+
+        public static async Task<ChannelListResponse?> GetCanalInfo(string canalId)
+        {
+            try
+            {
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = KeyAndPasswords.YoutubeApiKey,
+                    //ApplicationName = this.GetType().ToString()
+                });
+                var canalInfo = youtubeService.Channels.List("snippet,contentDetails,statistics");
+                canalInfo.Id= canalId;
+                canalInfo.MaxResults = 50;
+                return await canalInfo.ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al buscar videos de la lista de reproducción en Youtube(API)");
+                return null;
+            }
+        }
+
+        public static async Task<VideoListResponse?> GetVideoInfo(string videoId)
+        {
+            try
+            {
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = KeyAndPasswords.YoutubeApiKey,
+                    //ApplicationName = this.GetType().ToString()
+                });
+                var videoInfo = youtubeService.Videos.List("snippet,contentDetails,statistics,recordingDetails,player,topicDetails");
+                videoInfo.Id = videoId;
+                videoInfo.MaxResults = 50;
+                return await videoInfo.ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al obtener info del video en Youtube(API)");
+                return null;
+            }
+        }
+
+        public static async Task<PlaylistListResponse?> GetPlayListInfo(string playListId)
+        {
+            try
+            {
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = KeyAndPasswords.YoutubeApiKey,
+                    //ApplicationName = this.GetType().ToString()
+                });
+                var playListInfo = youtubeService.Playlists.List("snippet,status,contentDetails");
+                playListInfo.Id = playListId;
+                playListInfo.MaxResults = 50;
+                return await playListInfo.ExecuteAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al obtener info del video en Youtube(API)");
+                return null;
             }
         }
     }
