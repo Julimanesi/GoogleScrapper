@@ -61,7 +61,7 @@
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
             BotoneraYoutube = new Panel();
-            NombreAchivoUltResultTXBX = new TextBox();
+            NombreArchivoUltResultTXBX = new TextBox();
             ObtenerInformacionBTN = new Button();
             SeleccionSimpleCKBX = new CheckBox();
             ResultadosPorPaginaYouTbLabel = new Label();
@@ -466,7 +466,7 @@
             // 
             // BotoneraYoutube
             // 
-            BotoneraYoutube.Controls.Add(NombreAchivoUltResultTXBX);
+            BotoneraYoutube.Controls.Add(NombreArchivoUltResultTXBX);
             BotoneraYoutube.Controls.Add(ObtenerInformacionBTN);
             BotoneraYoutube.Controls.Add(SeleccionSimpleCKBX);
             BotoneraYoutube.Controls.Add(ResultadosPorPaginaYouTbLabel);
@@ -486,13 +486,13 @@
             BotoneraYoutube.TabIndex = 23;
             BotoneraYoutube.Visible = false;
             // 
-            // NombreAchivoUltResultTXBX
+            // NombreArchivoUltResultTXBX
             // 
-            NombreAchivoUltResultTXBX.Location = new Point(734, 56);
-            NombreAchivoUltResultTXBX.Name = "NombreAchivoUltResultTXBX";
-            NombreAchivoUltResultTXBX.PlaceholderText = "Nombre del Archivo a guardar";
-            NombreAchivoUltResultTXBX.Size = new Size(214, 27);
-            NombreAchivoUltResultTXBX.TabIndex = 54;
+            NombreArchivoUltResultTXBX.Location = new Point(734, 56);
+            NombreArchivoUltResultTXBX.Name = "NombreArchivoUltResultTXBX";
+            NombreArchivoUltResultTXBX.PlaceholderText = "Nombre del Archivo a guardar";
+            NombreArchivoUltResultTXBX.Size = new Size(214, 27);
+            NombreArchivoUltResultTXBX.TabIndex = 54;
             // 
             // ObtenerInformacionBTN
             // 
@@ -1268,7 +1268,7 @@
         private Panel FiltroBusquedaYTPanel;
         private CheckBox SeleccionSimpleCKBX;
         private Button ObtenerInformacionBTN;
-        private TextBox NombreAchivoUltResultTXBX;
+        private TextBox NombreArchivoUltResultTXBX;
         private Label label23;
         private Button ObtenerVideosNombreCanalBTN;
         private TextBox NombreCanalTXBX;

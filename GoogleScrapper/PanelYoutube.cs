@@ -139,7 +139,8 @@ namespace GoogleScrapper
             this.Controls.Add(ImagenVideoPicBx);
             this.Controls.Add(TituloVideoLB);
 
-            Link = BaseUrlYouTube + resultado.Id;
+            Link = BaseUrlYouTube + resultado.Snippet.ResourceId.VideoId;
+            ID = resultado.Snippet.ResourceId.VideoId;
             this.TipoResultado = TipoResultado.video;
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
         }

@@ -332,7 +332,7 @@ namespace GoogleScrapper
                 ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
 
-                NombreAchivoUltResultTXBX.Text = BuscarVideoBTN.Text;
+                NombreArchivoUltResultTXBX.Text = BuscarVideoBTN.Text;
                 CambiarVisibilidadBotonesObtenerVideos();
                 ResultadoBusqueda = JsonConvert.SerializeObject(searchListResponse);
             }
@@ -341,7 +341,7 @@ namespace GoogleScrapper
         {
             if (searchListResponse != null && searchListResponse.Items.Any())
             {
-                NombreAchivoUltResultTXBX.Text = ItemResultadoSeleccionado != null ? ItemResultadoSeleccionado.TituloVideoLB.Text : "Sin nombre";
+                NombreArchivoUltResultTXBX.Text = ItemResultadoSeleccionado != null ? ItemResultadoSeleccionado.TituloVideoLB.Text : "Sin nombre";
                 ItemResultadoSeleccionado = null;
                 panelResultadoYoutubes.Clear();
                 ResultadosYouTubeFlowLayPanel.Controls.Clear();
@@ -503,8 +503,8 @@ namespace GoogleScrapper
         }
         private void ObtenerVideosNombreCanalBTN_Click(object sender, EventArgs e)
         {
-            try 
-            { 
+            try
+            {
                 ObtenerVideosDesdeNombreCanal(NombreCanalTXBX.Text);
             }
             catch (Exception ex)
@@ -539,11 +539,11 @@ namespace GoogleScrapper
                 //}
                 if (ResultadoBusqueda.Length > 0)
                 {
-                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreAchivoUltResultTXBX.Text}.rbjson"), ResultadoBusqueda, System.Text.Encoding.UTF8);
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreArchivoUltResultTXBX.Text}.rbjson"), ResultadoBusqueda, System.Text.Encoding.UTF8);
                 }
                 if (ResultadoListaVideos.Length > 0)
                 {
-                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreAchivoUltResultTXBX.Text}.rljson"), ResultadoListaVideos, System.Text.Encoding.UTF8);
+                    System.IO.File.WriteAllText(Path.Combine(PathDirectorioResultadoBusqueda, $"{NombreArchivoUltResultTXBX.Text}.rljson"), ResultadoListaVideos, System.Text.Encoding.UTF8);
                 }
             }
             catch (Exception ex)
@@ -620,12 +620,13 @@ namespace GoogleScrapper
         {
             try
             {
-                var resultado = await YoutubeApi.GetCanalInfo(NombreCanal,false);
+                var resultado = await YoutubeApi.GetCanalInfo(NombreCanal, false);
                 if (resultado != null && resultado.Items != null && resultado.Items.Count > 0)
                 {
                     var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
                     var resultadoVideos = await YoutubeApi.GetPlaylistItems(listasRelacionadas.Uploads);
                     CargarResultados(resultadoVideos);
+                    NombreArchivoUltResultTXBX.Text = NombreCanal;
                     ResultadoListaVideos = JsonConvert.SerializeObject(resultadoVideos);
                 }
                 else
@@ -686,6 +687,6 @@ namespace GoogleScrapper
 
 
 
-        
+
     }
 }
