@@ -30,34 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
-            VideoTag = new TabPage();
-            panelResultado = new Panel();
-            DescargVideosBTN = new Button();
-            SeleccionarTodosBTN = new Button();
-            ResultadosTotalesLabel = new Label();
-            AgregarEnviarSMplayerBTN = new Button();
-            panelProgreso = new Panel();
-            ResultadosActualesProgressBar = new ProgressBar();
-            NumResultadosActulabel = new Label();
-            VideoNumPagprogressBar = new ProgressBar();
-            PaginasVisitadasLabel = new Label();
-            NumeroPagTotalesLabel = new Label();
-            LinkVideosLB = new ListBox();
-            resultadoVideoBindingSource = new BindingSource(components);
-            panel1 = new Panel();
-            FechaFinlabel = new Label();
-            FechaIniciolabel = new Label();
-            label1 = new Label();
-            BuscarVideoTB = new TextBox();
-            SoloListaExtYtdlCKBX = new CheckBox();
-            FechaFinDTP = new DateTimePicker();
-            BuscarVideoBTN = new Button();
-            FechaInicioDTP = new DateTimePicker();
-            DuracionVideoCOMBX = new ComboBox();
-            AltaCalidadCKBX = new CheckBox();
-            FechaVideoCOMBX = new ComboBox();
-            label2 = new Label();
-            NumMinResultVideoNM = new NumericUpDown();
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
             BotoneraYoutube = new Panel();
@@ -127,19 +99,42 @@
             IDCanalTXBX = new TextBox();
             BuscarYoutubeBTN = new Button();
             ObtenerVideosIDListReprBTN = new Button();
+            VideoTag = new TabPage();
+            panelResultado = new Panel();
+            DescargVideosBTN = new Button();
+            SeleccionarTodosBTN = new Button();
+            ResultadosTotalesLabel = new Label();
+            AgregarEnviarSMplayerBTN = new Button();
+            panelProgreso = new Panel();
+            ResultadosActualesProgressBar = new ProgressBar();
+            NumResultadosActulabel = new Label();
+            VideoNumPagprogressBar = new ProgressBar();
+            PaginasVisitadasLabel = new Label();
+            NumeroPagTotalesLabel = new Label();
+            LinkVideosLB = new ListBox();
+            resultadoVideoBindingSource = new BindingSource(components);
+            panel1 = new Panel();
+            FechaFinlabel = new Label();
+            FechaIniciolabel = new Label();
+            label1 = new Label();
+            BuscarVideoTB = new TextBox();
+            SoloListaExtYtdlCKBX = new CheckBox();
+            FechaFinDTP = new DateTimePicker();
+            BuscarVideoBTN = new Button();
+            FechaInicioDTP = new DateTimePicker();
+            DuracionVideoCOMBX = new ComboBox();
+            AltaCalidadCKBX = new CheckBox();
+            FechaVideoCOMBX = new ComboBox();
+            label2 = new Label();
+            NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             Descargatag = new TabPage();
             label20 = new Label();
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            ObtenerDatosDeArchivoCKBX = new CheckBox();
             tabControl1.SuspendLayout();
-            VideoTag.SuspendLayout();
-            panelResultado.SuspendLayout();
-            panelProgreso.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)resultadoVideoBindingSource).BeginInit();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).BeginInit();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumColumnasResultNM).BeginInit();
@@ -148,13 +143,19 @@
             ((System.ComponentModel.ISupportInitialize)MaxResultYoutubeNM).BeginInit();
             FiltroVideoYTPanel.SuspendLayout();
             ObtenerVideosYTPanel.SuspendLayout();
+            VideoTag.SuspendLayout();
+            panelResultado.SuspendLayout();
+            panelProgreso.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)resultadoVideoBindingSource).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).BeginInit();
             Descargatag.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(VideoTag);
             tabControl1.Controls.Add(YoutubeTag);
+            tabControl1.Controls.Add(VideoTag);
             tabControl1.Controls.Add(ImagenTag);
             tabControl1.Controls.Add(Descargatag);
             tabControl1.Dock = DockStyle.Fill;
@@ -163,290 +164,6 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1179, 820);
             tabControl1.TabIndex = 0;
-            // 
-            // VideoTag
-            // 
-            VideoTag.Controls.Add(panelResultado);
-            VideoTag.Controls.Add(panelProgreso);
-            VideoTag.Controls.Add(LinkVideosLB);
-            VideoTag.Controls.Add(panel1);
-            VideoTag.Location = new Point(4, 29);
-            VideoTag.Name = "VideoTag";
-            VideoTag.Padding = new Padding(3);
-            VideoTag.Size = new Size(1171, 787);
-            VideoTag.TabIndex = 0;
-            VideoTag.Text = "General Videos";
-            VideoTag.UseVisualStyleBackColor = true;
-            // 
-            // panelResultado
-            // 
-            panelResultado.Controls.Add(DescargVideosBTN);
-            panelResultado.Controls.Add(SeleccionarTodosBTN);
-            panelResultado.Controls.Add(ResultadosTotalesLabel);
-            panelResultado.Controls.Add(AgregarEnviarSMplayerBTN);
-            panelResultado.Location = new Point(3, 237);
-            panelResultado.Name = "panelResultado";
-            panelResultado.Size = new Size(1165, 47);
-            panelResultado.TabIndex = 20;
-            panelResultado.Visible = false;
-            // 
-            // DescargVideosBTN
-            // 
-            DescargVideosBTN.Location = new Point(367, 7);
-            DescargVideosBTN.Name = "DescargVideosBTN";
-            DescargVideosBTN.Size = new Size(244, 29);
-            DescargVideosBTN.TabIndex = 18;
-            DescargVideosBTN.Text = "Descargar Videos Seleccionados";
-            DescargVideosBTN.UseVisualStyleBackColor = true;
-            DescargVideosBTN.Click += DescargVideosBTN_Click;
-            // 
-            // SeleccionarTodosBTN
-            // 
-            SeleccionarTodosBTN.Location = new Point(673, 7);
-            SeleccionarTodosBTN.Name = "SeleccionarTodosBTN";
-            SeleccionarTodosBTN.Size = new Size(163, 29);
-            SeleccionarTodosBTN.TabIndex = 17;
-            SeleccionarTodosBTN.Text = "Seleccionar Todos";
-            SeleccionarTodosBTN.UseVisualStyleBackColor = true;
-            SeleccionarTodosBTN.Click += SeleccionarTodosButton_Click;
-            // 
-            // ResultadosTotalesLabel
-            // 
-            ResultadosTotalesLabel.AutoSize = true;
-            ResultadosTotalesLabel.Location = new Point(937, 11);
-            ResultadosTotalesLabel.Name = "ResultadosTotalesLabel";
-            ResultadosTotalesLabel.Size = new Size(131, 20);
-            ResultadosTotalesLabel.TabIndex = 16;
-            ResultadosTotalesLabel.Text = "ResultadosTotales:";
-            // 
-            // AgregarEnviarSMplayerBTN
-            // 
-            AgregarEnviarSMplayerBTN.Location = new Point(5, 6);
-            AgregarEnviarSMplayerBTN.Name = "AgregarEnviarSMplayerBTN";
-            AgregarEnviarSMplayerBTN.Size = new Size(301, 30);
-            AgregarEnviarSMplayerBTN.TabIndex = 15;
-            AgregarEnviarSMplayerBTN.Text = "Agregar/Enviar seleccionados a Smplayer";
-            AgregarEnviarSMplayerBTN.UseVisualStyleBackColor = true;
-            AgregarEnviarSMplayerBTN.Click += AgregarEnviarSmplayer_Click;
-            // 
-            // panelProgreso
-            // 
-            panelProgreso.Controls.Add(ResultadosActualesProgressBar);
-            panelProgreso.Controls.Add(NumResultadosActulabel);
-            panelProgreso.Controls.Add(VideoNumPagprogressBar);
-            panelProgreso.Controls.Add(PaginasVisitadasLabel);
-            panelProgreso.Controls.Add(NumeroPagTotalesLabel);
-            panelProgreso.Location = new Point(3, 147);
-            panelProgreso.Name = "panelProgreso";
-            panelProgreso.Size = new Size(1165, 84);
-            panelProgreso.TabIndex = 19;
-            panelProgreso.Visible = false;
-            // 
-            // ResultadosActualesProgressBar
-            // 
-            ResultadosActualesProgressBar.Location = new Point(255, 39);
-            ResultadosActualesProgressBar.Name = "ResultadosActualesProgressBar";
-            ResultadosActualesProgressBar.Size = new Size(289, 29);
-            ResultadosActualesProgressBar.TabIndex = 16;
-            // 
-            // NumResultadosActulabel
-            // 
-            NumResultadosActulabel.AutoSize = true;
-            NumResultadosActulabel.Location = new Point(5, 44);
-            NumResultadosActulabel.Name = "NumResultadosActulabel";
-            NumResultadosActulabel.Size = new Size(223, 20);
-            NumResultadosActulabel.TabIndex = 15;
-            NumResultadosActulabel.Text = "Numero de Resultados Actuales:";
-            // 
-            // VideoNumPagprogressBar
-            // 
-            VideoNumPagprogressBar.Location = new Point(699, 40);
-            VideoNumPagprogressBar.Name = "VideoNumPagprogressBar";
-            VideoNumPagprogressBar.Size = new Size(454, 28);
-            VideoNumPagprogressBar.Step = 1;
-            VideoNumPagprogressBar.TabIndex = 12;
-            // 
-            // PaginasVisitadasLabel
-            // 
-            PaginasVisitadasLabel.AutoSize = true;
-            PaginasVisitadasLabel.Location = new Point(541, 44);
-            PaginasVisitadasLabel.Name = "PaginasVisitadasLabel";
-            PaginasVisitadasLabel.Size = new Size(125, 20);
-            PaginasVisitadasLabel.TabIndex = 13;
-            PaginasVisitadasLabel.Text = "Paginas Visitadas:";
-            // 
-            // NumeroPagTotalesLabel
-            // 
-            NumeroPagTotalesLabel.AutoSize = true;
-            NumeroPagTotalesLabel.Location = new Point(5, 12);
-            NumeroPagTotalesLabel.Name = "NumeroPagTotalesLabel";
-            NumeroPagTotalesLabel.Size = new Size(226, 20);
-            NumeroPagTotalesLabel.TabIndex = 14;
-            NumeroPagTotalesLabel.Text = "Numero de Paginas encontradas:";
-            // 
-            // LinkVideosLB
-            // 
-            LinkVideosLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            LinkVideosLB.DataSource = resultadoVideoBindingSource;
-            LinkVideosLB.DisplayMember = "Title";
-            LinkVideosLB.FormattingEnabled = true;
-            LinkVideosLB.HorizontalScrollbar = true;
-            LinkVideosLB.ItemHeight = 20;
-            LinkVideosLB.Location = new Point(3, 282);
-            LinkVideosLB.Name = "LinkVideosLB";
-            LinkVideosLB.SelectionMode = SelectionMode.MultiExtended;
-            LinkVideosLB.Size = new Size(1165, 344);
-            LinkVideosLB.TabIndex = 9;
-            LinkVideosLB.ValueMember = "URLVideo";
-            LinkVideosLB.SelectedIndexChanged += listBox1_SelectedIndexChanged;
-            LinkVideosLB.DoubleClick += LinVideoDoubleClick;
-            // 
-            // resultadoVideoBindingSource
-            // 
-            resultadoVideoBindingSource.DataSource = typeof(ResultadoVideo);
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(FechaFinlabel);
-            panel1.Controls.Add(FechaIniciolabel);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(BuscarVideoTB);
-            panel1.Controls.Add(SoloListaExtYtdlCKBX);
-            panel1.Controls.Add(FechaFinDTP);
-            panel1.Controls.Add(BuscarVideoBTN);
-            panel1.Controls.Add(FechaInicioDTP);
-            panel1.Controls.Add(DuracionVideoCOMBX);
-            panel1.Controls.Add(AltaCalidadCKBX);
-            panel1.Controls.Add(FechaVideoCOMBX);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(NumMinResultVideoNM);
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1165, 144);
-            panel1.TabIndex = 21;
-            // 
-            // FechaFinlabel
-            // 
-            FechaFinlabel.AutoSize = true;
-            FechaFinlabel.Location = new Point(678, 107);
-            FechaFinlabel.Name = "FechaFinlabel";
-            FechaFinlabel.Size = new Size(73, 20);
-            FechaFinlabel.TabIndex = 20;
-            FechaFinlabel.Text = "Fecha Fin:";
-            FechaFinlabel.Visible = false;
-            // 
-            // FechaIniciolabel
-            // 
-            FechaIniciolabel.AutoSize = true;
-            FechaIniciolabel.Location = new Point(168, 110);
-            FechaIniciolabel.Name = "FechaIniciolabel";
-            FechaIniciolabel.Size = new Size(90, 20);
-            FechaIniciolabel.TabIndex = 19;
-            FechaIniciolabel.Text = "Fecha Inicio:";
-            FechaIniciolabel.Visible = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(5, 16);
-            label1.Name = "label1";
-            label1.Size = new Size(55, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Buscar:";
-            // 
-            // BuscarVideoTB
-            // 
-            BuscarVideoTB.Location = new Point(61, 13);
-            BuscarVideoTB.Name = "BuscarVideoTB";
-            BuscarVideoTB.Size = new Size(550, 27);
-            BuscarVideoTB.TabIndex = 0;
-            // 
-            // SoloListaExtYtdlCKBX
-            // 
-            SoloListaExtYtdlCKBX.AutoSize = true;
-            SoloListaExtYtdlCKBX.Checked = true;
-            SoloListaExtYtdlCKBX.CheckState = CheckState.Checked;
-            SoloListaExtYtdlCKBX.Location = new Point(631, 15);
-            SoloListaExtYtdlCKBX.Name = "SoloListaExtYtdlCKBX";
-            SoloListaExtYtdlCKBX.Size = new Size(207, 24);
-            SoloListaExtYtdlCKBX.TabIndex = 2;
-            SoloListaExtYtdlCKBX.Text = "Solo Lista Extractores yt-dl";
-            SoloListaExtYtdlCKBX.UseVisualStyleBackColor = true;
-            // 
-            // FechaFinDTP
-            // 
-            FechaFinDTP.Location = new Point(757, 102);
-            FechaFinDTP.Name = "FechaFinDTP";
-            FechaFinDTP.Size = new Size(295, 27);
-            FechaFinDTP.TabIndex = 18;
-            FechaFinDTP.Visible = false;
-            // 
-            // BuscarVideoBTN
-            // 
-            BuscarVideoBTN.Location = new Point(5, 103);
-            BuscarVideoBTN.Name = "BuscarVideoBTN";
-            BuscarVideoBTN.Size = new Size(94, 29);
-            BuscarVideoBTN.TabIndex = 3;
-            BuscarVideoBTN.Text = "Buscar";
-            BuscarVideoBTN.UseVisualStyleBackColor = true;
-            BuscarVideoBTN.Click += BuscarVideoBTN_Click;
-            // 
-            // FechaInicioDTP
-            // 
-            FechaInicioDTP.Location = new Point(264, 105);
-            FechaInicioDTP.Name = "FechaInicioDTP";
-            FechaInicioDTP.Size = new Size(293, 27);
-            FechaInicioDTP.TabIndex = 17;
-            FechaInicioDTP.Visible = false;
-            // 
-            // DuracionVideoCOMBX
-            // 
-            DuracionVideoCOMBX.FormattingEnabled = true;
-            DuracionVideoCOMBX.Items.AddRange(new object[] { "Todas las duraciones", "Corto (de 0 a 4 min)", "Mediana (de 4 a 20 min)", "Larga (20 min o más)" });
-            DuracionVideoCOMBX.Location = new Point(61, 60);
-            DuracionVideoCOMBX.Name = "DuracionVideoCOMBX";
-            DuracionVideoCOMBX.Size = new Size(264, 28);
-            DuracionVideoCOMBX.TabIndex = 4;
-            DuracionVideoCOMBX.Text = "Duracion";
-            // 
-            // AltaCalidadCKBX
-            // 
-            AltaCalidadCKBX.AutoSize = true;
-            AltaCalidadCKBX.Location = new Point(673, 62);
-            AltaCalidadCKBX.Name = "AltaCalidadCKBX";
-            AltaCalidadCKBX.Size = new Size(113, 24);
-            AltaCalidadCKBX.TabIndex = 16;
-            AltaCalidadCKBX.Text = "Alta Calidad";
-            AltaCalidadCKBX.UseVisualStyleBackColor = true;
-            // 
-            // FechaVideoCOMBX
-            // 
-            FechaVideoCOMBX.FormattingEnabled = true;
-            FechaVideoCOMBX.Items.AddRange(new object[] { "De Cualquier Fecha", "Ultima Hora", "Ultimas 24 Horas", "Ultima Semana", "Ultimo Mes", "Ultimo Año", "Personalizar" });
-            FechaVideoCOMBX.Location = new Point(388, 60);
-            FechaVideoCOMBX.Name = "FechaVideoCOMBX";
-            FechaVideoCOMBX.Size = new Size(252, 28);
-            FechaVideoCOMBX.TabIndex = 5;
-            FechaVideoCOMBX.Text = "Fecha";
-            FechaVideoCOMBX.SelectedIndexChanged += FechaVideoCB_Changed;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(883, 17);
-            label2.Name = "label2";
-            label2.Size = new Size(185, 20);
-            label2.TabIndex = 7;
-            label2.Text = "Nro minimo de resultados:";
-            // 
-            // NumMinResultVideoNM
-            // 
-            NumMinResultVideoNM.Location = new Point(1074, 15);
-            NumMinResultVideoNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            NumMinResultVideoNM.Name = "NumMinResultVideoNM";
-            NumMinResultVideoNM.Size = new Size(79, 27);
-            NumMinResultVideoNM.TabIndex = 6;
-            NumMinResultVideoNM.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // YoutubeTag
             // 
@@ -701,6 +418,7 @@
             // 
             // FiltroBusquedaYTPanel
             // 
+            FiltroBusquedaYTPanel.Controls.Add(ObtenerDatosDeArchivoCKBX);
             FiltroBusquedaYTPanel.Controls.Add(AbrirResultadosBTN);
             FiltroBusquedaYTPanel.Controls.Add(label18);
             FiltroBusquedaYTPanel.Controls.Add(MaxResultYoutubeNM);
@@ -744,7 +462,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(362, 125);
+            label18.Location = new Point(362, 107);
             label18.Name = "label18";
             label18.Size = new Size(87, 20);
             label18.TabIndex = 44;
@@ -752,7 +470,7 @@
             // 
             // MaxResultYoutubeNM
             // 
-            MaxResultYoutubeNM.Location = new Point(192, 47);
+            MaxResultYoutubeNM.Location = new Point(431, 37);
             MaxResultYoutubeNM.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
             MaxResultYoutubeNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             MaxResultYoutubeNM.Name = "MaxResultYoutubeNM";
@@ -763,7 +481,7 @@
             // 
             // IdCanalTBX
             // 
-            IdCanalTBX.Location = new Point(455, 122);
+            IdCanalTBX.Location = new Point(455, 104);
             IdCanalTBX.Name = "IdCanalTBX";
             IdCanalTBX.Size = new Size(224, 27);
             IdCanalTBX.TabIndex = 43;
@@ -771,7 +489,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(1, 49);
+            label6.Location = new Point(240, 39);
             label6.Name = "label6";
             label6.Size = new Size(188, 20);
             label6.TabIndex = 7;
@@ -780,7 +498,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(4, 125);
+            label16.Location = new Point(4, 107);
             label16.Name = "label16";
             label16.Size = new Size(104, 20);
             label16.TabIndex = 40;
@@ -788,14 +506,14 @@
             // 
             // InicioYoutbDTP
             // 
-            InicioYoutbDTP.Location = new Point(100, 86);
+            InicioYoutbDTP.Location = new Point(100, 68);
             InicioYoutbDTP.Name = "InicioYoutbDTP";
             InicioYoutbDTP.Size = new Size(293, 27);
             InicioYoutbDTP.TabIndex = 17;
             // 
             // FinYoutbDTP
             // 
-            FinYoutbDTP.Location = new Point(478, 86);
+            FinYoutbDTP.Location = new Point(478, 68);
             FinYoutbDTP.Name = "FinYoutbDTP";
             FinYoutbDTP.Size = new Size(295, 27);
             FinYoutbDTP.TabIndex = 18;
@@ -916,7 +634,7 @@
             // 
             TipoCanalComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TipoCanalComboBox.FormattingEnabled = true;
-            TipoCanalComboBox.Location = new Point(114, 121);
+            TipoCanalComboBox.Location = new Point(114, 103);
             TipoCanalComboBox.Name = "TipoCanalComboBox";
             TipoCanalComboBox.Size = new Size(229, 28);
             TipoCanalComboBox.TabIndex = 39;
@@ -933,7 +651,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(540, 49);
+            label19.Location = new Point(702, 107);
             label19.Name = "label19";
             label19.Size = new Size(59, 20);
             label19.TabIndex = 46;
@@ -942,7 +660,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(4, 91);
+            label4.Location = new Point(4, 73);
             label4.Name = "label4";
             label4.Size = new Size(90, 20);
             label4.TabIndex = 19;
@@ -951,7 +669,7 @@
             // IdiomaComboBox
             // 
             IdiomaComboBox.FormattingEnabled = true;
-            IdiomaComboBox.Location = new Point(607, 46);
+            IdiomaComboBox.Location = new Point(769, 104);
             IdiomaComboBox.Name = "IdiomaComboBox";
             IdiomaComboBox.Size = new Size(259, 28);
             IdiomaComboBox.TabIndex = 45;
@@ -959,7 +677,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(399, 91);
+            label3.Location = new Point(399, 73);
             label3.Name = "label3";
             label3.Size = new Size(73, 20);
             label3.TabIndex = 20;
@@ -977,7 +695,7 @@
             // PaisComboBox
             // 
             PaisComboBox.FormattingEnabled = true;
-            PaisComboBox.Location = new Point(927, 47);
+            PaisComboBox.Location = new Point(917, 37);
             PaisComboBox.Name = "PaisComboBox";
             PaisComboBox.Size = new Size(232, 28);
             PaisComboBox.TabIndex = 24;
@@ -994,7 +712,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(884, 49);
+            label9.Location = new Point(874, 39);
             label9.Name = "label9";
             label9.Size = new Size(37, 20);
             label9.TabIndex = 25;
@@ -1003,7 +721,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(794, 89);
+            label11.Location = new Point(794, 71);
             label11.Name = "label11";
             label11.Size = new Size(127, 20);
             label11.TabIndex = 29;
@@ -1012,7 +730,7 @@
             // OrdenComboBox
             // 
             OrdenComboBox.FormattingEnabled = true;
-            OrdenComboBox.Location = new Point(348, 46);
+            OrdenComboBox.Location = new Point(587, 36);
             OrdenComboBox.Name = "OrdenComboBox";
             OrdenComboBox.Size = new Size(168, 28);
             OrdenComboBox.TabIndex = 26;
@@ -1020,7 +738,7 @@
             // SafeSearchComboBox
             // 
             SafeSearchComboBox.FormattingEnabled = true;
-            SafeSearchComboBox.Location = new Point(927, 85);
+            SafeSearchComboBox.Location = new Point(927, 67);
             SafeSearchComboBox.Name = "SafeSearchComboBox";
             SafeSearchComboBox.Size = new Size(232, 28);
             SafeSearchComboBox.TabIndex = 28;
@@ -1028,7 +746,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(289, 49);
+            label10.Location = new Point(528, 39);
             label10.Name = "label10";
             label10.Size = new Size(53, 20);
             label10.TabIndex = 27;
@@ -1147,6 +865,286 @@
             ObtenerVideosIDListReprBTN.Visible = false;
             ObtenerVideosIDListReprBTN.Click += ObtenerVideosIDListReprBTN_Click;
             // 
+            // VideoTag
+            // 
+            VideoTag.Controls.Add(panelResultado);
+            VideoTag.Controls.Add(panelProgreso);
+            VideoTag.Controls.Add(LinkVideosLB);
+            VideoTag.Controls.Add(panel1);
+            VideoTag.Location = new Point(4, 29);
+            VideoTag.Name = "VideoTag";
+            VideoTag.Padding = new Padding(3);
+            VideoTag.Size = new Size(1171, 787);
+            VideoTag.TabIndex = 0;
+            VideoTag.Text = "General Videos";
+            VideoTag.UseVisualStyleBackColor = true;
+            // 
+            // panelResultado
+            // 
+            panelResultado.Controls.Add(DescargVideosBTN);
+            panelResultado.Controls.Add(SeleccionarTodosBTN);
+            panelResultado.Controls.Add(ResultadosTotalesLabel);
+            panelResultado.Controls.Add(AgregarEnviarSMplayerBTN);
+            panelResultado.Location = new Point(3, 237);
+            panelResultado.Name = "panelResultado";
+            panelResultado.Size = new Size(1165, 47);
+            panelResultado.TabIndex = 20;
+            panelResultado.Visible = false;
+            // 
+            // DescargVideosBTN
+            // 
+            DescargVideosBTN.Location = new Point(367, 7);
+            DescargVideosBTN.Name = "DescargVideosBTN";
+            DescargVideosBTN.Size = new Size(244, 29);
+            DescargVideosBTN.TabIndex = 18;
+            DescargVideosBTN.Text = "Descargar Videos Seleccionados";
+            DescargVideosBTN.UseVisualStyleBackColor = true;
+            DescargVideosBTN.Click += DescargVideosBTN_Click;
+            // 
+            // SeleccionarTodosBTN
+            // 
+            SeleccionarTodosBTN.Location = new Point(673, 7);
+            SeleccionarTodosBTN.Name = "SeleccionarTodosBTN";
+            SeleccionarTodosBTN.Size = new Size(163, 29);
+            SeleccionarTodosBTN.TabIndex = 17;
+            SeleccionarTodosBTN.Text = "Seleccionar Todos";
+            SeleccionarTodosBTN.UseVisualStyleBackColor = true;
+            SeleccionarTodosBTN.Click += SeleccionarTodosButton_Click;
+            // 
+            // ResultadosTotalesLabel
+            // 
+            ResultadosTotalesLabel.AutoSize = true;
+            ResultadosTotalesLabel.Location = new Point(937, 11);
+            ResultadosTotalesLabel.Name = "ResultadosTotalesLabel";
+            ResultadosTotalesLabel.Size = new Size(131, 20);
+            ResultadosTotalesLabel.TabIndex = 16;
+            ResultadosTotalesLabel.Text = "ResultadosTotales:";
+            // 
+            // AgregarEnviarSMplayerBTN
+            // 
+            AgregarEnviarSMplayerBTN.Location = new Point(5, 6);
+            AgregarEnviarSMplayerBTN.Name = "AgregarEnviarSMplayerBTN";
+            AgregarEnviarSMplayerBTN.Size = new Size(301, 30);
+            AgregarEnviarSMplayerBTN.TabIndex = 15;
+            AgregarEnviarSMplayerBTN.Text = "Agregar/Enviar seleccionados a Smplayer";
+            AgregarEnviarSMplayerBTN.UseVisualStyleBackColor = true;
+            AgregarEnviarSMplayerBTN.Click += AgregarEnviarSmplayer_Click;
+            // 
+            // panelProgreso
+            // 
+            panelProgreso.Controls.Add(ResultadosActualesProgressBar);
+            panelProgreso.Controls.Add(NumResultadosActulabel);
+            panelProgreso.Controls.Add(VideoNumPagprogressBar);
+            panelProgreso.Controls.Add(PaginasVisitadasLabel);
+            panelProgreso.Controls.Add(NumeroPagTotalesLabel);
+            panelProgreso.Location = new Point(3, 147);
+            panelProgreso.Name = "panelProgreso";
+            panelProgreso.Size = new Size(1165, 84);
+            panelProgreso.TabIndex = 19;
+            panelProgreso.Visible = false;
+            // 
+            // ResultadosActualesProgressBar
+            // 
+            ResultadosActualesProgressBar.Location = new Point(255, 39);
+            ResultadosActualesProgressBar.Name = "ResultadosActualesProgressBar";
+            ResultadosActualesProgressBar.Size = new Size(289, 29);
+            ResultadosActualesProgressBar.TabIndex = 16;
+            // 
+            // NumResultadosActulabel
+            // 
+            NumResultadosActulabel.AutoSize = true;
+            NumResultadosActulabel.Location = new Point(5, 44);
+            NumResultadosActulabel.Name = "NumResultadosActulabel";
+            NumResultadosActulabel.Size = new Size(223, 20);
+            NumResultadosActulabel.TabIndex = 15;
+            NumResultadosActulabel.Text = "Numero de Resultados Actuales:";
+            // 
+            // VideoNumPagprogressBar
+            // 
+            VideoNumPagprogressBar.Location = new Point(699, 40);
+            VideoNumPagprogressBar.Name = "VideoNumPagprogressBar";
+            VideoNumPagprogressBar.Size = new Size(454, 28);
+            VideoNumPagprogressBar.Step = 1;
+            VideoNumPagprogressBar.TabIndex = 12;
+            // 
+            // PaginasVisitadasLabel
+            // 
+            PaginasVisitadasLabel.AutoSize = true;
+            PaginasVisitadasLabel.Location = new Point(541, 44);
+            PaginasVisitadasLabel.Name = "PaginasVisitadasLabel";
+            PaginasVisitadasLabel.Size = new Size(125, 20);
+            PaginasVisitadasLabel.TabIndex = 13;
+            PaginasVisitadasLabel.Text = "Paginas Visitadas:";
+            // 
+            // NumeroPagTotalesLabel
+            // 
+            NumeroPagTotalesLabel.AutoSize = true;
+            NumeroPagTotalesLabel.Location = new Point(5, 12);
+            NumeroPagTotalesLabel.Name = "NumeroPagTotalesLabel";
+            NumeroPagTotalesLabel.Size = new Size(226, 20);
+            NumeroPagTotalesLabel.TabIndex = 14;
+            NumeroPagTotalesLabel.Text = "Numero de Paginas encontradas:";
+            // 
+            // LinkVideosLB
+            // 
+            LinkVideosLB.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LinkVideosLB.DataSource = resultadoVideoBindingSource;
+            LinkVideosLB.DisplayMember = "Title";
+            LinkVideosLB.FormattingEnabled = true;
+            LinkVideosLB.HorizontalScrollbar = true;
+            LinkVideosLB.ItemHeight = 20;
+            LinkVideosLB.Location = new Point(3, 282);
+            LinkVideosLB.Name = "LinkVideosLB";
+            LinkVideosLB.SelectionMode = SelectionMode.MultiExtended;
+            LinkVideosLB.Size = new Size(1165, 344);
+            LinkVideosLB.TabIndex = 9;
+            LinkVideosLB.ValueMember = "URLVideo";
+            LinkVideosLB.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            LinkVideosLB.DoubleClick += LinVideoDoubleClick;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(FechaFinlabel);
+            panel1.Controls.Add(FechaIniciolabel);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(BuscarVideoTB);
+            panel1.Controls.Add(SoloListaExtYtdlCKBX);
+            panel1.Controls.Add(FechaFinDTP);
+            panel1.Controls.Add(BuscarVideoBTN);
+            panel1.Controls.Add(FechaInicioDTP);
+            panel1.Controls.Add(DuracionVideoCOMBX);
+            panel1.Controls.Add(AltaCalidadCKBX);
+            panel1.Controls.Add(FechaVideoCOMBX);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(NumMinResultVideoNM);
+            panel1.Location = new Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1165, 144);
+            panel1.TabIndex = 21;
+            // 
+            // FechaFinlabel
+            // 
+            FechaFinlabel.AutoSize = true;
+            FechaFinlabel.Location = new Point(678, 107);
+            FechaFinlabel.Name = "FechaFinlabel";
+            FechaFinlabel.Size = new Size(73, 20);
+            FechaFinlabel.TabIndex = 20;
+            FechaFinlabel.Text = "Fecha Fin:";
+            FechaFinlabel.Visible = false;
+            // 
+            // FechaIniciolabel
+            // 
+            FechaIniciolabel.AutoSize = true;
+            FechaIniciolabel.Location = new Point(168, 110);
+            FechaIniciolabel.Name = "FechaIniciolabel";
+            FechaIniciolabel.Size = new Size(90, 20);
+            FechaIniciolabel.TabIndex = 19;
+            FechaIniciolabel.Text = "Fecha Inicio:";
+            FechaIniciolabel.Visible = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(5, 16);
+            label1.Name = "label1";
+            label1.Size = new Size(55, 20);
+            label1.TabIndex = 1;
+            label1.Text = "Buscar:";
+            // 
+            // BuscarVideoTB
+            // 
+            BuscarVideoTB.Location = new Point(61, 13);
+            BuscarVideoTB.Name = "BuscarVideoTB";
+            BuscarVideoTB.Size = new Size(550, 27);
+            BuscarVideoTB.TabIndex = 0;
+            // 
+            // SoloListaExtYtdlCKBX
+            // 
+            SoloListaExtYtdlCKBX.AutoSize = true;
+            SoloListaExtYtdlCKBX.Checked = true;
+            SoloListaExtYtdlCKBX.CheckState = CheckState.Checked;
+            SoloListaExtYtdlCKBX.Location = new Point(631, 15);
+            SoloListaExtYtdlCKBX.Name = "SoloListaExtYtdlCKBX";
+            SoloListaExtYtdlCKBX.Size = new Size(207, 24);
+            SoloListaExtYtdlCKBX.TabIndex = 2;
+            SoloListaExtYtdlCKBX.Text = "Solo Lista Extractores yt-dl";
+            SoloListaExtYtdlCKBX.UseVisualStyleBackColor = true;
+            // 
+            // FechaFinDTP
+            // 
+            FechaFinDTP.Location = new Point(757, 102);
+            FechaFinDTP.Name = "FechaFinDTP";
+            FechaFinDTP.Size = new Size(295, 27);
+            FechaFinDTP.TabIndex = 18;
+            FechaFinDTP.Visible = false;
+            // 
+            // BuscarVideoBTN
+            // 
+            BuscarVideoBTN.Location = new Point(5, 103);
+            BuscarVideoBTN.Name = "BuscarVideoBTN";
+            BuscarVideoBTN.Size = new Size(94, 29);
+            BuscarVideoBTN.TabIndex = 3;
+            BuscarVideoBTN.Text = "Buscar";
+            BuscarVideoBTN.UseVisualStyleBackColor = true;
+            BuscarVideoBTN.Click += BuscarVideoBTN_Click;
+            // 
+            // FechaInicioDTP
+            // 
+            FechaInicioDTP.Location = new Point(264, 105);
+            FechaInicioDTP.Name = "FechaInicioDTP";
+            FechaInicioDTP.Size = new Size(293, 27);
+            FechaInicioDTP.TabIndex = 17;
+            FechaInicioDTP.Visible = false;
+            // 
+            // DuracionVideoCOMBX
+            // 
+            DuracionVideoCOMBX.FormattingEnabled = true;
+            DuracionVideoCOMBX.Items.AddRange(new object[] { "Todas las duraciones", "Corto (de 0 a 4 min)", "Mediana (de 4 a 20 min)", "Larga (20 min o más)" });
+            DuracionVideoCOMBX.Location = new Point(61, 60);
+            DuracionVideoCOMBX.Name = "DuracionVideoCOMBX";
+            DuracionVideoCOMBX.Size = new Size(264, 28);
+            DuracionVideoCOMBX.TabIndex = 4;
+            DuracionVideoCOMBX.Text = "Duracion";
+            // 
+            // AltaCalidadCKBX
+            // 
+            AltaCalidadCKBX.AutoSize = true;
+            AltaCalidadCKBX.Location = new Point(673, 62);
+            AltaCalidadCKBX.Name = "AltaCalidadCKBX";
+            AltaCalidadCKBX.Size = new Size(113, 24);
+            AltaCalidadCKBX.TabIndex = 16;
+            AltaCalidadCKBX.Text = "Alta Calidad";
+            AltaCalidadCKBX.UseVisualStyleBackColor = true;
+            // 
+            // FechaVideoCOMBX
+            // 
+            FechaVideoCOMBX.FormattingEnabled = true;
+            FechaVideoCOMBX.Items.AddRange(new object[] { "De Cualquier Fecha", "Ultima Hora", "Ultimas 24 Horas", "Ultima Semana", "Ultimo Mes", "Ultimo Año", "Personalizar" });
+            FechaVideoCOMBX.Location = new Point(388, 60);
+            FechaVideoCOMBX.Name = "FechaVideoCOMBX";
+            FechaVideoCOMBX.Size = new Size(252, 28);
+            FechaVideoCOMBX.TabIndex = 5;
+            FechaVideoCOMBX.Text = "Fecha";
+            FechaVideoCOMBX.SelectedIndexChanged += FechaVideoCB_Changed;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(883, 17);
+            label2.Name = "label2";
+            label2.Size = new Size(185, 20);
+            label2.TabIndex = 7;
+            label2.Text = "Nro minimo de resultados:";
+            // 
+            // NumMinResultVideoNM
+            // 
+            NumMinResultVideoNM.Location = new Point(1074, 15);
+            NumMinResultVideoNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            NumMinResultVideoNM.Name = "NumMinResultVideoNM";
+            NumMinResultVideoNM.Size = new Size(79, 27);
+            NumMinResultVideoNM.TabIndex = 6;
+            NumMinResultVideoNM.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
             // ImagenTag
             // 
             ImagenTag.Location = new Point(4, 29);
@@ -1203,6 +1201,16 @@
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
             // 
+            // ObtenerDatosDeArchivoCKBX
+            // 
+            ObtenerDatosDeArchivoCKBX.AutoSize = true;
+            ObtenerDatosDeArchivoCKBX.Location = new Point(8, 38);
+            ObtenerDatosDeArchivoCKBX.Name = "ObtenerDatosDeArchivoCKBX";
+            ObtenerDatosDeArchivoCKBX.Size = new Size(205, 24);
+            ObtenerDatosDeArchivoCKBX.TabIndex = 53;
+            ObtenerDatosDeArchivoCKBX.Text = "Obtener Datos De Archivo";
+            ObtenerDatosDeArchivoCKBX.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1215,15 +1223,6 @@
             Load += MainForm_Load;
             Resize += Ajustar_imagenes;
             tabControl1.ResumeLayout(false);
-            VideoTag.ResumeLayout(false);
-            panelResultado.ResumeLayout(false);
-            panelResultado.PerformLayout();
-            panelProgreso.ResumeLayout(false);
-            panelProgreso.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)resultadoVideoBindingSource).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).EndInit();
             YoutubeTag.ResumeLayout(false);
             YoutubeTag.PerformLayout();
             BotoneraYoutube.ResumeLayout(false);
@@ -1237,6 +1236,15 @@
             FiltroVideoYTPanel.PerformLayout();
             ObtenerVideosYTPanel.ResumeLayout(false);
             ObtenerVideosYTPanel.PerformLayout();
+            VideoTag.ResumeLayout(false);
+            panelResultado.ResumeLayout(false);
+            panelResultado.PerformLayout();
+            panelProgreso.ResumeLayout(false);
+            panelProgreso.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)resultadoVideoBindingSource).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).EndInit();
             Descargatag.ResumeLayout(false);
             Descargatag.PerformLayout();
             ResumeLayout(false);
@@ -1348,5 +1356,6 @@
         private Button PrimeroYTBTN;
         private Button UltimoYTBTN;
         private Label NombreArchivoGuardResultYTLB;
+        private CheckBox ObtenerDatosDeArchivoCKBX;
     }
 }
