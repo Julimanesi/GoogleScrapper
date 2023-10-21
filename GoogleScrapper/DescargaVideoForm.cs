@@ -22,7 +22,7 @@ namespace GoogleScrapper
         private int CantActualDesc { get; set; } = 0;
         private string Directoy { get; set; } = "";
         private bool MostrandoDetalles = false;
-        public static string comprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
+        public static string ComandoComprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
         private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
         private List<string> Destinos = new List<string>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
@@ -59,105 +59,13 @@ namespace GoogleScrapper
         private void BWDescargaVideo_Dowork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            //VideoScrapper videoScrapper = (VideoScrapper)e.Argument;
             try
             {
-                Regex rgx = new Regex(@"\[download\]\s+(?<porcentaje>\d+)", RegexOptions.IgnoreCase);
-                int progreso = 0;
-
-                using (Process ytdl = new Process())
-                {
-                    ytdl.StartInfo.FileName = "yt-dlp.exe";
-                    if (!SoloAudioCKBX.Checked)
-                    {
-                        ytdl.StartInfo.Arguments = $"{(ComprimirVideoCKBX.Checked ? comprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata {(AgregarThumbnailCKBX.Checked ? "--compat-options embed-thumbnail-atomicparsley" : "")}";
-                    }
-                    else
-                    {   //Descargar solo musica/audio
-                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : "\"%(track)s.%(ext)s\"";
-                        ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o {nombreArchivoMusica} {ListaUrls} --add-metadata";
-                    }
-                    ytdl.StartInfo.UseShellExecute = false;
-                    ytdl.StartInfo.CreateNoWindow = true;
-                    ytdl.StartInfo.RedirectStandardOutput = true;
-                    ytdl.StartInfo.RedirectStandardError = true;
-                    ytdl.Start();
-                    while (!ytdl.StandardOutput.EndOfStream)
-                    {
-                        string? linea = ytdl.StandardOutput.ReadLine();
-                        if (linea != null)
-                        {
-                            MatchCollection matches = rgx.Matches(linea);
-                            if (matches.Count > 0)
-                            {
-                                progreso = int.Parse(matches[0].Groups["porcentaje"].Value);
-                            }
-                        }
-                        worker.ReportProgress(progreso, linea);
-                    }
-                    ytdl.WaitForExit();
-                    e.Result = ytdl.StandardError.ReadToEnd();
-                }
+                EjecucionProcesos.DescargarVideos(worker, e, SoloAudioCKBX.Checked, ComprimirVideoCKBX.Checked, Directoy, ListaUrls, AgregarThumbnailCKBX.Checked, ObtenerDatosMusicaCKBX.Checked);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error al Descargar la Lista de Reproducion");
-            }
-            try
-            {
-                if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
-                {
-                    int progreso = 0;
-                    worker.ReportProgress(progreso, "Agregando Thumbnails");
-                    foreach (string destino in Destinos)
-                    {
-                        worker.ReportProgress((int)(((decimal)progreso / Destinos.Count) * 100), $"Agregando Thumbnails a {destino}");
-                        var panel = PanelesYoutube.Find(x => x.ResultadoListaItem != null && destino.Contains(x.ResultadoListaItem.Snippet.Title) || x.ResultadoBusqueda != null && destino.Contains(x.ResultadoBusqueda.Snippet.Title));
-                        if (panel != null)
-                        {
-                            string UrlImagen = "";
-                            if (panel.ResultadoListaItem != null)
-                            {
-                                UrlImagen = panel.ResultadoListaItem.Snippet.Thumbnails.High.Url;
-                            }
-                            else if (panel.ResultadoBusqueda != null)
-                            {
-                                UrlImagen = panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url;
-                            }
-                            string salidaError = "";
-                            using (Process ffmpeg = new Process())
-                            {
-                                ffmpeg.StartInfo.FileName = "ffmpeg.exe";
-                                ffmpeg.StartInfo.Arguments = $"-i \"{destino}\" -i \"{UrlImagen}\" \"-c:v h264_nvenc\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino + "aux.mp3"}\"";
-                                ffmpeg.StartInfo.UseShellExecute = false;
-                                ffmpeg.StartInfo.CreateNoWindow = true;
-                                ffmpeg.StartInfo.RedirectStandardOutput = true;
-                                ffmpeg.StartInfo.RedirectStandardError = true;
-                                ffmpeg.Start();
-                                //if (!ffmpeg.WaitForExit(1000 * 10))
-                                //{
-                                //    ffmpeg.Kill();
-                                //}
-                                ffmpeg.WaitForExit();
-                                salidaError = ffmpeg.StandardError.ReadToEnd();
-                            }
-                            if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
-                            {
-
-                            }
-                            else
-                            {
-                                File.Move(destino + "aux.mp3", destino, true);
-                                File.Delete(destino + "aux.mp3");
-                            }
-                        }
-                        progreso++;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al agregar Thumbnails");
+                MessageBox.Show(ex.Message, "Error al Descargar");
             }
         }
 
@@ -212,6 +120,7 @@ namespace GoogleScrapper
             {
                 BackgroundWorker worker = sender as BackgroundWorker;
                 worker.CancelAsync();
+                AgregarThumbnailsAResultados();
             }
         }
 
@@ -319,6 +228,7 @@ namespace GoogleScrapper
         private void SoloAudioCKBX_CheckedChanged(object sender, EventArgs e)
         {
             ObtenerDatosMusicaCKBX.Visible = SoloAudioCKBX.Checked;
+            ComprimirVideoCKBX.Visible = !SoloAudioCKBX.Checked;
         }
 
         private void ObtenerDatosMusicaCKBX_CheckedChanged(object sender, EventArgs e)
@@ -336,6 +246,14 @@ namespace GoogleScrapper
                 DestinoLabel.Text = "Destino: " + destino;
                 if (!Destinos.Contains(destino))
                     Destinos.Add(destino);
+            }
+        }
+
+        private void AgregarThumbnailsAResultados()
+        {
+            if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
+            {
+                EjecucionProcesos.AgregarThumbnails(PanelesYoutube, Destinos);
             }
         }
     }

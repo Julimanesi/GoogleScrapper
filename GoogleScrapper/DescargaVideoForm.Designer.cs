@@ -163,7 +163,7 @@
             // ObtenerDatosMusicaCKBX
             // 
             ObtenerDatosMusicaCKBX.AutoSize = true;
-            ObtenerDatosMusicaCKBX.Location = new Point(336, 74);
+            ObtenerDatosMusicaCKBX.Location = new Point(172, 73);
             ObtenerDatosMusicaCKBX.Name = "ObtenerDatosMusicaCKBX";
             ObtenerDatosMusicaCKBX.Size = new Size(199, 24);
             ObtenerDatosMusicaCKBX.TabIndex = 12;
@@ -175,7 +175,7 @@
             // SoloAudioCKBX
             // 
             SoloAudioCKBX.AutoSize = true;
-            SoloAudioCKBX.Location = new Point(201, 73);
+            SoloAudioCKBX.Location = new Point(172, 34);
             SoloAudioCKBX.Name = "SoloAudioCKBX";
             SoloAudioCKBX.Size = new Size(105, 24);
             SoloAudioCKBX.TabIndex = 11;
