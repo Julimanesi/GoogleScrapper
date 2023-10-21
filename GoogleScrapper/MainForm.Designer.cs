@@ -54,6 +54,7 @@
             label7 = new Label();
             MainYTPanel = new Panel();
             FiltroBusquedaYTPanel = new Panel();
+            ObtenerDatosDeArchivoCKBX = new CheckBox();
             AbrirResultadosBTN = new Button();
             label18 = new Label();
             MaxResultYoutubeNM = new NumericUpDown();
@@ -133,7 +134,6 @@
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            ObtenerDatosDeArchivoCKBX = new CheckBox();
             tabControl1.SuspendLayout();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
@@ -448,6 +448,16 @@
             FiltroBusquedaYTPanel.Name = "FiltroBusquedaYTPanel";
             FiltroBusquedaYTPanel.Size = new Size(1171, 242);
             FiltroBusquedaYTPanel.TabIndex = 57;
+            // 
+            // ObtenerDatosDeArchivoCKBX
+            // 
+            ObtenerDatosDeArchivoCKBX.AutoSize = true;
+            ObtenerDatosDeArchivoCKBX.Location = new Point(8, 38);
+            ObtenerDatosDeArchivoCKBX.Name = "ObtenerDatosDeArchivoCKBX";
+            ObtenerDatosDeArchivoCKBX.Size = new Size(205, 24);
+            ObtenerDatosDeArchivoCKBX.TabIndex = 53;
+            ObtenerDatosDeArchivoCKBX.Text = "Obtener Datos De Archivo";
+            ObtenerDatosDeArchivoCKBX.UseVisualStyleBackColor = true;
             // 
             // AbrirResultadosBTN
             // 
@@ -1200,16 +1210,6 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
-            // 
-            // ObtenerDatosDeArchivoCKBX
-            // 
-            ObtenerDatosDeArchivoCKBX.AutoSize = true;
-            ObtenerDatosDeArchivoCKBX.Location = new Point(8, 38);
-            ObtenerDatosDeArchivoCKBX.Name = "ObtenerDatosDeArchivoCKBX";
-            ObtenerDatosDeArchivoCKBX.Size = new Size(205, 24);
-            ObtenerDatosDeArchivoCKBX.TabIndex = 53;
-            ObtenerDatosDeArchivoCKBX.Text = "Obtener Datos De Archivo";
-            ObtenerDatosDeArchivoCKBX.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

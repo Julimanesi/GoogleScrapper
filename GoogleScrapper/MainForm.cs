@@ -86,7 +86,7 @@ namespace GoogleScrapper
             //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
         }
 
-        public void DescargarVideos(string listaVideos, int cant, char tipo)
+        public void DescargarVideos(string listaVideos, int cant, char tipo, List<PanelYoutube>? panelesYoutube = null)
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
 
@@ -109,7 +109,7 @@ namespace GoogleScrapper
                 }
 
                 //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath);
+                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath, panelesYoutube);
                 descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
                 descargaVideoForm.Activate();
                 descargaVideoForm.Show();
@@ -559,7 +559,7 @@ namespace GoogleScrapper
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
             var listaLinks = panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link);
-            DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y');
+            DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y', panelResultadoYoutubes.Where(j => j.seleccionado).ToList());
         }
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
@@ -1004,7 +1004,7 @@ namespace GoogleScrapper
             {
                 return historialItem.InformacionLista != null ? $"{historialItem.InformacionLista.Snippet.Title}_Pag_{historialItem.NroPagina}" : "";
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return "";
             }

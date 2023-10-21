@@ -25,8 +25,10 @@ namespace GoogleScrapper
         public string Link { get; set; } = "";
         public string ID { get; set; } = "";
         public string IDCanal { get; set; } = "";
-        public TipoResultado TipoResultado { get; set; }  
-        
+        public TipoResultado TipoResultado { get; set; }
+        public SearchResult? ResultadoBusqueda { get; set; } = null!;
+        public PlaylistItem ? ResultadoListaItem { get; set; } = null!;
+
         public PanelYoutube(int ancho, int altoimagen, Google.Apis.YouTube.v3.Data.SearchResult resultado, EventHandler click)
         {
             InitializeComponent();
@@ -95,6 +97,7 @@ namespace GoogleScrapper
                     break;
             }
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
+            ResultadoBusqueda = resultado;
         }
         public PanelYoutube(int ancho, int altoimagen, PlaylistItem resultado,EventHandler click)
         {
@@ -147,6 +150,7 @@ namespace GoogleScrapper
             IDCanal = resultado.Snippet.ChannelId;
             this.TipoResultado = TipoResultado.video;
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
+            ResultadoListaItem = resultado;
         }
 
         public void VolverARenderizar(int ancho, int altoimagen)

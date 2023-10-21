@@ -79,6 +79,11 @@ namespace GoogleScrapper
             return extractores;
         }
 
+        public static void DescargarVideos(BackgroundWorker worker , DoWorkEventArgs e, bool SoloAudio,bool ComprimirVideo, string Directoy,string ListaUrls,bool AgregarThumbnail,bool ObtenerDatosMusica)
+        {
+
+        }
+
         #endregion
 
         #region SMPlayer 

@@ -22,10 +22,12 @@ namespace GoogleScrapper
         private int CantActualDesc { get; set; } = 0;
         private string Directoy { get; set; } = "";
         private bool MostrandoDetalles = false;
-        private string comprimirVideo = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
+        public static string comprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
         private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
+        private List<string> Destinos = new List<string>();
+        private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
 
-        public DescargaVideoForm(string ListaUrls, int count, string Directoy)
+        public DescargaVideoForm(string ListaUrls, int count, string Directoy, List<PanelYoutube>? panelesYoutube = null)
         {
             InitializeComponent();
             this.ListaUrls = ListaUrls;
@@ -33,6 +35,7 @@ namespace GoogleScrapper
             this.Directoy = Directoy;
             SalidaRTextBox.Text = "";
             VideosDescargadosLabel.Text = $"Videos Descargados: 0/{Total}";
+            PanelesYoutube = panelesYoutube;
             BWDescargaVideo.WorkerReportsProgress = true;
             BWDescargaVideo.WorkerSupportsCancellation = true;
             BWDescargaVideo.DoWork += new DoWorkEventHandler(BWDescargaVideo_Dowork);
@@ -55,10 +58,10 @@ namespace GoogleScrapper
 
         private void BWDescargaVideo_Dowork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            //VideoScrapper videoScrapper = (VideoScrapper)e.Argument;
             try
             {
-                BackgroundWorker worker = sender as BackgroundWorker;
-                //VideoScrapper videoScrapper = (VideoScrapper)e.Argument;
                 Regex rgx = new Regex(@"\[download\]\s+(?<porcentaje>\d+)", RegexOptions.IgnoreCase);
                 int progreso = 0;
 
@@ -67,11 +70,11 @@ namespace GoogleScrapper
                     ytdl.StartInfo.FileName = "yt-dlp.exe";
                     if (!SoloAudioCKBX.Checked)
                     {
-                        ytdl.StartInfo.Arguments = $"{(ComprimirVideoCKBX.Checked ? comprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata";
+                        ytdl.StartInfo.Arguments = $"{(ComprimirVideoCKBX.Checked ? comprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata {(AgregarThumbnailCKBX.Checked ? "--compat-options embed-thumbnail-atomicparsley" : "")}";
                     }
                     else
                     {   //Descargar solo musica/audio
-                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : " --continue --embed-thumbnail \"%(track)s.%(ext)s\"";
+                        string nombreArchivoMusica = ObtenerDatosMusicaCKBX.Checked ? "\"%(title)s.%(ext)s\"" : "\"%(track)s.%(ext)s\"";
                         ytdl.StartInfo.Arguments = $" --postprocessor-args \"-c:v h264_nvenc\" -P \"{Directoy}\" --no-playlist -x --audio-format mp3 --audio-quality 320K -o {nombreArchivoMusica} {ListaUrls} --add-metadata";
                     }
                     ytdl.StartInfo.UseShellExecute = false;
@@ -100,6 +103,62 @@ namespace GoogleScrapper
             {
                 MessageBox.Show(ex.Message, "Error al Descargar la Lista de Reproducion");
             }
+            try
+            {
+                if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
+                {
+                    int progreso = 0;
+                    worker.ReportProgress(progreso, "Agregando Thumbnails");
+                    foreach (string destino in Destinos)
+                    {
+                        worker.ReportProgress((int)(((decimal)progreso / Destinos.Count) * 100), $"Agregando Thumbnails a {destino}");
+                        var panel = PanelesYoutube.Find(x => x.ResultadoListaItem != null && destino.Contains(x.ResultadoListaItem.Snippet.Title) || x.ResultadoBusqueda != null && destino.Contains(x.ResultadoBusqueda.Snippet.Title));
+                        if (panel != null)
+                        {
+                            string UrlImagen = "";
+                            if (panel.ResultadoListaItem != null)
+                            {
+                                UrlImagen = panel.ResultadoListaItem.Snippet.Thumbnails.High.Url;
+                            }
+                            else if (panel.ResultadoBusqueda != null)
+                            {
+                                UrlImagen = panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url;
+                            }
+                            string salidaError = "";
+                            using (Process ffmpeg = new Process())
+                            {
+                                ffmpeg.StartInfo.FileName = "ffmpeg.exe";
+                                ffmpeg.StartInfo.Arguments = $"-i \"{destino}\" -i \"{UrlImagen}\" \"-c:v h264_nvenc\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino + "aux.mp3"}\"";
+                                ffmpeg.StartInfo.UseShellExecute = false;
+                                ffmpeg.StartInfo.CreateNoWindow = true;
+                                ffmpeg.StartInfo.RedirectStandardOutput = true;
+                                ffmpeg.StartInfo.RedirectStandardError = true;
+                                ffmpeg.Start();
+                                //if (!ffmpeg.WaitForExit(1000 * 10))
+                                //{
+                                //    ffmpeg.Kill();
+                                //}
+                                ffmpeg.WaitForExit();
+                                salidaError = ffmpeg.StandardError.ReadToEnd();
+                            }
+                            if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                            {
+
+                            }
+                            else
+                            {
+                                File.Move(destino + "aux.mp3", destino, true);
+                                File.Delete(destino + "aux.mp3");
+                            }
+                        }
+                        progreso++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al agregar Thumbnails");
+            }
         }
 
         private void BWDescargaVideo_Progreso(object sender, ProgressChangedEventArgs e)
@@ -111,6 +170,7 @@ namespace GoogleScrapper
                 ObtenerDestinoVideo(salida);
                 ObtenerEstadoDescarga(salida);
                 ObtenerDetallesProgresoDescarga(salida);
+                ObtenerDestinoMusica(salida);
                 VideosDescargadosLabel.Text = $"Videos Descargados: {CantActualDesc}/{Total}";
             }
         }
@@ -162,7 +222,8 @@ namespace GoogleScrapper
             MatchCollection matches = rgx.Matches(salida);
             if (matches.Count > 0)
             {
-                DestinoLabel.Text = "Destino: " + matches[0].Groups["destino"].Value;
+                string destino = matches[0].Groups["destino"].Value;
+                DestinoLabel.Text = "Destino: " + destino;
             }
         }
         private void ObtenerEstadoDescarga(string salida)
@@ -173,6 +234,10 @@ namespace GoogleScrapper
             if (matches.Count > 0)
             {
                 Estadolabel.Text = "Estado: " + parsearEstado(matches[0].Groups["estado"].Value, matches[0].Groups["descripcion"].Value);
+            }
+            else if (salida.Contains("Agregando Thumbnails"))
+            {
+                Estadolabel.Text = salida;
             }
         }
 
@@ -220,7 +285,9 @@ namespace GoogleScrapper
                 case "Metadata":
                     estado = "Agregando metadatos";
                     if (!Estadolabel.Text.Contains("metadatos"))
+                    {
                         CantActualDesc++;
+                    }
                     break;
                 default:
                     estado = Descripcion;
@@ -257,6 +324,19 @@ namespace GoogleScrapper
         private void ObtenerDatosMusicaCKBX_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+        private void ObtenerDestinoMusica(string salida)
+        {
+            string pattern = @"\[ExtractAudio\]\s+Destination:\s+(?<destino>.*)";
+            Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            MatchCollection matches = rgx.Matches(salida);
+            if (matches.Count > 0)
+            {
+                string destino = matches[0].Groups["destino"].Value;
+                DestinoLabel.Text = "Destino: " + destino;
+                if (!Destinos.Contains(destino))
+                    Destinos.Add(destino);
+            }
         }
     }
 }

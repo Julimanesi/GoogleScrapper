@@ -37,6 +37,7 @@
             Estadolabel = new Label();
             DestinoLabel = new Label();
             panel1 = new Panel();
+            AgregarThumbnailCKBX = new CheckBox();
             ObtenerDatosMusicaCKBX = new CheckBox();
             SoloAudioCKBX = new CheckBox();
             ComprimirVideoCKBX = new CheckBox();
@@ -131,6 +132,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(AgregarThumbnailCKBX);
             panel1.Controls.Add(ObtenerDatosMusicaCKBX);
             panel1.Controls.Add(SoloAudioCKBX);
             panel1.Controls.Add(ComprimirVideoCKBX);
@@ -147,6 +149,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(887, 365);
             panel1.TabIndex = 4;
+            // 
+            // AgregarThumbnailCKBX
+            // 
+            AgregarThumbnailCKBX.AutoSize = true;
+            AgregarThumbnailCKBX.Location = new Point(12, 34);
+            AgregarThumbnailCKBX.Name = "AgregarThumbnailCKBX";
+            AgregarThumbnailCKBX.Size = new Size(159, 24);
+            AgregarThumbnailCKBX.TabIndex = 13;
+            AgregarThumbnailCKBX.Text = "Agregar Thumbnail";
+            AgregarThumbnailCKBX.UseVisualStyleBackColor = true;
             // 
             // ObtenerDatosMusicaCKBX
             // 
@@ -233,5 +245,6 @@
         private CheckBox ComprimirVideoCKBX;
         private CheckBox SoloAudioCKBX;
         private CheckBox ObtenerDatosMusicaCKBX;
+        private CheckBox AgregarThumbnailCKBX;
     }
 }
