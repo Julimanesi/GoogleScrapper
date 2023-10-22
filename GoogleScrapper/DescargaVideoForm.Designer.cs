@@ -37,6 +37,7 @@
             Estadolabel = new Label();
             DestinoLabel = new Label();
             panel1 = new Panel();
+            ProgresoTotalPB = new ProgressBar();
             AgregarThumbnailCKBX = new CheckBox();
             ObtenerDatosMusicaCKBX = new CheckBox();
             SoloAudioCKBX = new CheckBox();
@@ -82,7 +83,7 @@
             // 
             VideosDescargadosLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             VideosDescargadosLabel.AutoSize = true;
-            VideosDescargadosLabel.Location = new Point(190, 124);
+            VideosDescargadosLabel.Location = new Point(12, 129);
             VideosDescargadosLabel.Margin = new Padding(3);
             VideosDescargadosLabel.Name = "VideosDescargadosLabel";
             VideosDescargadosLabel.Size = new Size(145, 20);
@@ -132,6 +133,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(ProgresoTotalPB);
             panel1.Controls.Add(AgregarThumbnailCKBX);
             panel1.Controls.Add(ObtenerDatosMusicaCKBX);
             panel1.Controls.Add(SoloAudioCKBX);
@@ -150,10 +152,17 @@
             panel1.Size = new Size(887, 365);
             panel1.TabIndex = 4;
             // 
+            // ProgresoTotalPB
+            // 
+            ProgresoTotalPB.Location = new Point(190, 129);
+            ProgresoTotalPB.Name = "ProgresoTotalPB";
+            ProgresoTotalPB.Size = new Size(685, 20);
+            ProgresoTotalPB.TabIndex = 14;
+            // 
             // AgregarThumbnailCKBX
             // 
             AgregarThumbnailCKBX.AutoSize = true;
-            AgregarThumbnailCKBX.Location = new Point(12, 34);
+            AgregarThumbnailCKBX.Location = new Point(12, 24);
             AgregarThumbnailCKBX.Name = "AgregarThumbnailCKBX";
             AgregarThumbnailCKBX.Size = new Size(159, 24);
             AgregarThumbnailCKBX.TabIndex = 13;
@@ -163,7 +172,7 @@
             // ObtenerDatosMusicaCKBX
             // 
             ObtenerDatosMusicaCKBX.AutoSize = true;
-            ObtenerDatosMusicaCKBX.Location = new Point(172, 73);
+            ObtenerDatosMusicaCKBX.Location = new Point(206, 63);
             ObtenerDatosMusicaCKBX.Name = "ObtenerDatosMusicaCKBX";
             ObtenerDatosMusicaCKBX.Size = new Size(199, 24);
             ObtenerDatosMusicaCKBX.TabIndex = 12;
@@ -175,7 +184,7 @@
             // SoloAudioCKBX
             // 
             SoloAudioCKBX.AutoSize = true;
-            SoloAudioCKBX.Location = new Point(172, 34);
+            SoloAudioCKBX.Location = new Point(206, 24);
             SoloAudioCKBX.Name = "SoloAudioCKBX";
             SoloAudioCKBX.Size = new Size(105, 24);
             SoloAudioCKBX.TabIndex = 11;
@@ -186,7 +195,7 @@
             // ComprimirVideoCKBX
             // 
             ComprimirVideoCKBX.AutoSize = true;
-            ComprimirVideoCKBX.Location = new Point(11, 73);
+            ComprimirVideoCKBX.Location = new Point(11, 63);
             ComprimirVideoCKBX.Name = "ComprimirVideoCKBX";
             ComprimirVideoCKBX.Size = new Size(155, 24);
             ComprimirVideoCKBX.TabIndex = 9;
@@ -195,7 +204,7 @@
             // 
             // DescargarBTN
             // 
-            DescargarBTN.Location = new Point(12, 120);
+            DescargarBTN.Location = new Point(12, 93);
             DescargarBTN.Name = "DescargarBTN";
             DescargarBTN.Size = new Size(152, 29);
             DescargarBTN.TabIndex = 8;
@@ -246,5 +255,6 @@
         private CheckBox SoloAudioCKBX;
         private CheckBox ObtenerDatosMusicaCKBX;
         private CheckBox AgregarThumbnailCKBX;
+        private ProgressBar ProgresoTotalPB;
     }
 }

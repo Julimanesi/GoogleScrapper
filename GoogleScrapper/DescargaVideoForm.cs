@@ -24,6 +24,7 @@ namespace GoogleScrapper
         private bool MostrandoDetalles = false;
         public static string ComandoComprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
         private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
+        private BackgroundWorker BWAgregarThumbnails = new BackgroundWorker();
         private List<string> Destinos = new List<string>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
         private string IDActual { get; set; } = "";
@@ -42,6 +43,11 @@ namespace GoogleScrapper
             BWDescargaVideo.DoWork += new DoWorkEventHandler(BWDescargaVideo_Dowork);
             BWDescargaVideo.ProgressChanged += new ProgressChangedEventHandler(BWDescargaVideo_Progreso);
             BWDescargaVideo.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BWDescargaVideo_Resultado);
+            BWAgregarThumbnails.WorkerReportsProgress = true;
+            BWAgregarThumbnails.WorkerSupportsCancellation = true;
+            BWAgregarThumbnails.DoWork += new DoWorkEventHandler(BWAgregarThumbnails_Dowork);
+            BWAgregarThumbnails.ProgressChanged += new ProgressChangedEventHandler(BWAgregarThumbnails_Progreso);
+
         }
 
         public void DescargarListaReproduc()
@@ -198,6 +204,8 @@ namespace GoogleScrapper
                     if (!Estadolabel.Text.Contains("metadatos"))
                     {
                         CantActualDesc++;
+                        int prog = (int)(((decimal)CantActualDesc / Total) * 100);
+                        ProgresoTotalPB.Value = prog <= 100 ? prog : 100;
                     }
                     break;
                 default:
@@ -248,14 +256,14 @@ namespace GoogleScrapper
                 //significa que no encontro el nombre
                 if (destino.Contains("\\.mp3"))
                 {
-                    if(PanelesYoutube != null)
+                    if (PanelesYoutube != null)
                     {
                         var panel = PanelesYoutube.Where(x => x.ID == IDActual).FirstOrDefault();
-                        if(panel != null)
+                        if (panel != null)
                         {
                             string? basePath = Path.GetDirectoryName(destino);
-                            destino = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title: destino;
-                            destino = Path.Combine(basePath ?? "", destino+".mp3");
+                            destino = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title : destino;
+                            destino = Path.Combine(basePath ?? "", destino + ".mp3");
                         }
                     }
                 }
@@ -269,7 +277,11 @@ namespace GoogleScrapper
         {
             if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
             {
-                EjecucionProcesos.AgregarThumbnails(PanelesYoutube, Destinos);
+                VideosDescargadosLabel.Text = "Finalizando:";
+                if (!BWAgregarThumbnails.IsBusy)
+                {
+                    BWAgregarThumbnails.RunWorkerAsync();
+                }
             }
         }
 
@@ -280,6 +292,76 @@ namespace GoogleScrapper
             if (matches.Count > 0)
             {
                 IDActual = matches[0].Groups["Id"].Value;
+            }
+        }
+
+        private void BWAgregarThumbnails_Dowork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            try
+            {
+                EjecucionProcesos.AgregarThumbnails(worker, e, PanelesYoutube, Destinos);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Agregar Thumbnails");
+            }
+        }
+
+        private void BWAgregarThumbnails_Progreso(object sender, ProgressChangedEventArgs e)
+        {
+            try
+            {
+                ProgresoTotalPB.Value = e.ProgressPercentage;
+                if (e.UserState != null)
+                {
+                    string salida = (string)e.UserState;
+
+                    Estadolabel.Text = salida;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void BWAgregarThumbnails_Resultado(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                if (e.Error != null)
+                {
+                    MessageBox.Show(e.Error.Message);
+                }
+                if (e.Result != null)
+                {
+                    var procesoOutput = (string)e.Result;
+                    if (procesoOutput != null)
+                    {
+                        if (procesoOutput.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Estadolabel.Text = "Estado: Error al Agregar Thumbnails:" + procesoOutput.Substring(procesoOutput.IndexOf("Error", StringComparison.InvariantCultureIgnoreCase));
+                        }
+                        else
+                        {
+                            Estadolabel.Text = $"Estado: Thumbnails Agregadas!";
+                        }
+                    }
+                    else
+                    {
+                        Estadolabel.Text = $"Estado: Thumbnails Agregadas!";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Agregar Thumbnails");
+            }
+            finally
+            {
+                BackgroundWorker worker = sender as BackgroundWorker;
+                worker.CancelAsync();
+                ProgresoTotalPB.Value = 100;
             }
         }
     }

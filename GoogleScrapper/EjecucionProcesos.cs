@@ -15,7 +15,6 @@ namespace GoogleScrapper
         private string ArchivoListaReprodcAux = "ListaReproducAux.m3u";
 
         private static BackgroundWorker BWSmplayer = new BackgroundWorker();
-        private static BackgroundWorker BWffmpeg = new BackgroundWorker();
 
         public static void Inicializar()
         {
@@ -210,16 +209,16 @@ namespace GoogleScrapper
         #endregion
 
         #region ffmpeg
-        public static void AgregarThumbnails(List<PanelYoutube> PanelesYoutube, List<string> Destinos)
+        public static void AgregarThumbnails(BackgroundWorker worker, DoWorkEventArgs e, List<PanelYoutube> PanelesYoutube, List<string> Destinos)
         {
             try
             {
                 int progreso = 0;
                 int cant = 0;
-                //worker.ReportProgress(progreso, "Agregando Thumbnails");
+                worker.ReportProgress(progreso, "Agregando Thumbnails");
                 foreach (string destino in Destinos)
                 {
-                    //worker.ReportProgress(progreso, $"Agregando Thumbnails a {destino}");
+                    worker.ReportProgress(progreso, $"Agregando Thumbnails a {destino}");
                     var panel = PanelesYoutube.Find(x => x.ResultadoListaItem != null && destino.Contains(x.ResultadoListaItem.Snippet.Title) || x.ResultadoBusqueda != null && destino.Contains(x.ResultadoBusqueda.Snippet.Title));
                     if (panel != null)
                     {
@@ -282,9 +281,9 @@ namespace GoogleScrapper
                         }
                     }
                     cant++;
-                    progreso = (int)(((decimal)progreso / Destinos.Count) * 100);
+                    progreso = (int)(((decimal)cant / Destinos.Count) * 100);
                 }
-                
+                e.Result = "";
             }
             catch (Exception ex)
             {
