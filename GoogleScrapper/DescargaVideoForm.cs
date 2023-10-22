@@ -26,6 +26,7 @@ namespace GoogleScrapper
         private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
         private List<string> Destinos = new List<string>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
+        private string IDActual { get; set; } = "";
 
         public DescargaVideoForm(string ListaUrls, int count, string Directoy, List<PanelYoutube>? panelesYoutube = null)
         {
@@ -79,6 +80,7 @@ namespace GoogleScrapper
                 ObtenerEstadoDescarga(salida);
                 ObtenerDetallesProgresoDescarga(salida);
                 ObtenerDestinoMusica(salida);
+                ObtenerIdRexgex(salida);
                 VideosDescargadosLabel.Text = $"Videos Descargados: {CantActualDesc}/{Total}";
             }
         }
@@ -243,6 +245,20 @@ namespace GoogleScrapper
             if (matches.Count > 0)
             {
                 string destino = matches[0].Groups["destino"].Value;
+                //significa que no encontro el nombre
+                if (destino.Contains("\\.mp3"))
+                {
+                    if(PanelesYoutube != null)
+                    {
+                        var panel = PanelesYoutube.Where(x => x.ID == IDActual).FirstOrDefault();
+                        if(panel != null)
+                        {
+                            string? basePath = Path.GetDirectoryName(destino);
+                            destino = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title: destino;
+                            destino = Path.Combine(basePath ?? "", destino+".mp3");
+                        }
+                    }
+                }
                 DestinoLabel.Text = "Destino: " + destino;
                 if (!Destinos.Contains(destino))
                     Destinos.Add(destino);
@@ -254,6 +270,16 @@ namespace GoogleScrapper
             if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
             {
                 EjecucionProcesos.AgregarThumbnails(PanelesYoutube, Destinos);
+            }
+        }
+
+        private void ObtenerIdRexgex(string salida)
+        {
+            Regex rgx = new Regex(@"\[youtube\]\s+(?<Id>\w+):\s+Downloading.*", RegexOptions.IgnoreCase);
+            MatchCollection matches = rgx.Matches(salida);
+            if (matches.Count > 0)
+            {
+                IDActual = matches[0].Groups["Id"].Value;
             }
         }
     }

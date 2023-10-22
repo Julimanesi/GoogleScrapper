@@ -635,6 +635,11 @@ namespace GoogleScrapper
                         {
                             CargarResultados(actual.ResultadoListaVideos, false);
                             NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
+                            if (actual.ResultadoListaVideos != null)
+                            {
+                                int nroPagTotales = GetNroNroPaginaTotales(actual.ResultadoListaVideos);
+                                PagContYTLabel.Text = $"Pag {actual.NroPagina}/{nroPagTotales}";
+                            }
                         }
                     }
                 }
@@ -663,6 +668,11 @@ namespace GoogleScrapper
                         {
                             CargarResultados(actual.ResultadoListaVideos, false);
                             NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
+                            if (actual.ResultadoListaVideos != null)
+                            {
+                                int nroPagTotales = GetNroNroPaginaTotales(actual.ResultadoListaVideos);
+                                PagContYTLabel.Text = $"Pag {actual.NroPagina}/{nroPagTotales}";
+                            }
                         }
                     }
                 }
@@ -691,6 +701,11 @@ namespace GoogleScrapper
                         {
                             CargarResultados(actual.ResultadoListaVideos, false);
                             NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
+                            if (actual.ResultadoListaVideos != null)
+                            {
+                                int nroPagTotales = GetNroNroPaginaTotales(actual.ResultadoListaVideos);
+                                PagContYTLabel.Text = $"Pag {actual.NroPagina}/{nroPagTotales}";
+                            }
                         }
                     }
                 }
@@ -719,6 +734,11 @@ namespace GoogleScrapper
                         {
                             CargarResultados(actual.ResultadoListaVideos, false);
                             NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
+                            if (actual.ResultadoListaVideos != null)
+                            {
+                                int nroPagTotales = GetNroNroPaginaTotales(actual.ResultadoListaVideos);
+                                PagContYTLabel.Text = $"Pag {actual.NroPagina}/{nroPagTotales}";
+                            }
                         }
                     }
                 }
@@ -845,7 +865,7 @@ namespace GoogleScrapper
                 BotoneraYoutube.Visible = true;
                 ResultadosPorPaginaYouTbLabel.Text = "Resultados Por Pagina: " + searchListResponse.PageInfo.ResultsPerPage;
                 ResultadosTotalesYouTbLabel.Text = "Resultados Totales: " + searchListResponse.PageInfo.TotalResults;
-
+                int nroPagTotales = GetNroNroPaginaTotales(searchListResponse);
                 CambiarVisibilidadBotonesObtenerVideos();
                 ResultadoSiguientePagToken = searchListResponse.NextPageToken;
                 UltimoIdLista = searchListResponse.Items[0].Snippet.PlaylistId;
@@ -893,6 +913,7 @@ namespace GoogleScrapper
                         NombreArchivoCargado = "";
                         CargadoArchivo = false;
                     }
+                    PagContYTLabel.Text = $"Pag {historialItem.NroPagina}/{nroPagTotales}";
                 }
                 SiguientePaginaYTResultBTN.Visible = true;
             }
@@ -998,6 +1019,7 @@ namespace GoogleScrapper
 
         #endregion
 
+        #region funciones auxiliares
         private string GetNombreArchivoPlayList(HistorialBusquedaItem historialItem)
         {
             try
@@ -1021,6 +1043,19 @@ namespace GoogleScrapper
                 return 1;
             }
         }
+        private int GetNroNroPaginaTotales(PlaylistItemListResponse searchListResponse)
+        {
+            try
+            {
+                return (int)Math.Ceiling((decimal)(searchListResponse.PageInfo.TotalResults ?? 0) / (searchListResponse.PageInfo.ResultsPerPage ?? 1));
+
+            }
+            catch (Exception ex)
+            {
+                return 1;
+            }
+        }
+        #endregion
 
         #endregion
 

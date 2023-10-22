@@ -33,6 +33,7 @@
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
             BotoneraYoutube = new Panel();
+            PagContYTLabel = new Label();
             NombreArchivoGuardResultYTLB = new Label();
             PrimeroYTBTN = new Button();
             UltimoYTBTN = new Button();
@@ -189,6 +190,7 @@
             // 
             // BotoneraYoutube
             // 
+            BotoneraYoutube.Controls.Add(PagContYTLabel);
             BotoneraYoutube.Controls.Add(NombreArchivoGuardResultYTLB);
             BotoneraYoutube.Controls.Add(PrimeroYTBTN);
             BotoneraYoutube.Controls.Add(UltimoYTBTN);
@@ -214,6 +216,15 @@
             BotoneraYoutube.Size = new Size(1171, 144);
             BotoneraYoutube.TabIndex = 23;
             BotoneraYoutube.Visible = false;
+            // 
+            // PagContYTLabel
+            // 
+            PagContYTLabel.AutoSize = true;
+            PagContYTLabel.Location = new Point(216, 105);
+            PagContYTLabel.Name = "PagContYTLabel";
+            PagContYTLabel.Size = new Size(59, 20);
+            PagContYTLabel.TabIndex = 61;
+            PagContYTLabel.Text = "Pag 0/0";
             // 
             // NombreArchivoGuardResultYTLB
             // 
@@ -306,7 +317,7 @@
             // ResultadosPorPaginaYouTbLabel
             // 
             ResultadosPorPaginaYouTbLabel.AutoSize = true;
-            ResultadosPorPaginaYouTbLabel.Location = new Point(236, 105);
+            ResultadosPorPaginaYouTbLabel.Location = new Point(281, 105);
             ResultadosPorPaginaYouTbLabel.Name = "ResultadosPorPaginaYouTbLabel";
             ResultadosPorPaginaYouTbLabel.Size = new Size(157, 20);
             ResultadosPorPaginaYouTbLabel.TabIndex = 51;
@@ -356,7 +367,7 @@
             // ResultadosTotalesYouTbLabel
             // 
             ResultadosTotalesYouTbLabel.AutoSize = true;
-            ResultadosTotalesYouTbLabel.Location = new Point(424, 105);
+            ResultadosTotalesYouTbLabel.Location = new Point(456, 105);
             ResultadosTotalesYouTbLabel.Name = "ResultadosTotalesYouTbLabel";
             ResultadosTotalesYouTbLabel.Size = new Size(135, 20);
             ResultadosTotalesYouTbLabel.TabIndex = 16;
@@ -389,7 +400,7 @@
             NumColumnasResultNM.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             NumColumnasResultNM.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumColumnasResultNM.Name = "NumColumnasResultNM";
-            NumColumnasResultNM.Size = new Size(62, 27);
+            NumColumnasResultNM.Size = new Size(45, 27);
             NumColumnasResultNM.TabIndex = 21;
             NumColumnasResultNM.Value = new decimal(new int[] { 3, 0, 0, 0 });
             NumColumnasResultNM.ValueChanged += NumColumnasResultNM_ValueChanged;
@@ -642,7 +653,6 @@
             // 
             // TipoCanalComboBox
             // 
-            TipoCanalComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TipoCanalComboBox.FormattingEnabled = true;
             TipoCanalComboBox.Location = new Point(114, 103);
             TipoCanalComboBox.Name = "TipoCanalComboBox";
@@ -1357,5 +1367,6 @@
         private Button UltimoYTBTN;
         private Label NombreArchivoGuardResultYTLB;
         private CheckBox ObtenerDatosDeArchivoCKBX;
+        private Label PagContYTLabel;
     }
 }

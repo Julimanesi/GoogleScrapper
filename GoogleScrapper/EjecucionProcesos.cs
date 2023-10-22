@@ -104,6 +104,8 @@ namespace GoogleScrapper
                     ytdl.StartInfo.CreateNoWindow = true;
                     ytdl.StartInfo.RedirectStandardOutput = true;
                     ytdl.StartInfo.RedirectStandardError = true;
+                    ytdl.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+                    ytdl.StartInfo.StandardErrorEncoding = Encoding.UTF8;
                     ytdl.Start();
                     while (!ytdl.StandardOutput.EndOfStream)
                     {
@@ -237,6 +239,8 @@ namespace GoogleScrapper
                             processStartInfo.Arguments = $"-i \"{destino}\" -i \"{UrlImagen}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino + "aux.mp3"}\"";
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
+                            processStartInfo.StandardOutputEncoding = Encoding.UTF8;
+                            processStartInfo.StandardErrorEncoding = Encoding.UTF8;
                             processStartInfo.RedirectStandardOutput = true;
                             processStartInfo.RedirectStandardError = true;
                             //using (Process ffmpeg = new Process())
