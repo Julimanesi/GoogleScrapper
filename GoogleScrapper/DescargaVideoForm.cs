@@ -23,7 +23,7 @@ namespace GoogleScrapper
         private string Directoy { get; set; } = "";
         private bool MostrandoDetalles = false;
         public static string ComandoComprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
-        private static BackgroundWorker BWDescargaVideo = new BackgroundWorker();
+        private BackgroundWorker BWDescargaVideo = new BackgroundWorker();
         private BackgroundWorker BWAgregarThumbnails = new BackgroundWorker();
         private List<string> Destinos = new List<string>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
@@ -47,7 +47,7 @@ namespace GoogleScrapper
             BWAgregarThumbnails.WorkerSupportsCancellation = true;
             BWAgregarThumbnails.DoWork += new DoWorkEventHandler(BWAgregarThumbnails_Dowork);
             BWAgregarThumbnails.ProgressChanged += new ProgressChangedEventHandler(BWAgregarThumbnails_Progreso);
-
+            BWDescargaVideo.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BWAgregarThumbnails_Resultado);
         }
 
         public void DescargarListaReproduc()
@@ -277,12 +277,13 @@ namespace GoogleScrapper
         {
             if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
             {
-                VideosDescargadosLabel.Text = "Finalizando:";
+                VideosDescargadosLabel.Text = "Agregar Thumbnails:";
                 if (!BWAgregarThumbnails.IsBusy)
                 {
                     BWAgregarThumbnails.RunWorkerAsync();
                 }
             }
+            ProgresoTotalPB.Value = 100;
         }
 
         private void ObtenerIdRexgex(string salida)
@@ -359,9 +360,10 @@ namespace GoogleScrapper
             }
             finally
             {
+                ProgresoTotalPB.Value = 100;
+                VideosDescargadosLabel.Text = "Finalizado!";
                 BackgroundWorker worker = sender as BackgroundWorker;
                 worker.CancelAsync();
-                ProgresoTotalPB.Value = 100;
             }
         }
     }
