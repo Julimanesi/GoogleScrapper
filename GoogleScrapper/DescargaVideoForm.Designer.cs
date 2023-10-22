@@ -63,9 +63,9 @@
             // ProgresoDescargaPB
             // 
             ProgresoDescargaPB.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            ProgresoDescargaPB.Location = new Point(190, 221);
+            ProgresoDescargaPB.Location = new Point(222, 221);
             ProgresoDescargaPB.Name = "ProgresoDescargaPB";
-            ProgresoDescargaPB.Size = new Size(685, 20);
+            ProgresoDescargaPB.Size = new Size(653, 20);
             ProgresoDescargaPB.TabIndex = 1;
             // 
             // label1
@@ -154,9 +154,9 @@
             // 
             // ProgresoTotalPB
             // 
-            ProgresoTotalPB.Location = new Point(190, 129);
+            ProgresoTotalPB.Location = new Point(222, 129);
             ProgresoTotalPB.Name = "ProgresoTotalPB";
-            ProgresoTotalPB.Size = new Size(685, 20);
+            ProgresoTotalPB.Size = new Size(653, 20);
             ProgresoTotalPB.TabIndex = 14;
             // 
             // AgregarThumbnailCKBX

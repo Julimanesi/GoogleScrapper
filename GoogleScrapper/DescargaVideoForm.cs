@@ -25,7 +25,7 @@ namespace GoogleScrapper
         public static string ComandoComprimirVideo { get; } = "--postprocessor-args \"-c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high\"";
         private BackgroundWorker BWDescargaVideo = new BackgroundWorker();
         private BackgroundWorker BWAgregarThumbnails = new BackgroundWorker();
-        private List<string> Destinos = new List<string>();
+        private List<Destino> Destinos = new List<Destino>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
         private string IDActual { get; set; } = "";
 
@@ -47,7 +47,7 @@ namespace GoogleScrapper
             BWAgregarThumbnails.WorkerSupportsCancellation = true;
             BWAgregarThumbnails.DoWork += new DoWorkEventHandler(BWAgregarThumbnails_Dowork);
             BWAgregarThumbnails.ProgressChanged += new ProgressChangedEventHandler(BWAgregarThumbnails_Progreso);
-            BWDescargaVideo.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BWAgregarThumbnails_Resultado);
+            BWAgregarThumbnails.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BWAgregarThumbnails_Resultado);
         }
 
         public void DescargarListaReproduc()
@@ -268,8 +268,6 @@ namespace GoogleScrapper
                     }
                 }
                 DestinoLabel.Text = "Destino: " + destino;
-                if (!Destinos.Contains(destino))
-                    Destinos.Add(destino);
             }
         }
 
@@ -277,6 +275,19 @@ namespace GoogleScrapper
         {
             if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
             {
+                foreach (var panel in PanelesYoutube)
+                {
+                    string titulo = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Title : "");
+                    string uRLThumbnail = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Thumbnails.High.Url : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url : "");
+                    titulo = titulo.Trim();
+                    Destinos.Add(new Destino()
+                    {
+                        IdVideo = panel.ID,
+                        Titulo = titulo,
+                        DireccionArchivo = Path.Combine(Directoy, titulo + ".mp3"),
+                        URLThumbnail = uRLThumbnail
+                    });
+                }
                 VideosDescargadosLabel.Text = "Agregar Thumbnails:";
                 if (!BWAgregarThumbnails.IsBusy)
                 {
@@ -301,7 +312,7 @@ namespace GoogleScrapper
             BackgroundWorker worker = sender as BackgroundWorker;
             try
             {
-                EjecucionProcesos.AgregarThumbnails(worker, e, PanelesYoutube, Destinos);
+                EjecucionProcesos.AgregarThumbnails(worker, e, Destinos);
             }
             catch (Exception ex)
             {
@@ -365,6 +376,13 @@ namespace GoogleScrapper
                 BackgroundWorker worker = sender as BackgroundWorker;
                 worker.CancelAsync();
             }
+        }
+        public class Destino
+        {
+            public string IdVideo { get; set; } = "";
+            public string Titulo { get; set; } = "";
+            public string DireccionArchivo { get; set; } = "";
+            public string URLThumbnail { get; set; } = "";
         }
     }
 }

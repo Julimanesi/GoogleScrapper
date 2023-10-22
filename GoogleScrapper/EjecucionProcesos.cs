@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static GoogleScrapper.DescargaVideoForm;
 
 namespace GoogleScrapper
 {
@@ -209,33 +210,24 @@ namespace GoogleScrapper
         #endregion
 
         #region ffmpeg
-        public static void AgregarThumbnails(BackgroundWorker worker, DoWorkEventArgs e, List<PanelYoutube> PanelesYoutube, List<string> Destinos)
+        public static void AgregarThumbnails(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
         {
             try
             {
                 int progreso = 0;
                 int cant = 0;
+                int erroresCont = 0;
                 worker.ReportProgress(progreso, "Agregando Thumbnails");
-                foreach (string destino in Destinos)
+                foreach (var destino in Destinos)
                 {
-                    worker.ReportProgress(progreso, $"Agregando Thumbnails a {destino}");
-                    var panel = PanelesYoutube.Find(x => x.ResultadoListaItem != null && destino.Contains(x.ResultadoListaItem.Snippet.Title) || x.ResultadoBusqueda != null && destino.Contains(x.ResultadoBusqueda.Snippet.Title));
-                    if (panel != null)
+                    cant++;
+                    if (destino != null)
                     {
                         try
                         {
-                            string UrlImagen = "";
-                            if (panel.ResultadoListaItem != null)
-                            {
-                                UrlImagen = panel.ResultadoListaItem.Snippet.Thumbnails.High.Url;
-                            }
-                            else if (panel.ResultadoBusqueda != null)
-                            {
-                                UrlImagen = panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url;
-                            }
                             ProcessStartInfo processStartInfo = new ProcessStartInfo();
                             processStartInfo.FileName = "ffmpeg.exe";
-                            processStartInfo.Arguments = $"-i \"{destino}\" -i \"{UrlImagen}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino + "aux.mp3"}\"";
+                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino.DireccionArchivo + "aux.mp3"}\"";
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
                             processStartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -268,20 +260,22 @@ namespace GoogleScrapper
                             var salidaError = ffmpeg.StandardError.ReadToEnd();
                             if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
                             {
+                                erroresCont++;
                                 continue;
                             }
                             else
                             {
-                                File.Move(destino + "aux.mp3", destino, true);
-                                File.Delete(destino + "aux.mp3");
+                                File.Move(destino.DireccionArchivo + "aux.mp3", destino.DireccionArchivo, true);
+                                File.Delete(destino.DireccionArchivo + "aux.mp3");
                             }
                         }catch (Exception ex)
                         {
+                            erroresCont++;
                             continue;
                         }
                     }
-                    cant++;
                     progreso = (int)(((decimal)cant / Destinos.Count) * 100);
+                    worker.ReportProgress(progreso, $"Agregando Thumbnails a {destino}");
                 }
                 e.Result = "";
             }

@@ -83,7 +83,7 @@ namespace GoogleScrapper
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\GoogleScrapper\GoogleScrapper\multimedia_player_16922.ico");
+            //this.Icon = new Icon(@"C:\Users\julim\OneDrive\Documentos\Visual Studio 2022\Windows Form\MultimediaScrapper\GoogleScrapper\multimedia_player_16922.ico");
         }
 
         public void DescargarVideos(string listaVideos, int cant, char tipo, List<PanelYoutube>? panelesYoutube = null)
