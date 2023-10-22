@@ -801,6 +801,19 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al Guardar los Resultados");
             }
         }
+        #region Filtrar
+
+        private void FiltrarBusquedaTituloYTTBX_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarResultados(FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
+        }
+
+        private void FiltrarBusquedaCanalYTTBX_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarResultados(FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
+        }
+
+        #endregion
 
         #endregion
 
@@ -1055,6 +1068,59 @@ namespace GoogleScrapper
                 return 1;
             }
         }
+
+        private void FiltrarResultados(string Titulo, string NombreCanal)
+        {
+            try
+            {
+                if (Historial.Any())
+                {
+                    var actual = Historial.ElementAt(IndexHistorial);
+                    if (actual != null)
+                    {
+                        if (actual.Tipo == TipoRespuestaBusqYTApi.Busqueda)
+                        {
+                            var listaFiltrada = new SearchListResponse();
+                            listaFiltrada.ETag = actual.ListaBusquedaRespuesta.ETag;
+                            listaFiltrada.TokenPagination = actual.ListaBusquedaRespuesta.TokenPagination;
+                            listaFiltrada.NextPageToken = actual.ListaBusquedaRespuesta.NextPageToken;
+                            listaFiltrada.PrevPageToken = actual.ListaBusquedaRespuesta.PrevPageToken;
+                            listaFiltrada.Items = actual.ListaBusquedaRespuesta.Items.Where(x => (Titulo != "" ? x.Snippet.Title.Contains(Titulo, StringComparison.InvariantCultureIgnoreCase) : true) && (NombreCanal != "" ? x.Snippet.ChannelTitle.Contains(NombreCanal, StringComparison.InvariantCultureIgnoreCase) : true)).ToList();
+                            listaFiltrada.EventId = actual.ListaBusquedaRespuesta.EventId;
+                            listaFiltrada.Kind = actual.ListaBusquedaRespuesta.Kind;
+                            listaFiltrada.PageInfo = actual.ListaBusquedaRespuesta.PageInfo;
+                            listaFiltrada.RegionCode = actual.ListaBusquedaRespuesta.RegionCode;
+                            listaFiltrada.VisitorId = actual.ListaBusquedaRespuesta.VisitorId;
+                            CargarResultados(listaFiltrada, false);
+                        }
+                        else
+                        {
+                            var listaFiltrada = new PlaylistItemListResponse();
+                            listaFiltrada.ETag = actual.ResultadoListaVideos.ETag;
+                            listaFiltrada.TokenPagination = actual.ResultadoListaVideos.TokenPagination;
+                            listaFiltrada.NextPageToken = actual.ResultadoListaVideos.NextPageToken;
+                            listaFiltrada.PrevPageToken = actual.ResultadoListaVideos.PrevPageToken;
+                            listaFiltrada.Items = actual.ResultadoListaVideos.Items.Where(x => (Titulo != "" ? x.Snippet.Title.Contains(Titulo,StringComparison.InvariantCultureIgnoreCase) : true) && (NombreCanal != "" ? x.Snippet.VideoOwnerChannelTitle.Contains(NombreCanal,StringComparison.InvariantCultureIgnoreCase) : true)).ToList();
+                            listaFiltrada.EventId = actual.ResultadoListaVideos.EventId;
+                            listaFiltrada.Kind = actual.ResultadoListaVideos.Kind;
+                            listaFiltrada.PageInfo = actual.ResultadoListaVideos.PageInfo;
+                            listaFiltrada.VisitorId = actual.ResultadoListaVideos.VisitorId;
+                            CargarResultados(listaFiltrada, false);
+                            NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
+                            if (actual.ResultadoListaVideos != null)
+                            {
+                                int nroPagTotales = GetNroNroPaginaTotales(actual.ResultadoListaVideos);
+                                PagContYTLabel.Text = $"Pag {actual.NroPagina}/{nroPagTotales}";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         #endregion
 
         #endregion
@@ -1069,6 +1135,7 @@ namespace GoogleScrapper
         #endregion
 
 
+       
     }
     public class HistorialBusquedaItem
     {

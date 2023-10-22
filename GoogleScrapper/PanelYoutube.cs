@@ -13,7 +13,7 @@ namespace GoogleScrapper
 {
     public partial class PanelYoutube : UserControl
     {
-        public Label TituloVideoLB = new Label();
+        private Label TituloVideoLB = new Label();
         private Label DescripcionVideoLB = new Label();
         private Label OtrosDatosVideoLB = new Label();
 
@@ -25,6 +25,8 @@ namespace GoogleScrapper
         public string Link { get; set; } = "";
         public string ID { get; set; } = "";
         public string IDCanalPropietario { get; set; } = "";
+        public string Titulo { get; set; } = "";
+        public string NombreCanal { get; set; } = "";
         public TipoResultado TipoResultado { get; set; }
         public SearchResult? ResultadoBusqueda { get; set; } = null!;
         public PlaylistItem ? ResultadoListaItem { get; set; } = null!;
@@ -98,6 +100,8 @@ namespace GoogleScrapper
             }
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
             ResultadoBusqueda = resultado;
+            Titulo = resultado.Snippet.Title;
+            NombreCanal = resultado.Snippet.ChannelTitle;
         }
         public PanelYoutube(int ancho, int altoimagen, PlaylistItem resultado,EventHandler click)
         {
@@ -151,6 +155,8 @@ namespace GoogleScrapper
             this.TipoResultado = TipoResultado.video;
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
             ResultadoListaItem = resultado;
+            Titulo = resultado.Snippet.Title;
+            NombreCanal = resultado.Snippet.ChannelTitle;
         }
 
         public void VolverARenderizar(int ancho, int altoimagen)
