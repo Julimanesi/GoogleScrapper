@@ -506,7 +506,7 @@ namespace GoogleScrapper
                     }
                     else
                     {
-                        ObtenerVideosDesdeIDCanal(ItemResultadoSeleccionado.IDCanal);
+                        ObtenerVideosDesdeIDCanal(ItemResultadoSeleccionado.IDCanalPropietario);
                     }
                 }
             }
@@ -1013,7 +1013,7 @@ namespace GoogleScrapper
         private void CambiarVisibilidadBotonesObtenerVideos()
         {
             ObtenerVideosListaReprBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.lista;
-            ObtenerVideosCanalBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.IDCanal != null && ItemResultadoSeleccionado.IDCanal != "";
+            ObtenerVideosCanalBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.IDCanalPropietario != null && ItemResultadoSeleccionado.IDCanalPropietario != "";
             ObtenerInformacionBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null;
         }
 

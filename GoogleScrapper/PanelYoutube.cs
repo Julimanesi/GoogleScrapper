@@ -24,7 +24,7 @@ namespace GoogleScrapper
         public static string BaseUrlYouTubePlaylist { get; } = "https://www.youtube.com/playlist?list=";
         public string Link { get; set; } = "";
         public string ID { get; set; } = "";
-        public string IDCanal { get; set; } = "";
+        public string IDCanalPropietario { get; set; } = "";
         public TipoResultado TipoResultado { get; set; }
         public SearchResult? ResultadoBusqueda { get; set; } = null!;
         public PlaylistItem ? ResultadoListaItem { get; set; } = null!;
@@ -82,7 +82,7 @@ namespace GoogleScrapper
                     Link = BaseUrlYouTube + resultado.Id.VideoId;
                     this.TipoResultado = TipoResultado.video;
                     ID = resultado.Id.VideoId;
-                    IDCanal = resultado.Snippet.ChannelId;
+                    IDCanalPropietario = resultado.Snippet.ChannelId;
                     break;
                 case "channel":
                     Link = BaseUrlYouTubeChannel + resultado.Id.ChannelId;
@@ -93,7 +93,7 @@ namespace GoogleScrapper
                     Link = BaseUrlYouTubePlaylist + resultado.Id.PlaylistId;
                     this.TipoResultado = TipoResultado.lista;
                     ID = resultado.Id.PlaylistId;
-                    IDCanal = resultado.Snippet.ChannelId;
+                    IDCanalPropietario = resultado.Snippet.ChannelId;
                     break;
             }
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
@@ -147,7 +147,7 @@ namespace GoogleScrapper
 
             Link = BaseUrlYouTube + resultado.Snippet.ResourceId.VideoId;
             ID = resultado.Snippet.ResourceId.VideoId;
-            IDCanal = resultado.Snippet.ChannelId;
+            IDCanalPropietario = resultado.Snippet.VideoOwnerChannelId;
             this.TipoResultado = TipoResultado.video;
             this.TituloVideoLB.Text = $"({TipoResultado}){TituloVideoLB.Text}";
             ResultadoListaItem = resultado;

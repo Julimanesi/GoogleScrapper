@@ -276,7 +276,7 @@
             // 
             // SiguientePaginaYTResultBTN
             // 
-            SiguientePaginaYTResultBTN.Location = new Point(632, 101);
+            SiguientePaginaYTResultBTN.Location = new Point(634, 101);
             SiguientePaginaYTResultBTN.Name = "SiguientePaginaYTResultBTN";
             SiguientePaginaYTResultBTN.Size = new Size(132, 29);
             SiguientePaginaYTResultBTN.TabIndex = 55;
