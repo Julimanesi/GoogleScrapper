@@ -522,18 +522,24 @@ namespace GoogleScrapper
             {
                 if (ItemResultadoSeleccionado != null)
                 {
+                    InfoYoutubeForm infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.video);
                     switch (ItemResultadoSeleccionado.TipoResultado)
                     {
                         case TipoResultado.video:
-                            await YoutubeApi.GetVideoInfo(ItemResultadoSeleccionado.ID);
+                            var video = await YoutubeApi.GetVideoInfo(ItemResultadoSeleccionado.ID);
+                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.video, video);
                             break;
                         case TipoResultado.canal:
-                            await YoutubeApi.GetCanalInfo(ItemResultadoSeleccionado.ID);
+                            var canal = await YoutubeApi.GetCanalInfo(ItemResultadoSeleccionado.ID);
+                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.canal,null, canal);
                             break;
                         case TipoResultado.lista:
-                            await YoutubeApi.GetPlayListInfo(ItemResultadoSeleccionado.ID);
+                            var lista = await YoutubeApi.GetPlayListInfo(ItemResultadoSeleccionado.ID);
+                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.Lista, null, null,lista);
                             break;
                     }
+                    infoYoutubeForm.Activate();
+                    infoYoutubeForm.Show();
                 }
             }
             catch (Exception ex)
@@ -920,7 +926,7 @@ namespace GoogleScrapper
         {
             try
             {
-                var resultado = await YoutubeApi.GetCanalInfo(IdCanal);
+                var resultado = await YoutubeApi.GetCanalesInfo(IdCanal);
                 if (resultado != null && resultado.Items != null && resultado.Items.Count > 0)
                 {
                     var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
@@ -942,7 +948,7 @@ namespace GoogleScrapper
         {
             try
             {
-                var resultado = await YoutubeApi.GetCanalInfo(NombreCanal, false);
+                var resultado = await YoutubeApi.GetCanalesInfo(NombreCanal, false);
                 if (resultado != null && resultado.Items != null && resultado.Items.Count > 0)
                 {
                     var listasRelacionadas = resultado.Items[0].ContentDetails.RelatedPlaylists;
@@ -1049,7 +1055,7 @@ namespace GoogleScrapper
                         listaFiltrada.PageInfo = actual.ListaBusquedaRespuesta.PageInfo;
                         listaFiltrada.RegionCode = actual.ListaBusquedaRespuesta.RegionCode;
                         listaFiltrada.VisitorId = actual.ListaBusquedaRespuesta.VisitorId;
-                        if (listaFiltrada.Items.Any()) 
+                        if (listaFiltrada.Items.Any())
                         {
                             CargarResultados(listaFiltrada, false);
                         }
@@ -1067,7 +1073,7 @@ namespace GoogleScrapper
                         listaFiltrada.TokenPagination = actual.ResultadoListaVideos.TokenPagination;
                         listaFiltrada.NextPageToken = actual.ResultadoListaVideos.NextPageToken;
                         listaFiltrada.PrevPageToken = actual.ResultadoListaVideos.PrevPageToken;
-                        listaFiltrada.Items = actual.ResultadoListaVideos.Items.Where(x => (Titulo != "" ? x.Snippet.Title.Contains(Titulo,StringComparison.InvariantCultureIgnoreCase) : true) && (NombreCanal != "" ? x.Snippet.VideoOwnerChannelTitle.Contains(NombreCanal,StringComparison.InvariantCultureIgnoreCase) : true)).ToList();
+                        listaFiltrada.Items = actual.ResultadoListaVideos.Items.Where(x => (Titulo != "" ? x.Snippet.Title.Contains(Titulo, StringComparison.InvariantCultureIgnoreCase) : true) && (NombreCanal != "" ? x.Snippet.VideoOwnerChannelTitle.Contains(NombreCanal, StringComparison.InvariantCultureIgnoreCase) : true)).ToList();
                         listaFiltrada.EventId = actual.ResultadoListaVideos.EventId;
                         listaFiltrada.Kind = actual.ResultadoListaVideos.Kind;
                         listaFiltrada.PageInfo = actual.ResultadoListaVideos.PageInfo;
@@ -1110,7 +1116,7 @@ namespace GoogleScrapper
         #endregion
 
 
-       
+
     }
     public class HistorialBusquedaItem
     {

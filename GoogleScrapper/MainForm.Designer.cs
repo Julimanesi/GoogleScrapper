@@ -168,7 +168,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1179, 820);
+            tabControl1.Size = new Size(1179, 891);
             tabControl1.TabIndex = 0;
             // 
             // YoutubeTag
@@ -178,7 +178,7 @@
             YoutubeTag.Controls.Add(MainYTPanel);
             YoutubeTag.Location = new Point(4, 29);
             YoutubeTag.Name = "YoutubeTag";
-            YoutubeTag.Size = new Size(1171, 787);
+            YoutubeTag.Size = new Size(1171, 858);
             YoutubeTag.TabIndex = 2;
             YoutubeTag.Text = "YouTube";
             YoutubeTag.UseVisualStyleBackColor = true;
@@ -190,7 +190,7 @@
             ResultadosYouTubeFlowLayPanel.Dock = DockStyle.Fill;
             ResultadosYouTubeFlowLayPanel.Location = new Point(0, 481);
             ResultadosYouTubeFlowLayPanel.Name = "ResultadosYouTubeFlowLayPanel";
-            ResultadosYouTubeFlowLayPanel.Size = new Size(1171, 306);
+            ResultadosYouTubeFlowLayPanel.Size = new Size(1171, 377);
             ResultadosYouTubeFlowLayPanel.TabIndex = 0;
             // 
             // BotoneraYoutube
@@ -330,12 +330,13 @@
             // 
             // SiguientePaginaYTResultBTN
             // 
+            SiguientePaginaYTResultBTN.BackColor = Color.FromArgb(227, 196, 82);
             SiguientePaginaYTResultBTN.Location = new Point(633, 93);
             SiguientePaginaYTResultBTN.Name = "SiguientePaginaYTResultBTN";
             SiguientePaginaYTResultBTN.Size = new Size(132, 29);
             SiguientePaginaYTResultBTN.TabIndex = 55;
             SiguientePaginaYTResultBTN.Text = "Siguiente Pagina";
-            SiguientePaginaYTResultBTN.UseVisualStyleBackColor = true;
+            SiguientePaginaYTResultBTN.UseVisualStyleBackColor = false;
             SiguientePaginaYTResultBTN.Click += SiguientePaginaYTResultBTN_Click;
             // 
             // NombreArchivoUltResultTXBX
@@ -858,12 +859,13 @@
             // 
             // ObtenerVideosNombreCanalBTN
             // 
+            ObtenerVideosNombreCanalBTN.BackColor = Color.FromArgb(227, 196, 82);
             ObtenerVideosNombreCanalBTN.Location = new Point(825, 13);
             ObtenerVideosNombreCanalBTN.Name = "ObtenerVideosNombreCanalBTN";
             ObtenerVideosNombreCanalBTN.Size = new Size(319, 29);
             ObtenerVideosNombreCanalBTN.TabIndex = 58;
             ObtenerVideosNombreCanalBTN.Text = "Obtener videos de Nombre Canal";
-            ObtenerVideosNombreCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosNombreCanalBTN.UseVisualStyleBackColor = false;
             ObtenerVideosNombreCanalBTN.Visible = false;
             ObtenerVideosNombreCanalBTN.Click += ObtenerVideosNombreCanalBTN_Click;
             // 
@@ -886,12 +888,13 @@
             // 
             // ObtenerVideosIDCanalBTN
             // 
+            ObtenerVideosIDCanalBTN.BackColor = Color.FromArgb(227, 196, 82);
             ObtenerVideosIDCanalBTN.Location = new Point(826, 51);
             ObtenerVideosIDCanalBTN.Name = "ObtenerVideosIDCanalBTN";
             ObtenerVideosIDCanalBTN.Size = new Size(319, 29);
             ObtenerVideosIDCanalBTN.TabIndex = 55;
             ObtenerVideosIDCanalBTN.Text = "Obtener videos de ID Canal";
-            ObtenerVideosIDCanalBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosIDCanalBTN.UseVisualStyleBackColor = false;
             ObtenerVideosIDCanalBTN.Visible = false;
             ObtenerVideosIDCanalBTN.Click += ObtenerVideosIDCanalBTN_Click;
             // 
@@ -922,22 +925,28 @@
             // 
             // BuscarYoutubeBTN
             // 
+            BuscarYoutubeBTN.BackColor = Color.FromArgb(255, 78, 69);
+            BuscarYoutubeBTN.FlatAppearance.BorderColor = Color.FromArgb(255, 78, 69);
+            BuscarYoutubeBTN.FlatAppearance.BorderSize = 0;
+            BuscarYoutubeBTN.FlatStyle = FlatStyle.Flat;
+            BuscarYoutubeBTN.ForeColor = SystemColors.InfoText;
             BuscarYoutubeBTN.Location = new Point(5, 13);
             BuscarYoutubeBTN.Name = "BuscarYoutubeBTN";
             BuscarYoutubeBTN.Size = new Size(94, 29);
             BuscarYoutubeBTN.TabIndex = 3;
             BuscarYoutubeBTN.Text = "Buscar";
-            BuscarYoutubeBTN.UseVisualStyleBackColor = true;
+            BuscarYoutubeBTN.UseVisualStyleBackColor = false;
             BuscarYoutubeBTN.Click += BuscarYoutubeBTN_Click;
             // 
             // ObtenerVideosIDListReprBTN
             // 
+            ObtenerVideosIDListReprBTN.BackColor = Color.FromArgb(227, 196, 82);
             ObtenerVideosIDListReprBTN.Location = new Point(826, 85);
             ObtenerVideosIDListReprBTN.Name = "ObtenerVideosIDListReprBTN";
             ObtenerVideosIDListReprBTN.Size = new Size(319, 29);
             ObtenerVideosIDListReprBTN.TabIndex = 51;
             ObtenerVideosIDListReprBTN.Text = "Obtener videos de ID lista de Reproduccion";
-            ObtenerVideosIDListReprBTN.UseVisualStyleBackColor = true;
+            ObtenerVideosIDListReprBTN.UseVisualStyleBackColor = false;
             ObtenerVideosIDListReprBTN.Visible = false;
             ObtenerVideosIDListReprBTN.Click += ObtenerVideosIDListReprBTN_Click;
             // 
@@ -950,7 +959,7 @@
             VideoTag.Location = new Point(4, 29);
             VideoTag.Name = "VideoTag";
             VideoTag.Padding = new Padding(3);
-            VideoTag.Size = new Size(1171, 787);
+            VideoTag.Size = new Size(1171, 858);
             VideoTag.TabIndex = 0;
             VideoTag.Text = "General Videos";
             VideoTag.UseVisualStyleBackColor = true;
@@ -1226,7 +1235,7 @@
             ImagenTag.Location = new Point(4, 29);
             ImagenTag.Name = "ImagenTag";
             ImagenTag.Padding = new Padding(3);
-            ImagenTag.Size = new Size(1171, 787);
+            ImagenTag.Size = new Size(1171, 858);
             ImagenTag.TabIndex = 1;
             ImagenTag.Text = "Imagen";
             ImagenTag.UseVisualStyleBackColor = true;
@@ -1238,7 +1247,7 @@
             Descargatag.Controls.Add(URLsDDVideosRTB);
             Descargatag.Location = new Point(4, 29);
             Descargatag.Name = "Descargatag";
-            Descargatag.Size = new Size(1171, 787);
+            Descargatag.Size = new Size(1171, 858);
             Descargatag.TabIndex = 3;
             Descargatag.Text = "Descarga Directa";
             Descargatag.UseVisualStyleBackColor = true;
@@ -1281,7 +1290,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1179, 820);
+            ClientSize = new Size(1179, 891);
             Controls.Add(tabControl1);
             MinimumSize = new Size(1197, 867);
             Name = "MainForm";
