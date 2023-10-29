@@ -109,7 +109,7 @@ namespace GoogleScrapper
                 }
 
                 //EjecucionProcesos.DescargarListaReproduc(GetLinVideosInALine(), LinkVideosLB.SelectedItems.Count, folderDialog.SelectedPath);
-                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath, panelesYoutube);
+                DescargaVideoForm descargaVideoForm = new DescargaVideoForm(listaVideos, cant, folderDialog.SelectedPath, tipo, panelesYoutube);
                 descargaVideoForm.FormClosed += DescargaVideoForm_Closed;
                 descargaVideoForm.Activate();
                 descargaVideoForm.Show();

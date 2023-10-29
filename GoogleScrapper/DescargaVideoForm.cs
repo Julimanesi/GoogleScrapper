@@ -28,13 +28,15 @@ namespace GoogleScrapper
         private List<Destino> Destinos = new List<Destino>();
         private List<PanelYoutube>? PanelesYoutube { get; set; } = null;
         private string IDActual { get; set; } = "";
+        private char Tipo { get; set; } = 'Y';
 
-        public DescargaVideoForm(string ListaUrls, int count, string Directoy, List<PanelYoutube>? panelesYoutube = null)
+        public DescargaVideoForm(string ListaUrls, int count, string Directoy, char tipo, List<PanelYoutube>? panelesYoutube = null)
         {
             InitializeComponent();
             this.ListaUrls = ListaUrls;
             this.Total = count;
             this.Directoy = Directoy;
+            Tipo = tipo;
             SalidaRTextBox.Text = "";
             VideosDescargadosLabel.Text = $"Videos Descargados: 0/{Total}";
             PanelesYoutube = panelesYoutube;
@@ -271,22 +273,47 @@ namespace GoogleScrapper
             }
         }
 
-        private void AgregarThumbnailsAResultados()
+        private async void AgregarThumbnailsAResultados()
         {
-            if (PanelesYoutube != null && AgregarThumbnailCKBX.Checked)
-            {
-                foreach (var panel in PanelesYoutube)
+            if (AgregarThumbnailCKBX.Checked) {
+                if (Tipo == 'Y' && PanelesYoutube != null)
                 {
-                    string titulo = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Title : "");
-                    string uRLThumbnail = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Thumbnails.High.Url : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url : "");
-                    titulo = titulo.Trim();
-                    Destinos.Add(new Destino()
+                    foreach (var panel in PanelesYoutube)
                     {
-                        IdVideo = panel.ID,
-                        Titulo = titulo,
-                        DireccionArchivo = Path.Combine(Directoy, titulo + ".mp3"),
-                        URLThumbnail = uRLThumbnail
-                    });
+                        string titulo = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Title : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Title : "");
+                        string uRLThumbnail = panel.ResultadoListaItem != null ? panel.ResultadoListaItem.Snippet.Thumbnails.High.Url : (panel.ResultadoBusqueda != null ? panel.ResultadoBusqueda.Snippet.Thumbnails.High.Url : "");
+                        titulo = titulo.Trim();
+                        Destinos.Add(new Destino()
+                        {
+                            IdVideo = panel.ID,
+                            Titulo = titulo,
+                            DireccionArchivo = Path.Combine(Directoy, titulo + ".mp3"),
+                            URLThumbnail = uRLThumbnail
+                        });
+                    }
+                }
+                else if (Tipo == 'D')
+                {
+                    List<string> listaUrl = ListaUrls.Split(' ').ToList();
+                    foreach (var url in listaUrl)
+                    {
+                        if (url.Contains("youtube.com") && url.Contains("="))
+                        {
+                            var IdVideo = url.Contains("&") ? url.Split('=')[1].Split("&")[0] : url.Split('=')[1];
+                            if (IdVideo == null) continue;
+
+                            var videoInfo = await YoutubeApi.GetVideoInfo(IdVideo);
+                            if (videoInfo == null) continue;
+
+                            Destinos.Add(new Destino()
+                            {
+                                IdVideo = IdVideo,
+                                Titulo = videoInfo.Snippet.Title,
+                                DireccionArchivo = Path.Combine(Directoy, videoInfo.Snippet.Title.Trim() + ".mp3"),
+                                URLThumbnail = videoInfo.Snippet.Thumbnails.High.Url,
+                            });
+                        }
+                    }
                 }
                 VideosDescargadosLabel.Text = "Agregar Thumbnails:";
                 if (!BWAgregarThumbnails.IsBusy)
