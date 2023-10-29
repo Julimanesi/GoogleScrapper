@@ -1129,14 +1129,34 @@ namespace GoogleScrapper
                     Titulo = Path.GetFileNameWithoutExtension(file),
                 });
             }
-            
-            EdicionVideosForm edicionVideosForm = new EdicionVideosForm(Destinos,EdicionVideosForm.TipoEdicion.comprimir);
-            
+
+            EdicionVideosForm edicionVideosForm = new EdicionVideosForm(Destinos, EdicionVideosForm.TipoEdicion.comprimir);
+
             edicionVideosForm.Activate();
             edicionVideosForm.Show();
         }
+        private void AgregarThumbnailsBTN_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Musica(*.mp3)|*.mp3|Videos(*.mp4)|*.mp4";
+            ofd.Multiselect = false;
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+            List<Destino> Destinos = new List<Destino>();
 
+            Destinos.Add(new Destino()
+            {
+                DireccionArchivo = ofd.FileName,
+                Titulo = Path.GetFileNameWithoutExtension(ofd.FileName),
+            });
+
+            EdicionVideosForm edicionVideosForm = new EdicionVideosForm(Destinos, EdicionVideosForm.TipoEdicion.Thumbnails);
+
+            edicionVideosForm.Activate();
+            edicionVideosForm.Show();
+        }
         #endregion
+
 
 
 

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            URLExtraLB = new Label();
+            URLExtraTXBX = new TextBox();
             ParametrosLB = new Label();
             AccionLB = new Label();
             ProgresoTotalPB = new ProgressBar();
@@ -48,6 +50,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(URLExtraLB);
+            panel1.Controls.Add(URLExtraTXBX);
             panel1.Controls.Add(ParametrosLB);
             panel1.Controls.Add(AccionLB);
             panel1.Controls.Add(ProgresoTotalPB);
@@ -66,10 +70,28 @@
             panel1.TabIndex = 6;
             panel1.Paint += panel1_Paint;
             // 
+            // URLExtraLB
+            // 
+            URLExtraLB.AutoSize = true;
+            URLExtraLB.Location = new Point(12, 51);
+            URLExtraLB.Name = "URLExtraLB";
+            URLExtraLB.Size = new Size(68, 20);
+            URLExtraLB.TabIndex = 18;
+            URLExtraLB.Text = "URLExtra";
+            URLExtraLB.Visible = false;
+            // 
+            // URLExtraTXBX
+            // 
+            URLExtraTXBX.Location = new Point(236, 48);
+            URLExtraTXBX.Name = "URLExtraTXBX";
+            URLExtraTXBX.Size = new Size(552, 27);
+            URLExtraTXBX.TabIndex = 17;
+            URLExtraTXBX.Visible = false;
+            // 
             // ParametrosLB
             // 
             ParametrosLB.AutoSize = true;
-            ParametrosLB.Location = new Point(12, 40);
+            ParametrosLB.Location = new Point(236, 9);
             ParametrosLB.Name = "ParametrosLB";
             ParametrosLB.Size = new Size(86, 20);
             ParametrosLB.TabIndex = 16;
@@ -229,5 +251,7 @@
         private Label AccionLB;
         private Label ParametrosLB;
         private Button EditarBTN;
+        private Label URLExtraLB;
+        private TextBox URLExtraTXBX;
     }
 }

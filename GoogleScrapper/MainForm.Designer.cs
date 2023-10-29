@@ -141,6 +141,7 @@
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            AgregarThumbnailsBTN = new Button();
             tabControl1.SuspendLayout();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
@@ -1243,6 +1244,7 @@
             // 
             // Descargatag
             // 
+            Descargatag.Controls.Add(AgregarThumbnailsBTN);
             Descargatag.Controls.Add(ComprimirVideosBTN);
             Descargatag.Controls.Add(label20);
             Descargatag.Controls.Add(DescargaDirecVideosBTN);
@@ -1297,6 +1299,16 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
+            // 
+            // AgregarThumbnailsBTN
+            // 
+            AgregarThumbnailsBTN.Location = new Point(215, 308);
+            AgregarThumbnailsBTN.Name = "AgregarThumbnailsBTN";
+            AgregarThumbnailsBTN.Size = new Size(225, 29);
+            AgregarThumbnailsBTN.TabIndex = 4;
+            AgregarThumbnailsBTN.Text = "Agregar Thumbnails a Archivo";
+            AgregarThumbnailsBTN.UseVisualStyleBackColor = true;
+            AgregarThumbnailsBTN.Click += AgregarThumbnailsBTN_Click;
             // 
             // MainForm
             // 
@@ -1452,5 +1464,6 @@
         private Label label24;
         private Label label26;
         private Button ComprimirVideosBTN;
+        private Button AgregarThumbnailsBTN;
     }
 }

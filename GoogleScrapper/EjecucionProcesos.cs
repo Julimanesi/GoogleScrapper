@@ -225,9 +225,11 @@ namespace GoogleScrapper
                     {
                         try
                         {
+                            var extArch = Path.GetExtension(destino.DireccionArchivo);
+                            string DestinoAux = destino.DireccionArchivo + "aux" + extArch;
                             ProcessStartInfo processStartInfo = new ProcessStartInfo();
                             processStartInfo.FileName = "ffmpeg.exe";
-                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{destino.DireccionArchivo + "aux.mp3"}\"";
+                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{DestinoAux}\"";
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
                             processStartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -265,8 +267,8 @@ namespace GoogleScrapper
                             }
                             else
                             {
-                                File.Move(destino.DireccionArchivo + "aux.mp3", destino.DireccionArchivo, true);
-                                File.Delete(destino.DireccionArchivo + "aux.mp3");
+                                File.Delete(destino.DireccionArchivo);
+                                File.Move(DestinoAux, destino.DireccionArchivo, true);
                             }
                         }catch (Exception ex)
                         {
