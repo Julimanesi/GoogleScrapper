@@ -275,7 +275,8 @@ namespace GoogleScrapper
 
         private async void AgregarThumbnailsAResultados()
         {
-            if (AgregarThumbnailCKBX.Checked) {
+            if (AgregarThumbnailCKBX.Checked)
+            {
                 if (Tipo == 'Y' && PanelesYoutube != null)
                 {
                     foreach (var panel in PanelesYoutube)

@@ -11,6 +11,7 @@ using Google.Apis.YouTube.v3;
 using System.Globalization;
 using static Google.Apis.YouTube.v3.SearchResource.ListRequest;
 using System.Windows.Forms;
+using static GoogleScrapper.DescargaVideoForm;
 
 namespace GoogleScrapper
 {
@@ -531,11 +532,11 @@ namespace GoogleScrapper
                             break;
                         case TipoResultado.canal:
                             var canal = await YoutubeApi.GetCanalInfo(ItemResultadoSeleccionado.ID);
-                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.canal,null, canal);
+                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.canal, null, canal);
                             break;
                         case TipoResultado.lista:
                             var lista = await YoutubeApi.GetPlayListInfo(ItemResultadoSeleccionado.ID);
-                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.Lista, null, null,lista);
+                            infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.Lista, null, null, lista);
                             break;
                     }
                     infoYoutubeForm.Activate();
@@ -1106,14 +1107,37 @@ namespace GoogleScrapper
 
         #endregion
 
-        #region Descargar Videos Directamente
+        #region Descargar/Editar Videos Directamente
 
         private void DescargaDirecVideosBTN_Click(object sender, EventArgs e)
         {
             DescargarVideos(string.Join(" ", URLsDDVideosRTB.Lines), URLsDDVideosRTB.Lines.Count(), 'D');
         }
+        private void ComprimirVideosBTN_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            if (ofd.ShowDialog() != DialogResult.OK)
+                return;
+            List<Destino> Destinos = new List<Destino>();
+
+            foreach (string file in ofd.FileNames)
+            {
+                Destinos.Add(new Destino()
+                {
+                    DireccionArchivo = file,
+                    Titulo = Path.GetFileNameWithoutExtension(file),
+                });
+            }
+            
+            EdicionVideosForm edicionVideosForm = new EdicionVideosForm(Destinos,EdicionVideosForm.TipoEdicion.comprimir);
+            
+            edicionVideosForm.Activate();
+            edicionVideosForm.Show();
+        }
 
         #endregion
+
 
 
 

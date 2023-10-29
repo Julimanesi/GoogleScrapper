@@ -284,6 +284,68 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al agregar Thumbnails");
             }
         }
+
+        public static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
+        {
+            try
+            {
+                int progreso = 0;
+                int cant = 0;
+                int erroresCont = 0;
+                worker.ReportProgress(progreso, "Comprimiendo Videos");
+                foreach (var destino in Destinos)
+                {
+                    cant++;
+                    if (destino != null)
+                    {
+                        try
+                        {
+                            var directorio = Path.GetDirectoryName(destino.DireccionArchivo);
+                            if (!Directory.Exists(directorio)) continue;
+
+                            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                            processStartInfo.FileName = "ffmpeg.exe";
+                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
+                            processStartInfo.UseShellExecute = false;
+                            processStartInfo.CreateNoWindow = true;
+                            processStartInfo.StandardOutputEncoding = Encoding.UTF8;
+                            processStartInfo.StandardErrorEncoding = Encoding.UTF8;
+                            processStartInfo.RedirectStandardOutput = true;
+                            processStartInfo.RedirectStandardError = true;
+                            Process? ffmpeg = Process.Start(processStartInfo);
+                            //if (ffmpeg == null) continue;
+                            //while (!ffmpeg.StandardOutput.EndOfStream)
+                            //{
+                            //    string? linea = ffmpeg.StandardOutput.ReadLine();
+                            //    worker.ReportProgress(progreso, linea);
+                            //}
+                            var salidaError = ffmpeg.StandardError.ReadToEnd();
+                            if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                erroresCont++;
+                                continue;
+                            }
+                            else
+                            {
+                                File.Delete(destino.DireccionArchivo);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            erroresCont++;
+                            continue;
+                        }
+                    }
+                    progreso = (int)(((decimal)cant / Destinos.Count) * 100);
+                    worker.ReportProgress(progreso, $"Comprimiendo Video: {destino}");
+                }
+                e.Result = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al agregar Comprimir video");
+            }
+        }
         #endregion
 
         #region BackgroundWorker

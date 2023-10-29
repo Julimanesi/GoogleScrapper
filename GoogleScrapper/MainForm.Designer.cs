@@ -136,6 +136,7 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             Descargatag = new TabPage();
+            ComprimirVideosBTN = new Button();
             label20 = new Label();
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
@@ -1242,6 +1243,7 @@
             // 
             // Descargatag
             // 
+            Descargatag.Controls.Add(ComprimirVideosBTN);
             Descargatag.Controls.Add(label20);
             Descargatag.Controls.Add(DescargaDirecVideosBTN);
             Descargatag.Controls.Add(URLsDDVideosRTB);
@@ -1249,8 +1251,18 @@
             Descargatag.Name = "Descargatag";
             Descargatag.Size = new Size(1171, 858);
             Descargatag.TabIndex = 3;
-            Descargatag.Text = "Descarga Directa";
+            Descargatag.Text = "Descarga/Edicion Directa";
             Descargatag.UseVisualStyleBackColor = true;
+            // 
+            // ComprimirVideosBTN
+            // 
+            ComprimirVideosBTN.Location = new Point(12, 308);
+            ComprimirVideosBTN.Name = "ComprimirVideosBTN";
+            ComprimirVideosBTN.Size = new Size(154, 29);
+            ComprimirVideosBTN.TabIndex = 3;
+            ComprimirVideosBTN.Text = "Comprimir Videos";
+            ComprimirVideosBTN.UseVisualStyleBackColor = true;
+            ComprimirVideosBTN.Click += ComprimirVideosBTN_Click;
             // 
             // label20
             // 
@@ -1439,5 +1451,6 @@
         private TextBox FiltrarBusquedaTituloYTTBX;
         private Label label24;
         private Label label26;
+        private Button ComprimirVideosBTN;
     }
 }
