@@ -63,7 +63,6 @@ namespace GoogleScrapper
                     case TipoEdicion.Thumbnails:
                         if (URLExtraTXBX.Text != "")
                         {
-                            //TODO Probar
                             var destino = Destinos.ElementAt(0);
                             destino.URLThumbnail = URLExtraTXBX.Text;
                             EjecucionProcesos.AgregarThumbnails(worker, e, Destinos);
@@ -89,8 +88,8 @@ namespace GoogleScrapper
                 if (e.UserState != null)
                 {
                     string salida = (string)e.UserState;
-
-                    SalidaRTextBox.Text = salida;
+                    Estadolabel.Text =$"Estado: {salida}";
+                    SalidaRTextBox.Text += $"{salida}\n";
                 }
             }
             catch (Exception ex)

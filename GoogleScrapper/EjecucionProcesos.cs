@@ -229,7 +229,14 @@ namespace GoogleScrapper
                             string DestinoAux = destino.DireccionArchivo + "aux" + extArch;
                             ProcessStartInfo processStartInfo = new ProcessStartInfo();
                             processStartInfo.FileName = "ffmpeg.exe";
-                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{DestinoAux}\"";
+                            if (extArch == ".mp3")
+                            {
+                                processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata:s:v title=\"Album cover\" -metadata:s:v comment=\"Cover (front)\" \"{DestinoAux}\"";
+                            }
+                            else
+                            {
+                                processStartInfo.Arguments = $"ffmpeg -i \"{destino.DireccionArchivo}\" -i \"{destino.URLThumbnail}\" -map 0 -map 1 -c copy -c:v:1 png -disposition:v:1 attached_pic \"{DestinoAux}\"";
+                            }
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
                             processStartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -287,7 +294,7 @@ namespace GoogleScrapper
             }
         }
 
-        public static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
+        public async static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
         {
             try
             {
@@ -306,8 +313,8 @@ namespace GoogleScrapper
                             if (!Directory.Exists(directorio)) continue;
 
                             ProcessStartInfo processStartInfo = new ProcessStartInfo();
-                            processStartInfo.FileName = "ffmpeg.exe";
-                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
+                            processStartInfo.FileName = "ffmpeg.exe";/*-map 0:a? -map 0:s? -map 0:v*/
+                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -pix_fmt yuv420p -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
                             processStartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -315,21 +322,53 @@ namespace GoogleScrapper
                             processStartInfo.RedirectStandardOutput = true;
                             processStartInfo.RedirectStandardError = true;
                             Process? ffmpeg = Process.Start(processStartInfo);
-                            //if (ffmpeg == null) continue;
-                            //while (!ffmpeg.StandardOutput.EndOfStream)
+                            if (ffmpeg == null) continue;
+                            ffmpeg.BeginOutputReadLine();
+                            //ffmpeg.BeginErrorReadLine();
+                            worker.ReportProgress(progreso,"Esperando a que termine de comprimir....");
+                            //bool error = false;
+                            //string? linea = ffmpeg.StandardError.ReadLine();
+                            //while (linea != null && linea != "")
+                            //{
+                            //    worker.ReportProgress(progreso, linea);
+                            //    if (linea.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                            //    {
+                            //        worker.ReportProgress(progreso, $"Error al comprimir el Archivo");
+                            //        ffmpeg.Kill();
+                            //        erroresCont++;
+                            //        error = true;
+                            //        break;
+                            //    }
+                            //    linea = ffmpeg.StandardError.ReadLine();
+                            //}
+                            //if (error) continue;
+                            //while (!ffmpeg.HasExited)
                             //{
                             //    string? linea = ffmpeg.StandardOutput.ReadLine();
-                            //    worker.ReportProgress(progreso, linea);
+                            //    if (linea != null && linea != "")
+                            //    {
+                            //        worker.ReportProgress(progreso, linea);
+                            //        progreso = int.Parse(matches[0].Groups["porcentaje"].Value);
+                            //        if (linea.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                            //        {
+                            //            worker.ReportProgress(progreso, $"Error al comprimir el Archivo");
+                            //            ffmpeg.Kill();
+                            //            erroresCont++;
+                            //            continue;
+                            //        }
+                            //    }
                             //}
                             var salidaError = ffmpeg.StandardError.ReadToEnd();
                             if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
                             {
                                 erroresCont++;
+                                worker.ReportProgress(progreso, $"Error al comprimir el Archivo: {salidaError}");
                                 continue;
                             }
                             else
                             {
                                 File.Delete(destino.DireccionArchivo);
+                                worker.ReportProgress(progreso, "Archivo generado");
                             }
                         }
                         catch (Exception ex)
