@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration.Internal;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,17 +21,24 @@ namespace GoogleScrapper
         private BackgroundWorker BWEditarVideos = new BackgroundWorker();
         private TipoEdicion Tipo { get; set; }
         public enum TipoEdicion { comprimir, Thumbnails }
+        private string UrlThumbnails { get; set; } = string.Empty;
 
         public EdicionVideosForm(List<Destino> destinos, TipoEdicion tipoEdicion)
         {
             InitializeComponent();
             Destinos = destinos;
             Tipo = tipoEdicion;
-            if (Tipo == TipoEdicion.Thumbnails)
+            switch (Tipo)
             {
-                URLExtraLB.Visible = true;
-                URLExtraLB.Text = "URL Thumbnail:";
-                URLExtraTXBX.Visible = true;
+                case TipoEdicion.Thumbnails:
+                    AccionLB.Text = "Agregar Thumbnails";
+                    URLExtraLB.Visible = true;
+                    URLExtraLB.Text = "URL Thumbnail:";
+                    URLExtraTXBX.Visible = true;
+                    break;
+                case TipoEdicion.comprimir:
+                    AccionLB.Text = "Comprimir Videos";
+                    break;
             }
             BWEditarVideos.WorkerReportsProgress = true;
             BWEditarVideos.WorkerSupportsCancellation = true;
@@ -88,7 +97,7 @@ namespace GoogleScrapper
                 if (e.UserState != null)
                 {
                     string salida = (string)e.UserState;
-                    Estadolabel.Text =$"Estado: {salida}";
+                    Estadolabel.Text = $"Estado: {salida}";
                     SalidaRTextBox.Text += $"{salida}\n";
                 }
             }
@@ -158,5 +167,34 @@ namespace GoogleScrapper
         {
 
         }
+
+        private async void GetURLThumbnailsFormYtUrl(string url)
+        {
+            if (url.Contains("youtube.com") && url.Contains("="))
+            {
+                var IdVideo = url.Contains("&") ? url.Split('=')[1].Split("&")[0] : url.Split('=')[1];
+                if (IdVideo != null)
+                {
+
+                    var videoInfo = await YoutubeApi.GetVideoInfo(IdVideo);
+                    if (videoInfo != null)
+                    {
+                        UrlThumbnails = videoInfo.Snippet.Thumbnails.High.Url;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo obtener la informacion del video de YouTube", "Error al Editar Videos");
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La URL no se reconoce como una proveniente de YouTube", "Error al Editar Videos");
+
+                }
+            }
+        }
+
+
     }
 }

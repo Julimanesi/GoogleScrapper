@@ -210,6 +210,96 @@ namespace GoogleScrapper
         #endregion
 
         #region ffmpeg
+
+        public string GetMetadata(string DireccionArchivo)
+        {
+            string metadata = string.Empty;
+            try
+            {
+                var extArch = Path.GetExtension(DireccionArchivo);
+                string DestinoAux = DireccionArchivo + "aux" + extArch;
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = "ffmpeg.exe";
+                processStartInfo.Arguments = $"-i \"{DireccionArchivo}\"";
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.StandardOutputEncoding = Encoding.UTF8;
+                processStartInfo.StandardErrorEncoding = Encoding.UTF8;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.RedirectStandardError = true;
+                Process? ffmpeg = Process.Start(processStartInfo);
+                metadata = ffmpeg?.StandardError.ReadToEnd() ?? "";
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return metadata;
+        }
+
+        public static void ExtraerSubtitulos(BackgroundWorker worker, DoWorkEventArgs e, string DireccionArchivo,int stream,string Idioma = "esp")
+        {
+            try
+            {
+                int progreso = 0;
+                worker.ReportProgress(progreso, "Extrayendo Subtitulos");
+                
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = "ffmpeg.exe";
+                processStartInfo.Arguments = $"-i \"{DireccionArchivo}\" -map 0:s:{stream} \"{DireccionArchivo}_{Idioma}.srt\"";
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.StandardOutputEncoding = Encoding.UTF8;
+                processStartInfo.StandardErrorEncoding = Encoding.UTF8;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.RedirectStandardError = true;
+                Process? ffmpeg = Process.Start(processStartInfo);
+                var salidaError = ffmpeg?.StandardError.ReadToEnd();
+                
+                e.Result = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al agregar Thumbnails");
+            }
+        }
+
+        public static void AgregarSubtitulos(BackgroundWorker worker, DoWorkEventArgs e, string DireccionArchivo,string DireccionSub, string Idioma = "esp")
+        {
+            try
+            {
+                int progreso = 0;
+                worker.ReportProgress(progreso, "Agregar Subtitulos");
+                var extArch = Path.GetExtension(DireccionArchivo);
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = "ffmpeg.exe";
+                processStartInfo.Arguments = $"-i \"{DireccionArchivo}\" -i \"{DireccionSub}\" -c copy -c:s mov_text \"{DireccionArchivo}aux{extArch}\"";
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.StandardOutputEncoding = Encoding.UTF8;
+                processStartInfo.StandardErrorEncoding = Encoding.UTF8;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.RedirectStandardError = true;
+                Process? ffmpeg = Process.Start(processStartInfo);
+                var salidaError = ffmpeg?.StandardError.ReadToEnd();
+                if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return;
+                }
+                else
+                {
+                    File.Delete(DireccionArchivo);
+                    File.Move($"{DireccionArchivo}aux{extArch}", DireccionArchivo, true);
+                }
+
+                e.Result = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al agregar Thumbnails");
+            }
+        }
+
         public static void AgregarThumbnails(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
         {
             try
@@ -294,7 +384,7 @@ namespace GoogleScrapper
             }
         }
 
-        public async static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
+        public static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
         {
             try
             {
@@ -314,7 +404,7 @@ namespace GoogleScrapper
 
                             ProcessStartInfo processStartInfo = new ProcessStartInfo();
                             processStartInfo.FileName = "ffmpeg.exe";/*-map 0:a? -map 0:s? -map 0:v*/
-                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -pix_fmt yuv420p -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
+                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -pix_fmt yuv420p -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high  \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
                             processStartInfo.UseShellExecute = false;
                             processStartInfo.CreateNoWindow = true;
                             processStartInfo.StandardOutputEncoding = Encoding.UTF8;
@@ -324,7 +414,7 @@ namespace GoogleScrapper
                             Process? ffmpeg = Process.Start(processStartInfo);
                             if (ffmpeg == null) continue;
                             ffmpeg.BeginOutputReadLine();
-                            //ffmpeg.BeginErrorReadLine();
+                            ffmpeg.BeginErrorReadLine();
                             worker.ReportProgress(progreso,"Esperando a que termine de comprimir....");
                             //bool error = false;
                             //string? linea = ffmpeg.StandardError.ReadLine();

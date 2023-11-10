@@ -73,7 +73,7 @@
             // URLExtraLB
             // 
             URLExtraLB.AutoSize = true;
-            URLExtraLB.Location = new Point(12, 51);
+            URLExtraLB.Location = new Point(166, 9);
             URLExtraLB.Name = "URLExtraLB";
             URLExtraLB.Size = new Size(68, 20);
             URLExtraLB.TabIndex = 18;
@@ -82,16 +82,16 @@
             // 
             // URLExtraTXBX
             // 
-            URLExtraTXBX.Location = new Point(236, 48);
+            URLExtraTXBX.Location = new Point(326, 9);
             URLExtraTXBX.Name = "URLExtraTXBX";
-            URLExtraTXBX.Size = new Size(552, 27);
+            URLExtraTXBX.Size = new Size(462, 27);
             URLExtraTXBX.TabIndex = 17;
             URLExtraTXBX.Visible = false;
             // 
             // ParametrosLB
             // 
             ParametrosLB.AutoSize = true;
-            ParametrosLB.Location = new Point(236, 9);
+            ParametrosLB.Location = new Point(12, 9);
             ParametrosLB.Name = "ParametrosLB";
             ParametrosLB.Size = new Size(86, 20);
             ParametrosLB.TabIndex = 16;
@@ -100,7 +100,7 @@
             // AccionLB
             // 
             AccionLB.AutoSize = true;
-            AccionLB.Location = new Point(12, 9);
+            AccionLB.Location = new Point(12, 97);
             AccionLB.Name = "AccionLB";
             AccionLB.Size = new Size(57, 20);
             AccionLB.TabIndex = 15;
@@ -115,7 +115,7 @@
             // 
             // EditarBTN
             // 
-            EditarBTN.Location = new Point(12, 95);
+            EditarBTN.Location = new Point(213, 93);
             EditarBTN.Name = "EditarBTN";
             EditarBTN.Size = new Size(152, 29);
             EditarBTN.TabIndex = 8;

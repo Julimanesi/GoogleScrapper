@@ -436,7 +436,7 @@ namespace GoogleScrapper
                         IdCanal = IDCanalTXBX.Text;
                     }
                 }
-                ObtenerVideosDesdeIDCanal(IDCanalTXBX.Text);
+                ObtenerVideosDesdeIDCanal(IdCanal);
             }
             catch (Exception ex)
             {
@@ -1156,9 +1156,6 @@ namespace GoogleScrapper
             edicionVideosForm.Show();
         }
         #endregion
-
-
-
 
 
     }
