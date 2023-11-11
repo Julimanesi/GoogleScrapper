@@ -170,31 +170,16 @@ namespace GoogleScrapper
 
         private async void GetURLThumbnailsFormYtUrl(string url)
         {
-            if (url.Contains("youtube.com") && url.Contains("="))
+            var videoInfo = await YoutubeApi.GetVideoInfo(YoutubeApi.ParsearIdDesdeURLVideo(url));
+            if (videoInfo != null)
             {
-                var IdVideo = url.Contains("&") ? url.Split('=')[1].Split("&")[0] : url.Split('=')[1];
-                if (IdVideo != null)
-                {
-
-                    var videoInfo = await YoutubeApi.GetVideoInfo(IdVideo);
-                    if (videoInfo != null)
-                    {
-                        UrlThumbnails = videoInfo.Snippet.Thumbnails.High.Url;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se pudo obtener la informacion del video de YouTube", "Error al Editar Videos");
-
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("La URL no se reconoce como una proveniente de YouTube", "Error al Editar Videos");
-
-                }
+                UrlThumbnails = videoInfo.Snippet.Thumbnails.High.Url;
+            }
+            else
+            {
+                MessageBox.Show("No se pudo obtener la informacion del video de YouTube", "Error al Editar Videos");
             }
         }
-
 
     }
 }

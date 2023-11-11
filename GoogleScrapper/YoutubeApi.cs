@@ -4,6 +4,7 @@ using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -243,6 +244,24 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al obtener info del video en Youtube(API)");
                 return null;
             }
+        }
+
+        public static string ParsearIdDesdeURLVideo(string url)
+        {
+            string videoId = "";
+            if (url.Contains("youtube.com") && url.Contains("="))
+            {
+                var IdVideo = url.Contains("&") ? url.Split('=')[1].Split("&")[0] : url.Split('=')[1];
+                if (IdVideo != null)
+                {
+                    videoId = IdVideo;
+                }
+                else
+                {
+                    MessageBox.Show("La URL no se reconoce como una proveniente de YouTube", "Error al obtener el Id del Video");
+                }
+            }
+            return videoId;
         }
 
     }

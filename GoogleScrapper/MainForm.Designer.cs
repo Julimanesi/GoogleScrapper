@@ -136,12 +136,15 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             Descargatag = new TabPage();
+            label27 = new Label();
+            URLDDVideoTXBX = new TextBox();
+            ObtenerInfoDirecYTVideoBTN = new Button();
+            AgregarThumbnailsBTN = new Button();
             ComprimirVideosBTN = new Button();
             label20 = new Label();
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            AgregarThumbnailsBTN = new Button();
             tabControl1.SuspendLayout();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
@@ -1244,6 +1247,9 @@
             // 
             // Descargatag
             // 
+            Descargatag.Controls.Add(label27);
+            Descargatag.Controls.Add(URLDDVideoTXBX);
+            Descargatag.Controls.Add(ObtenerInfoDirecYTVideoBTN);
             Descargatag.Controls.Add(AgregarThumbnailsBTN);
             Descargatag.Controls.Add(ComprimirVideosBTN);
             Descargatag.Controls.Add(label20);
@@ -1256,9 +1262,45 @@
             Descargatag.Text = "Descarga/Edicion Directa";
             Descargatag.UseVisualStyleBackColor = true;
             // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(203, 275);
+            label27.Name = "label27";
+            label27.Size = new Size(122, 20);
+            label27.TabIndex = 7;
+            label27.Text = "URL de Video YT:";
+            // 
+            // URLDDVideoTXBX
+            // 
+            URLDDVideoTXBX.Location = new Point(331, 272);
+            URLDDVideoTXBX.Name = "URLDDVideoTXBX";
+            URLDDVideoTXBX.Size = new Size(832, 27);
+            URLDDVideoTXBX.TabIndex = 6;
+            // 
+            // ObtenerInfoDirecYTVideoBTN
+            // 
+            ObtenerInfoDirecYTVideoBTN.Location = new Point(12, 271);
+            ObtenerInfoDirecYTVideoBTN.Name = "ObtenerInfoDirecYTVideoBTN";
+            ObtenerInfoDirecYTVideoBTN.Size = new Size(175, 29);
+            ObtenerInfoDirecYTVideoBTN.TabIndex = 5;
+            ObtenerInfoDirecYTVideoBTN.Text = "Obtener Info Video YT";
+            ObtenerInfoDirecYTVideoBTN.UseVisualStyleBackColor = true;
+            ObtenerInfoDirecYTVideoBTN.Click += ObtenerInfoDirecYTVideoBTN_Click;
+            // 
+            // AgregarThumbnailsBTN
+            // 
+            AgregarThumbnailsBTN.Location = new Point(203, 329);
+            AgregarThumbnailsBTN.Name = "AgregarThumbnailsBTN";
+            AgregarThumbnailsBTN.Size = new Size(225, 29);
+            AgregarThumbnailsBTN.TabIndex = 4;
+            AgregarThumbnailsBTN.Text = "Agregar Thumbnails a Archivo";
+            AgregarThumbnailsBTN.UseVisualStyleBackColor = true;
+            AgregarThumbnailsBTN.Click += AgregarThumbnailsBTN_Click;
+            // 
             // ComprimirVideosBTN
             // 
-            ComprimirVideosBTN.Location = new Point(12, 308);
+            ComprimirVideosBTN.Location = new Point(12, 329);
             ComprimirVideosBTN.Name = "ComprimirVideosBTN";
             ComprimirVideosBTN.Size = new Size(154, 29);
             ComprimirVideosBTN.TabIndex = 3;
@@ -1269,7 +1311,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(9, 22);
+            label20.Location = new Point(12, 50);
             label20.Name = "label20";
             label20.Size = new Size(114, 20);
             label20.TabIndex = 2;
@@ -1277,7 +1319,7 @@
             // 
             // DescargaDirecVideosBTN
             // 
-            DescargaDirecVideosBTN.Location = new Point(9, 250);
+            DescargaDirecVideosBTN.Location = new Point(12, 18);
             DescargaDirecVideosBTN.Name = "DescargaDirecVideosBTN";
             DescargaDirecVideosBTN.Size = new Size(205, 29);
             DescargaDirecVideosBTN.TabIndex = 1;
@@ -1287,9 +1329,9 @@
             // 
             // URLsDDVideosRTB
             // 
-            URLsDDVideosRTB.Location = new Point(9, 59);
+            URLsDDVideosRTB.Location = new Point(12, 82);
             URLsDDVideosRTB.Name = "URLsDDVideosRTB";
-            URLsDDVideosRTB.Size = new Size(902, 169);
+            URLsDDVideosRTB.Size = new Size(1151, 169);
             URLsDDVideosRTB.TabIndex = 0;
             URLsDDVideosRTB.Text = "";
             // 
@@ -1299,16 +1341,6 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
-            // 
-            // AgregarThumbnailsBTN
-            // 
-            AgregarThumbnailsBTN.Location = new Point(215, 308);
-            AgregarThumbnailsBTN.Name = "AgregarThumbnailsBTN";
-            AgregarThumbnailsBTN.Size = new Size(225, 29);
-            AgregarThumbnailsBTN.TabIndex = 4;
-            AgregarThumbnailsBTN.Text = "Agregar Thumbnails a Archivo";
-            AgregarThumbnailsBTN.UseVisualStyleBackColor = true;
-            AgregarThumbnailsBTN.Click += AgregarThumbnailsBTN_Click;
             // 
             // MainForm
             // 
@@ -1465,5 +1497,8 @@
         private Label label26;
         private Button ComprimirVideosBTN;
         private Button AgregarThumbnailsBTN;
+        private Label label27;
+        private TextBox URLDDVideoTXBX;
+        private Button ObtenerInfoDirecYTVideoBTN;
     }
 }

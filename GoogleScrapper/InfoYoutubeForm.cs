@@ -51,13 +51,14 @@ namespace GoogleScrapper
             {
                 if (Video != null)
                 {
-                    TituloLB.Text = $"{Video?.Snippet?.Title}\nTipo: Video | Fecha de Publicacion: {Video?.Snippet?.PublishedAtDateTimeOffset?.LocalDateTime.ToString("dd/MM/yyy")} | Estado: {Video?.Status?.UploadStatus} | ";
+                    TituloLB.Text = $"{Video?.Snippet?.Title}\nTipo: Video | Fecha de Publicacion: {Video?.Snippet?.PublishedAtDateTimeOffset?.LocalDateTime.ToString("dd/MM/yyy")} | Estado: {Video?.Status?.UploadStatus}";
                     InformacionLB.Text = $"Etiquetas: {String.Join(", ", Video?.Snippet?.Tags ?? new List<string>())}\nCanal: {Video?.Snippet.ChannelTitle} | Duracion: {Video?.ContentDetails?.Duration.Replace("PT", "")/*.Replace("M", ":").Replace("S", "")*/} | ";
-                    InformacionLB.Text += $"Definicion: {Video?.ContentDetails?.Definition} | Rating: {Video?.ContentDetails?.ContentRating?.IncaaRating} | ";
-                    InformacionLB.Text += $"Vistas: {Video?.Statistics?.ViewCount}  | Likes: {Video?.Statistics?.LikeCount} | Dislikes: {Video?.Statistics?.DislikeCount}";
+                    InformacionLB.Text += $"Definicion: {Video?.ContentDetails?.Definition} |";
+                    InformacionLB.Text += $"Vistas: {Video?.Statistics?.ViewCount}  | Likes: {Video?.Statistics?.LikeCount} ";
                     InformacionLB.Text += $"\nDescripcion: {Video?.Snippet?.Description}";
                     string tamanio = Video?.FileDetails?.FileSize > 1024 * 1024 ? $"{(Video?.FileDetails?.FileSize / (1024 * 1024))}MB" : $"{(Video?.FileDetails?.FileSize / (1024))}KB";
                     InformacionLB.Text += $"\nDatos de Archivo: Formato: {Video?.FileDetails?.Container} | Tasa de Bits: {Video?.FileDetails?.BitrateBps} | Tamaño: {tamanio}";
+                    ImagenPB.SizeMode = PictureBoxSizeMode.StretchImage;
                     ImagenPB.ImageLocation = Video?.Snippet?.Thumbnails?.High?.Url;
                     LinkImagen = $"{Video?.Snippet?.Thumbnails?.High?.Url}";
                 }

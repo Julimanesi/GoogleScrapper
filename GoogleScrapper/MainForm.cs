@@ -12,6 +12,7 @@ using System.Globalization;
 using static Google.Apis.YouTube.v3.SearchResource.ListRequest;
 using System.Windows.Forms;
 using static GoogleScrapper.DescargaVideoForm;
+using System;
 
 namespace GoogleScrapper
 {
@@ -1155,8 +1156,22 @@ namespace GoogleScrapper
             edicionVideosForm.Activate();
             edicionVideosForm.Show();
         }
-        #endregion
 
+        private async void ObtenerInfoDirecYTVideoBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                InfoYoutubeForm infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.video);
+                var video = await YoutubeApi.GetVideoInfo(YoutubeApi.ParsearIdDesdeURLVideo(URLDDVideoTXBX.Text));
+                infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.video, video);
+                infoYoutubeForm.Activate();
+                infoYoutubeForm.Show();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener la Info del Video");
+            }
+        }
+        #endregion
 
     }
     public class HistorialBusquedaItem
