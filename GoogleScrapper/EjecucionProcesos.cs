@@ -376,6 +376,16 @@ namespace GoogleScrapper
                     progreso = (int)(((decimal)cant / Destinos.Count) * 100);
                     worker.ReportProgress(progreso, $"Agregando Thumbnails a {destino}");
                 }
+                var destinoAux = Destinos.FirstOrDefault();
+                if (destinoAux != null)
+                {
+                    string? directorio = Path.GetDirectoryName(destinoAux!.DireccionArchivo);
+                    if (directorio != null)
+                    {
+                        List<string> listTemp = Directory.GetFiles(directorio).ToList();
+                        listTemp.Where(x => x.Contains(".temp")).ToList().ForEach(x => File.Delete(x));
+                    }
+                }
                 e.Result = "";
             }
             catch (Exception ex)

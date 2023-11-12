@@ -34,6 +34,8 @@ namespace GoogleScrapper
         private string ResultadoSiguientePagToken { get; set; } = "";
         private bool CargadoArchivo { get; set; } = false;
         private string NombreArchivoCargado { get; set; } = "";
+        private List<HistorialItemSeleccionado> HistorialItemSeleccionados = new List<HistorialItemSeleccionado>();
+        public static string Aviso {  get; set; } = string.Empty;
 
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
 
@@ -600,12 +602,41 @@ namespace GoogleScrapper
                     }
                 }
                 CambiarVisibilidadBotonesObtenerVideos();
+                if (ItemResultadoSeleccionado != null)
+                {
+                    var histItemAux = HistorialItemSeleccionados.FirstOrDefault(x => x.IndexHistorial == IndexHistorial && x.ID == ItemResultadoSeleccionado.ID && x.TipoResultado == ItemResultadoSeleccionado.TipoResultado);
+                    if (histItemAux == null)
+                    {
+                        HistorialItemSeleccionados.Add(new HistorialItemSeleccionado()
+                        {
+                            ID = ItemResultadoSeleccionado.ID,
+                            IndexHistorial = IndexHistorial,
+                            TipoResultado = ItemResultadoSeleccionado.TipoResultado
+                        });
+                    }
+                    else
+                    {
+                        HistorialItemSeleccionados.Remove(histItemAux);
+                    }
+                }
+                AvisoYTPanelLB.Text = Aviso;
             }
             catch (Exception ex)
             {
             }
         }
 
+        private void MantenerSeleccionesCKBX_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MantenerSeleccionesCKBX.Checked)
+            {
+
+            }
+            else
+            {
+                HistorialItemSeleccionados.Clear();
+            }
+        }
         #endregion
 
         #region Navegacion
@@ -790,6 +821,7 @@ namespace GoogleScrapper
                 ResultadoSiguientePagToken = "";
                 UltimoIdLista = "";
                 SiguientePaginaYTResultBTN.Visible = false;
+                AvisoYTPanelLB.Text = "";
             }
         }
 
@@ -869,6 +901,7 @@ namespace GoogleScrapper
                     PagContYTLabel.Text = $"Pag {historialItem.NroPagina}/{nroPagTotales}";
                 }
                 SiguientePaginaYTResultBTN.Visible = true;
+                AvisoYTPanelLB.Text = "";
             }
         }
 
@@ -916,6 +949,11 @@ namespace GoogleScrapper
                 else
                 {
                     FiltrarResultados(actual, FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
+                }
+                if (MantenerSeleccionesCKBX.Checked && !SeleccionSimpleCKBX.Checked)
+                {
+                    var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == IndexHistorial).ToList();
+                    panelResultadoYoutubes.Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList().ForEach(x => x.OnSeleccionado());
                 }
             }
         }
@@ -997,6 +1035,7 @@ namespace GoogleScrapper
             ObtenerVideosListaReprBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.TipoResultado == TipoResultado.lista;
             ObtenerVideosCanalBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null && ItemResultadoSeleccionado.IDCanalPropietario != null && ItemResultadoSeleccionado.IDCanalPropietario != "";
             ObtenerInformacionBTN.Visible = SeleccionSimpleCKBX.Checked && ItemResultadoSeleccionado != null;
+            MantenerSeleccionesCKBX.Visible = !SeleccionSimpleCKBX.Checked;
         }
 
         #endregion
@@ -1166,13 +1205,13 @@ namespace GoogleScrapper
                 infoYoutubeForm = new InfoYoutubeForm(InfoYoutubeForm.TipoInfo.video, video);
                 infoYoutubeForm.Activate();
                 infoYoutubeForm.Show();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error al Obtener la Info del Video");
             }
         }
         #endregion
-
     }
     public class HistorialBusquedaItem
     {
@@ -1191,4 +1230,11 @@ namespace GoogleScrapper
         }
     }
     public enum TipoRespuestaBusqYTApi { Busqueda, ListaVideos }
+
+    public class HistorialItemSeleccionado
+    {
+        public int IndexHistorial { get; set; } = 1;
+        public string ID { get; set; } = "";
+        public TipoResultado TipoResultado { get; set; }
+    }
 }

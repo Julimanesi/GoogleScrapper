@@ -131,7 +131,7 @@ namespace GoogleScrapper
             this.OtrosDatosVideoLB.Dock = DockStyle.Top;
             this.OtrosDatosVideoLB.AutoSize = true;
             this.OtrosDatosVideoLB.MaximumSize = new Size(ancho, (int)(altoRestante * 0.2M));
-            this.OtrosDatosVideoLB.Text = $"Fecha: {resultado.Snippet.PublishedAtDateTimeOffset?.ToString("dd/MM/yyyy")} | Canal: {resultado.Snippet.ChannelTitle}";
+            this.OtrosDatosVideoLB.Text = $"Fecha: {resultado.Snippet.PublishedAtDateTimeOffset?.ToString("dd/MM/yyyy")} | Canal: {resultado.Snippet.VideoOwnerChannelTitle}";
             this.OtrosDatosVideoLB.Click += panelyoutubeClick;
             this.OtrosDatosVideoLB.Click += click;
             this.OtrosDatosVideoLB.DoubleClick += AlDobleClick;
@@ -174,8 +174,18 @@ namespace GoogleScrapper
         {
             try
             {
-                OnSeleccionado();
-                Clipboard.SetText(Link);
+                MouseEventArgs me = (MouseEventArgs)e;
+                if (me.Button == MouseButtons.Left)
+                {
+                    OnSeleccionado();
+                    Clipboard.SetText(Link);
+                    MainForm.Aviso = "Link del video guardado en Portapapeles.";
+                }
+                else
+                {
+                    Clipboard.SetText(ImagenVideoPicBx.ImageLocation);
+                    MainForm.Aviso = "Link de la imagen guardada en Portapapeles.";
+                }
             }
             catch (Exception ex) 
             {
