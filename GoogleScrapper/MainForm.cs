@@ -578,6 +578,7 @@ namespace GoogleScrapper
             {
                 panelResultado.seleccionado = TodosPanelesYoutubeSeleccionados;
                 panelResultado.OnSeleccionado();
+                AgregarItemSelecAHistorialDesdePanelYT(panelResultado);
             }
             if (TodosPanelesYoutubeSeleccionados)
             {
@@ -602,23 +603,7 @@ namespace GoogleScrapper
                     }
                 }
                 CambiarVisibilidadBotonesObtenerVideos();
-                if (ItemResultadoSeleccionado != null)
-                {
-                    var histItemAux = HistorialItemSeleccionados.FirstOrDefault(x => x.IndexHistorial == IndexHistorial && x.ID == ItemResultadoSeleccionado.ID && x.TipoResultado == ItemResultadoSeleccionado.TipoResultado);
-                    if (histItemAux == null)
-                    {
-                        HistorialItemSeleccionados.Add(new HistorialItemSeleccionado()
-                        {
-                            ID = ItemResultadoSeleccionado.ID,
-                            IndexHistorial = IndexHistorial,
-                            TipoResultado = ItemResultadoSeleccionado.TipoResultado
-                        });
-                    }
-                    else
-                    {
-                        HistorialItemSeleccionados.Remove(histItemAux);
-                    }
-                }
+                AgregarItemSelecAHistorialDesdePanelYT(ItemResultadoSeleccionado);
                 AvisoYTPanelLB.Text = Aviso;
             }
             catch (Exception ex)
@@ -1141,6 +1126,27 @@ namespace GoogleScrapper
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void AgregarItemSelecAHistorialDesdePanelYT(PanelYoutube? panelYoutube)
+        {
+            if (panelYoutube != null)
+            {
+                var histItemAux = HistorialItemSeleccionados.FirstOrDefault(x => x.IndexHistorial == IndexHistorial && x.ID == panelYoutube.ID && x.TipoResultado == panelYoutube.TipoResultado);
+                if (histItemAux == null)
+                {
+                    HistorialItemSeleccionados.Add(new HistorialItemSeleccionado()
+                    {
+                        ID = panelYoutube.ID,
+                        IndexHistorial = IndexHistorial,
+                        TipoResultado = panelYoutube.TipoResultado
+                    });
+                }
+                else
+                {
+                    HistorialItemSeleccionados.Remove(histItemAux);
+                }
             }
         }
         #endregion
