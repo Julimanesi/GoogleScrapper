@@ -35,7 +35,7 @@ namespace GoogleScrapper
         private bool CargadoArchivo { get; set; } = false;
         private string NombreArchivoCargado { get; set; } = "";
         private List<HistorialItemSeleccionado> HistorialItemSeleccionados = new List<HistorialItemSeleccionado>();
-        public static string Aviso {  get; set; } = string.Empty;
+        public static string Aviso { get; set; } = string.Empty;
 
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
 
@@ -574,6 +574,11 @@ namespace GoogleScrapper
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
         {
+            SeleccionarTodos();
+        }
+
+        private void SeleccionarTodos()
+        {
             foreach (PanelYoutube panelResultado in panelResultadoYoutubes)
             {
                 panelResultado.seleccionado = TodosPanelesYoutubeSeleccionados;
@@ -934,12 +939,14 @@ namespace GoogleScrapper
                 else
                 {
                     FiltrarResultados(actual, FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
-                }
+                }//TODO Ver esto para cuando uno descarga, etc
                 if (MantenerSeleccionesCKBX.Checked && !SeleccionSimpleCKBX.Checked)
                 {
                     var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == IndexHistorial).ToList();
                     panelResultadoYoutubes.Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList().ForEach(x => x.OnSeleccionado());
                 }
+                TodosPanelesYoutubeSeleccionados = false;
+                SeleccionarTodos();
             }
         }
 

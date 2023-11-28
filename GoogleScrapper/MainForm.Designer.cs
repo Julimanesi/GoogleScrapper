@@ -546,12 +546,13 @@
             // ObtenerDatosDeArchivoCKBX
             // 
             ObtenerDatosDeArchivoCKBX.AutoSize = true;
+            ObtenerDatosDeArchivoCKBX.BackColor = Color.FromArgb(227, 196, 82);
             ObtenerDatosDeArchivoCKBX.Location = new Point(8, 38);
             ObtenerDatosDeArchivoCKBX.Name = "ObtenerDatosDeArchivoCKBX";
             ObtenerDatosDeArchivoCKBX.Size = new Size(205, 24);
             ObtenerDatosDeArchivoCKBX.TabIndex = 53;
             ObtenerDatosDeArchivoCKBX.Text = "Obtener Datos De Archivo";
-            ObtenerDatosDeArchivoCKBX.UseVisualStyleBackColor = true;
+            ObtenerDatosDeArchivoCKBX.UseVisualStyleBackColor = false;
             // 
             // AbrirResultadosBTN
             // 
