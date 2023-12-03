@@ -92,8 +92,8 @@ namespace GoogleScrapper
                 {
                     ytdl.StartInfo.FileName = "yt-dlp.exe";
                     if (!SoloAudio)
-                    {
-                        ytdl.StartInfo.Arguments = $"{(ComprimirVideo ? DescargaVideoForm.ComandoComprimirVideo : "")} -P \"{Directoy}\"  --check-formats -f mp4 -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata {(AgregarThumbnail ? "--compat-options embed-thumbnail-atomicparsley" : "")}";
+                    {                                                                                                  
+                        ytdl.StartInfo.Arguments = $"{(ComprimirVideo ? DescargaVideoForm.ComandoComprimirVideo : "")} -P \"{Directoy}\" {(ComprimirVideo ? "--check-formats -f mp4" : "")} -o \"%(title)s.%(ext)s\" {ListaUrls} --add-metadata {(AgregarThumbnail ? "--compat-options embed-thumbnail-atomicparsley" : "")}";
                     }
                     else
                     {   //Descargar solo musica/audio
@@ -237,26 +237,27 @@ namespace GoogleScrapper
             return metadata;
         }
 
-        public static void ExtraerSubtitulos(BackgroundWorker worker, DoWorkEventArgs e, string DireccionArchivo,int stream,string Idioma = "esp")
+        public static void ExtraerSubtitulos(Label EstadoLB, ProgressBar ProgresoPB, string DireccionArchivo,int stream,string Idioma = "esp")
         {
             try
             {
-                int progreso = 0;
-                worker.ReportProgress(progreso, "Extrayendo Subtitulos");
-                
-                ProcessStartInfo processStartInfo = new ProcessStartInfo();
-                processStartInfo.FileName = "ffmpeg.exe";
-                processStartInfo.Arguments = $"-i \"{DireccionArchivo}\" -map 0:s:{stream} \"{DireccionArchivo}_{Idioma}.srt\"";
-                processStartInfo.UseShellExecute = false;
-                processStartInfo.CreateNoWindow = true;
-                processStartInfo.StandardOutputEncoding = Encoding.UTF8;
-                processStartInfo.StandardErrorEncoding = Encoding.UTF8;
-                processStartInfo.RedirectStandardOutput = true;
-                processStartInfo.RedirectStandardError = true;
-                Process? ffmpeg = Process.Start(processStartInfo);
-                var salidaError = ffmpeg?.StandardError.ReadToEnd();
-                
-                e.Result = "";
+                ProgresoPB.Value = 0;
+                EstadoLB.Text = "Extrayendo Subtitulos";
+
+                using (Process ffmpeg = new Process())
+                {
+                    ffmpeg.StartInfo.FileName = "ffmpeg.exe";
+                    ffmpeg.StartInfo.Arguments = $"-i \"{DireccionArchivo}\" -map 0:s:{stream} \"{DireccionArchivo}_{Idioma}.srt\"";
+                    ffmpeg.StartInfo.UseShellExecute = false;
+                    ffmpeg.StartInfo.CreateNoWindow = true;
+                    ffmpeg.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+                    ffmpeg.StartInfo.StandardErrorEncoding = Encoding.UTF8;
+                    ffmpeg.StartInfo.RedirectStandardOutput = true;
+                    ffmpeg.StartInfo.RedirectStandardError = true;
+                    ffmpeg.Start();
+                    var salidaError = ffmpeg?.StandardError.ReadToEnd();
+                }
+                EstadoLB.Text = "Subtitulos extraidos";
             }
             catch (Exception ex)
             {
@@ -394,93 +395,80 @@ namespace GoogleScrapper
             }
         }
 
-        public static void ComprimirVideo(BackgroundWorker worker, DoWorkEventArgs e, List<Destino> Destinos)
+        public static async void ComprimirVideo(List<Destino> Destinos, Label? EstadoLB = null,ProgressBar? ProgresoPB = null,RichTextBox ? SalidaRTBX = null)
         {
             try
             {
-                int progreso = 0;
+                if(ProgresoPB != null)
+                    ProgresoPB.Value = 0;
                 int cant = 0;
                 int erroresCont = 0;
-                worker.ReportProgress(progreso, "Comprimiendo Videos");
+                if (EstadoLB != null)
+                    EstadoLB.Text= "Comprimiendo Videos";
+                if (SalidaRTBX != null)
+                    SalidaRTBX.Text += EstadoLB?.Text ?? "";
                 foreach (var destino in Destinos)
                 {
-                    cant++;
                     if (destino != null)
                     {
                         try
                         {
                             var directorio = Path.GetDirectoryName(destino.DireccionArchivo);
                             if (!Directory.Exists(directorio)) continue;
-
-                            ProcessStartInfo processStartInfo = new ProcessStartInfo();
-                            processStartInfo.FileName = "ffmpeg.exe";/*-map 0:a? -map 0:s? -map 0:v*/
-                            processStartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -pix_fmt yuv420p -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high  \"{Path.Combine(directorio,destino.Titulo + ".mp4")}\"";
-                            processStartInfo.UseShellExecute = false;
-                            processStartInfo.CreateNoWindow = true;
-                            processStartInfo.StandardOutputEncoding = Encoding.UTF8;
-                            processStartInfo.StandardErrorEncoding = Encoding.UTF8;
-                            processStartInfo.RedirectStandardOutput = true;
-                            processStartInfo.RedirectStandardError = true;
-                            Process? ffmpeg = Process.Start(processStartInfo);
-                            if (ffmpeg == null) continue;
-                            ffmpeg.BeginOutputReadLine();
-                            ffmpeg.BeginErrorReadLine();
-                            worker.ReportProgress(progreso,"Esperando a que termine de comprimir....");
-                            //bool error = false;
-                            //string? linea = ffmpeg.StandardError.ReadLine();
-                            //while (linea != null && linea != "")
-                            //{
-                            //    worker.ReportProgress(progreso, linea);
-                            //    if (linea.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
-                            //    {
-                            //        worker.ReportProgress(progreso, $"Error al comprimir el Archivo");
-                            //        ffmpeg.Kill();
-                            //        erroresCont++;
-                            //        error = true;
-                            //        break;
-                            //    }
-                            //    linea = ffmpeg.StandardError.ReadLine();
-                            //}
-                            //if (error) continue;
-                            //while (!ffmpeg.HasExited)
-                            //{
-                            //    string? linea = ffmpeg.StandardOutput.ReadLine();
-                            //    if (linea != null && linea != "")
-                            //    {
-                            //        worker.ReportProgress(progreso, linea);
-                            //        progreso = int.Parse(matches[0].Groups["porcentaje"].Value);
-                            //        if (linea.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
-                            //        {
-                            //            worker.ReportProgress(progreso, $"Error al comprimir el Archivo");
-                            //            ffmpeg.Kill();
-                            //            erroresCont++;
-                            //            continue;
-                            //        }
-                            //    }
-                            //}
-                            var salidaError = ffmpeg.StandardError.ReadToEnd();
-                            if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                            using (Process ffmpeg = new Process())
                             {
-                                erroresCont++;
-                                worker.ReportProgress(progreso, $"Error al comprimir el Archivo: {salidaError}");
-                                continue;
-                            }
-                            else
-                            {
-                                File.Delete(destino.DireccionArchivo);
-                                worker.ReportProgress(progreso, "Archivo generado");
+                                ffmpeg.StartInfo.FileName = "ffmpeg.exe";/*-map 0:a? -map 0:s? -map 0:v*/
+                                ffmpeg.StartInfo.Arguments = $"-i \"{destino.DireccionArchivo}\" -c:v h264_nvenc -pix_fmt yuv420p -preset:v p7 -tune:v hq -rc:v vbr -cq:v 32 -b:v 0 -profile:v high  \"{Path.Combine(directorio, destino.Titulo + ".mp4")}\"";
+                                ffmpeg.StartInfo.UseShellExecute = false;
+                                ffmpeg.StartInfo.CreateNoWindow = true;
+                                ffmpeg.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+                                ffmpeg.StartInfo.StandardErrorEncoding = Encoding.UTF8;
+                                ffmpeg.StartInfo.RedirectStandardOutput = true;
+                                ffmpeg.StartInfo.RedirectStandardError = true;
+                                ffmpeg.Start();
+                                if (ffmpeg == null) continue;
+                                ffmpeg.BeginOutputReadLine();
+                                ffmpeg.BeginErrorReadLine();
+                                if (EstadoLB != null)
+                                    EstadoLB.Text = $"Comprimiendo Video: {destino.Titulo}";
+                                if (SalidaRTBX != null)
+                                    SalidaRTBX.Text += EstadoLB?.Text ?? "";
+                                await ffmpeg.WaitForExitAsync();
+                                //TODO ver como mostrar el progreso de la compresion y como mostrar los errores
+                                //var salidaError = await ffmpeg.StandardError.ReadToEndAsync();
+                                //if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
+                                //{
+                                //    erroresCont++;
+                                //    worker.ReportProgress(progreso, $"Error al comprimir el Archivo: {salidaError}");
+                                //    continue;
+                                //}
                             }
                         }
                         catch (Exception ex)
                         {
                             erroresCont++;
+                            if (ProgresoPB != null)
+                                ProgresoPB.Value = (int)(((decimal)cant + erroresCont / Destinos.Count) * 100);
+                            if (EstadoLB != null)
+                                EstadoLB.Text = $"Error al comprimir el video:{destino.Titulo}. Error: {ex.Message}";
+                            if (SalidaRTBX != null)
+                                SalidaRTBX.Text += EstadoLB?.Text ?? "";
                             continue;
                         }
+                        File.Delete(destino.DireccionArchivo);
+                        cant++;
+                        if (ProgresoPB != null)
+                            ProgresoPB.Value = (int)(((decimal)cant + erroresCont / Destinos.Count) * 100);
+                        if (EstadoLB != null)
+                            EstadoLB.Text = $"Video Comprimido: {destino.Titulo}";
+                        if (SalidaRTBX != null)
+                            SalidaRTBX.Text += EstadoLB?.Text ?? "";
                     }
-                    progreso = (int)(((decimal)cant / Destinos.Count) * 100);
-                    worker.ReportProgress(progreso, $"Comprimiendo Video: {destino}");
                 }
-                e.Result = "";
+                if (EstadoLB != null)
+                    EstadoLB.Text = "Finalizado";
+                if (ProgresoPB != null)
+                    ProgresoPB.Value = 100;
             }
             catch (Exception ex)
             {

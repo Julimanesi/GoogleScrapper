@@ -1169,6 +1169,7 @@ namespace GoogleScrapper
         private void ComprimirVideosBTN_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Video Files (*.avi, *.mp4, *.mov, *.mkv, *.flv, *.wmv, *.rm, *.3gp, *.ogv, *.webm)|*.avi;*.mp4;*.mov;*.mkv;*.flv;*.wmv;*.rm;*.3gp;*.ogv;*.webm;";
             ofd.Multiselect = true;
             if (ofd.ShowDialog() != DialogResult.OK)
                 return;
@@ -1191,7 +1192,7 @@ namespace GoogleScrapper
         private void AgregarThumbnailsBTN_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Musica(*.mp3)|*.mp3|Videos(*.mp4)|*.mp4";
+            ofd.Filter = "Musica(*.mp3)|*.mp3|Video Files (*.avi, *.mp4, *.mov, *.mkv, *.flv, *.wmv, *.rm, *.3gp, *.ogv, *.webm)|*.avi;*.mp4;*.mov;*.mkv;*.flv;*.wmv;*.rm;*.3gp;*.ogv;*.webm;";
             ofd.Multiselect = false;
             if (ofd.ShowDialog() != DialogResult.OK)
                 return;

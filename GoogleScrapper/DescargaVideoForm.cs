@@ -80,7 +80,7 @@ namespace GoogleScrapper
 
         private void BWDescargaVideo_Progreso(object sender, ProgressChangedEventArgs e)
         {
-            ProgresoDescargaPB.Value = e.ProgressPercentage;
+            ProgresoDescargaPB.Value = e.ProgressPercentage < 100 ? e.ProgressPercentage : 100;
             if (e.UserState != null)
             {
                 string salida = (string)e.UserState;

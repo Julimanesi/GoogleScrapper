@@ -51,7 +51,15 @@ namespace GoogleScrapper
         {
             try
             {
-                BWEditarVideos.RunWorkerAsync();
+                switch (Tipo)
+                {
+                    case TipoEdicion.comprimir:
+                        EjecucionProcesos.ComprimirVideo(Destinos,Estadolabel, ProgresoTotalPB, SalidaRTextBox);
+                        break;
+                    case TipoEdicion.Thumbnails:
+                        BWEditarVideos.RunWorkerAsync();
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -64,23 +72,15 @@ namespace GoogleScrapper
             BackgroundWorker worker = sender as BackgroundWorker;
             try
             {
-                switch (Tipo)
+                if (URLExtraTXBX.Text != "")
                 {
-                    case TipoEdicion.comprimir:
-                        EjecucionProcesos.ComprimirVideo(worker, e, Destinos);
-                        break;
-                    case TipoEdicion.Thumbnails:
-                        if (URLExtraTXBX.Text != "")
-                        {
-                            var destino = Destinos.ElementAt(0);
-                            destino.URLThumbnail = URLExtraTXBX.Text;
-                            EjecucionProcesos.AgregarThumbnails(worker, e, Destinos);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Debe agregar una URL del Thumbnails", "Error al Editar Videos");
-                        }
-                        break;
+                    var destino = Destinos.ElementAt(0);
+                    destino.URLThumbnail = URLExtraTXBX.Text;
+                    EjecucionProcesos.AgregarThumbnails(worker, e, Destinos);
+                }
+                else
+                {
+                    MessageBox.Show("Debe agregar una URL del Thumbnails", "Error al Editar Videos");
                 }
             }
             catch (Exception ex)
