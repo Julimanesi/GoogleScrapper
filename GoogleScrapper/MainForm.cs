@@ -456,10 +456,11 @@ namespace GoogleScrapper
         {
             try
             {
-                string IdlistaRep = "";
-                if (IDListaReprodTXBX.Text.Contains("playlist?list="))
+                string IdlistaRep = IDListaReprodTXBX.Text;
+                if (IdlistaRep.Contains("list="))
                 {
-                    IdlistaRep = IDListaReprodTXBX.Text.Split("playlist?list=")[1];
+                    IdlistaRep = IdlistaRep.Substring(IdlistaRep.IndexOf("list=") + 5);
+                    IdlistaRep = IdlistaRep.Remove(IdlistaRep.IndexOf('&'));
                 }
                 else
                 {
@@ -1226,6 +1227,12 @@ namespace GoogleScrapper
             }
         }
         #endregion
+
+        private void VolverCargarApiBTN_Click(object sender, EventArgs e)
+        {
+            //TODO al presionar vuelve a cargar desde Api los datos cargados desde un archivo y solo aparece visible
+            //si en el historial fue cargado de un archivo
+        }
     }
     public class HistorialBusquedaItem
     {

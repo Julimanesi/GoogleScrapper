@@ -435,6 +435,8 @@ namespace GoogleScrapper
                                     SalidaRTBX.Text += EstadoLB?.Text ?? "";
                                 await ffmpeg.WaitForExitAsync();
                                 //TODO ver como mostrar el progreso de la compresion y como mostrar los errores
+                                //Ver como lo hace KDenlive?
+
                                 //var salidaError = await ffmpeg.StandardError.ReadToEndAsync();
                                 //if (salidaError != null && salidaError != "" && salidaError.Contains("ERROR", StringComparison.InvariantCultureIgnoreCase))
                                 //{

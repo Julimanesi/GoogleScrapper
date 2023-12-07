@@ -147,6 +147,7 @@
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
+            VolverCargarApiBTN = new Button();
             tabControl1.SuspendLayout();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
@@ -202,6 +203,7 @@
             // 
             // BotoneraYoutube
             // 
+            BotoneraYoutube.Controls.Add(VolverCargarApiBTN);
             BotoneraYoutube.Controls.Add(AvisoYTPanelLB);
             BotoneraYoutube.Controls.Add(NombreArchivoGuardResultYTLB);
             BotoneraYoutube.Controls.Add(MantenerSeleccionesCKBX);
@@ -239,16 +241,16 @@
             // AvisoYTPanelLB
             // 
             AvisoYTPanelLB.ForeColor = Color.Red;
-            AvisoYTPanelLB.Location = new Point(690, 143);
+            AvisoYTPanelLB.Location = new Point(516, 143);
             AvisoYTPanelLB.Name = "AvisoYTPanelLB";
-            AvisoYTPanelLB.Size = new Size(466, 26);
+            AvisoYTPanelLB.Size = new Size(446, 47);
             AvisoYTPanelLB.TabIndex = 68;
             // 
             // NombreArchivoGuardResultYTLB
             // 
             NombreArchivoGuardResultYTLB.Location = new Point(6, 143);
             NombreArchivoGuardResultYTLB.Name = "NombreArchivoGuardResultYTLB";
-            NombreArchivoGuardResultYTLB.Size = new Size(610, 42);
+            NombreArchivoGuardResultYTLB.Size = new Size(504, 42);
             NombreArchivoGuardResultYTLB.TabIndex = 60;
             NombreArchivoGuardResultYTLB.Text = "Guardado en:";
             // 
@@ -1366,6 +1368,17 @@
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
             // 
+            // VolverCargarApiBTN
+            // 
+            VolverCargarApiBTN.BackColor = Color.FromArgb(227, 196, 82);
+            VolverCargarApiBTN.Location = new Point(968, 146);
+            VolverCargarApiBTN.Name = "VolverCargarApiBTN";
+            VolverCargarApiBTN.Size = new Size(195, 44);
+            VolverCargarApiBTN.TabIndex = 69;
+            VolverCargarApiBTN.Text = "Volver a Cargar desde Api";
+            VolverCargarApiBTN.UseVisualStyleBackColor = false;
+            VolverCargarApiBTN.Click += VolverCargarApiBTN_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1526,5 +1539,6 @@
         private Button ObtenerInfoDirecYTVideoBTN;
         private CheckBox MantenerSeleccionesCKBX;
         private Label AvisoYTPanelLB;
+        private Button VolverCargarApiBTN;
     }
 }
