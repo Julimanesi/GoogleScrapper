@@ -33,6 +33,7 @@
             YoutubeTag = new TabPage();
             ResultadosYouTubeFlowLayPanel = new FlowLayoutPanel();
             BotoneraYoutube = new Panel();
+            VolverCargarApiBTN = new Button();
             AvisoYTPanelLB = new Label();
             NombreArchivoGuardResultYTLB = new Label();
             MantenerSeleccionesCKBX = new CheckBox();
@@ -147,7 +148,6 @@
             DescargaDirecVideosBTN = new Button();
             URLsDDVideosRTB = new RichTextBox();
             VerificarVideosbackgrWorker = new System.ComponentModel.BackgroundWorker();
-            VolverCargarApiBTN = new Button();
             tabControl1.SuspendLayout();
             YoutubeTag.SuspendLayout();
             BotoneraYoutube.SuspendLayout();
@@ -237,6 +237,18 @@
             BotoneraYoutube.Size = new Size(1171, 193);
             BotoneraYoutube.TabIndex = 23;
             BotoneraYoutube.Visible = false;
+            // 
+            // VolverCargarApiBTN
+            // 
+            VolverCargarApiBTN.BackColor = Color.FromArgb(227, 196, 82);
+            VolverCargarApiBTN.Location = new Point(968, 146);
+            VolverCargarApiBTN.Name = "VolverCargarApiBTN";
+            VolverCargarApiBTN.Size = new Size(195, 44);
+            VolverCargarApiBTN.TabIndex = 69;
+            VolverCargarApiBTN.Text = "Volver a Cargar desde Api";
+            VolverCargarApiBTN.UseVisualStyleBackColor = false;
+            VolverCargarApiBTN.Visible = false;
+            VolverCargarApiBTN.Click += VolverCargarApiBTN_Click;
             // 
             // AvisoYTPanelLB
             // 
@@ -1367,17 +1379,6 @@
             VerificarVideosbackgrWorker.DoWork += BWVerificarVideo_Dowork;
             VerificarVideosbackgrWorker.ProgressChanged += BWVerificarVideo_Progreso;
             VerificarVideosbackgrWorker.RunWorkerCompleted += BWVerificarVideo_Resultado;
-            // 
-            // VolverCargarApiBTN
-            // 
-            VolverCargarApiBTN.BackColor = Color.FromArgb(227, 196, 82);
-            VolverCargarApiBTN.Location = new Point(968, 146);
-            VolverCargarApiBTN.Name = "VolverCargarApiBTN";
-            VolverCargarApiBTN.Size = new Size(195, 44);
-            VolverCargarApiBTN.TabIndex = 69;
-            VolverCargarApiBTN.Text = "Volver a Cargar desde Api";
-            VolverCargarApiBTN.UseVisualStyleBackColor = false;
-            VolverCargarApiBTN.Click += VolverCargarApiBTN_Click;
             // 
             // MainForm
             // 

@@ -460,7 +460,8 @@ namespace GoogleScrapper
                 if (IdlistaRep.Contains("list="))
                 {
                     IdlistaRep = IdlistaRep.Substring(IdlistaRep.IndexOf("list=") + 5);
-                    IdlistaRep = IdlistaRep.Remove(IdlistaRep.IndexOf('&'));
+                    if(IdlistaRep.Contains('&'))
+                        IdlistaRep = IdlistaRep.Remove(IdlistaRep.IndexOf('&'));
                 }
                 else
                 {
@@ -813,6 +814,7 @@ namespace GoogleScrapper
                 UltimoIdLista = "";
                 SiguientePaginaYTResultBTN.Visible = false;
                 AvisoYTPanelLB.Text = "";
+                VolverCargarApiBTN.Visible = false;
             }
         }
 
@@ -890,6 +892,10 @@ namespace GoogleScrapper
                         CargadoArchivo = false;
                     }
                     PagContYTLabel.Text = $"Pag {historialItem.NroPagina}/{nroPagTotales}";
+                    if (historialItem.InformacionLista != null)
+                    {
+                        VolverCargarApiBTN.Visible = true;
+                    }
                 }
                 SiguientePaginaYTResultBTN.Visible = true;
                 AvisoYTPanelLB.Text = "";
@@ -941,6 +947,8 @@ namespace GoogleScrapper
                 {
                     FiltrarResultados(actual, FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
                 }//TODO Ver esto para cuando uno descarga, etc
+
+                //TODO corregir cuando se hace check en cargar de archivo se selecciona todo cuando me muevo
                 if (MantenerSeleccionesCKBX.Checked && !SeleccionSimpleCKBX.Checked)
                 {
                     var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == IndexHistorial).ToList();
@@ -1230,8 +1238,21 @@ namespace GoogleScrapper
 
         private void VolverCargarApiBTN_Click(object sender, EventArgs e)
         {
-            //TODO al presionar vuelve a cargar desde Api los datos cargados desde un archivo y solo aparece visible
-            //si en el historial fue cargado de un archivo
+            //Al presionar vuelve a cargar desde Api los datos ya cargados 
+            if (Historial.Any())
+            {
+                var actual = Historial.ElementAt(IndexHistorial);
+                if (actual != null && actual.Tipo == TipoRespuestaBusqYTApi.ListaVideos)
+                {
+                    var Id = actual?.InformacionLista?.Id;
+                    if (Id != null)
+                    {
+                        ObtenerVideosDesdeIDListaReproduccion(Id);
+                        Historial.Remove(actual);
+                        IndexHistorial = Historial.Count - 1;
+                    }
+                }
+            }
         }
     }
     public class HistorialBusquedaItem
