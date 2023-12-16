@@ -13,6 +13,7 @@ using static Google.Apis.YouTube.v3.SearchResource.ListRequest;
 using System.Windows.Forms;
 using static GoogleScrapper.DescargaVideoForm;
 using System;
+using System.DirectoryServices;
 
 namespace GoogleScrapper
 {
@@ -590,8 +591,42 @@ namespace GoogleScrapper
 
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
-            var listaLinks = panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link);
-            DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y', panelResultadoYoutubes.Where(j => j.seleccionado).ToList());
+            try
+            {   
+                List<PanelYoutube> PanelesADescargar = new List<PanelYoutube>();
+                //Si Mantengo las selecciones debo descargar los videos seleccionados en varias paginas
+                if (MantenerSeleccionesCKBX.Checked)
+                {   //Variable auxiliar que almacena todos los Paneles del Historial
+                    List<PanelYoutube> PanelesAux = new List<PanelYoutube>();
+                    foreach (var searchResult in Historial.SelectMany(x => x?.ResultadoListaVideos?.Items ?? new List<PlaylistItem>()))
+                    {
+                        try
+                        {
+                            PanelesAux.Add(new PanelYoutube(1, 1, searchResult, panelyoutubeClick));
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
+                    }
+                    //De todos los paneles filtro por los que fueron seleccionados en varias paginas
+                    for (int i = 0; i < Historial.Count; i++)
+                    {
+                        PanelesADescargar.AddRange(ObtenerPanelesSeleccionadosMantenidosIndexPagina(i, PanelesAux));
+                    }
+                }
+                else
+                {
+                    //Sino simplemente los paneles de la pagina actual que fueron seleccionados
+                    PanelesADescargar = panelResultadoYoutubes.Where(j => j.seleccionado).ToList();
+                }
+                var listaLinks = PanelesADescargar.Select(x => x.Link);
+                DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y', PanelesADescargar);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Descargar los Videos");
+            }
         }
 
         private void SeleccionarTodosYouTubeBTN_Click(object sender, EventArgs e)
@@ -981,9 +1016,9 @@ namespace GoogleScrapper
                 //Mantiene las selecciones de las otras paginas y si se presiono el boton seleccionar Todos tambien
                 if (MantenerSeleccionesCKBX.Checked && !SeleccionSimpleCKBX.Checked)
                 {
-                    var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == IndexHistorial).ToList();
-                    panelResultadoYoutubes.Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList().ForEach(x => x.OnSeleccionado());
-                    TodosPanelesYoutubeSeleccionados = historialItemSeleccionadosAux.Count == nroItems;
+                    var panelesSeleccionados = ObtenerPanelesSeleccionadosMantenidosIndexPagina(IndexHistorial);
+                    panelesSeleccionados.ForEach(x => x.OnSeleccionado());
+                    TodosPanelesYoutubeSeleccionados = panelesSeleccionados.Count == nroItems;
                     CambiarLabelSeleccionarTodos(TodosPanelesYoutubeSeleccionados);
                 }
                 else
@@ -1201,6 +1236,12 @@ namespace GoogleScrapper
                     HistorialItemSeleccionados.Remove(histItemAux);
                 }
             }
+        }
+
+        private List<PanelYoutube> ObtenerPanelesSeleccionadosMantenidosIndexPagina(int indexHistorial, List<PanelYoutube>? panelYoutubesAux = null)
+        {
+            var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == indexHistorial).ToList();
+            return (panelYoutubesAux ?? panelResultadoYoutubes).Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList();
         }
 
         #endregion
