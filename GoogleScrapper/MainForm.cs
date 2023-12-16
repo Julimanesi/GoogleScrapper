@@ -304,6 +304,7 @@ namespace GoogleScrapper
         #endregion
 
         #region Youtube Video Scrapper
+
         #region Eventos 
 
         private void AbrirResultadosBTN_Click(object sender, EventArgs e)
@@ -554,6 +555,25 @@ namespace GoogleScrapper
             }
         }
 
+        private void VolverCargarApiBTN_Click(object sender, EventArgs e)
+        {
+            //Al presionar vuelve a cargar desde Api los datos ya cargados 
+            if (Historial.Any())
+            {
+                var actual = Historial.ElementAt(IndexHistorial);
+                if (actual != null && actual.Tipo == TipoRespuestaBusqYTApi.ListaVideos)
+                {
+                    var Id = actual?.InformacionLista?.Id;
+                    if (Id != null)
+                    {
+                        ObtenerVideosDesdeIDListaReproduccion(Id);
+                        Historial.Remove(actual);
+                        IndexHistorial = Historial.Count - 1;
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region seleccion y Smplayer
@@ -587,15 +607,20 @@ namespace GoogleScrapper
                 panelResultado.OnSeleccionado();
                 AgregarItemSelecAHistorialDesdePanelYT(panelResultado);
             }
-            if (TodosPanelesYoutubeSeleccionados)
-            {
-                SeleccionarTodosYouTubeBTN.Text = "Seleccionar todos";
-            }
-            else
+            TodosPanelesYoutubeSeleccionados = !TodosPanelesYoutubeSeleccionados;
+            CambiarLabelSeleccionarTodos(TodosPanelesYoutubeSeleccionados);
+        }
+
+        private void CambiarLabelSeleccionarTodos(bool todosSeleccionados)
+        {
+            if (todosSeleccionados)
             {
                 SeleccionarTodosYouTubeBTN.Text = "Deseleccionar todos";
             }
-            TodosPanelesYoutubeSeleccionados = !TodosPanelesYoutubeSeleccionados;
+            else
+            {
+                SeleccionarTodosYouTubeBTN.Text = "Seleccionar todos";
+            }
         }
 
         private void panelyoutubeClick(object sender, EventArgs e)
@@ -629,6 +654,7 @@ namespace GoogleScrapper
                 HistorialItemSeleccionados.Clear();
             }
         }
+
         #endregion
 
         #region Navegacion
@@ -764,6 +790,7 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al Guardar los Resultados");
             }
         }
+
         #region Filtrar
 
         private void FiltrarBusquedaTituloYTTBX_TextChanged(object sender, EventArgs e)
@@ -924,16 +951,19 @@ namespace GoogleScrapper
         private void CargarDesdeHistorial()
         {
             var actual = Historial.ElementAt(IndexHistorial);
+            int nroItems = 0;
             if (actual != null)
             {
                 if (FiltrarBusquedaTituloYTTBX.Text == "" && FiltrarBusquedaCanalYTTBX.Text == "")
                 {
                     if (actual.Tipo == TipoRespuestaBusqYTApi.Busqueda)
                     {
+                        nroItems = actual.ListaBusquedaRespuesta?.Items.Count ?? 0;
                         CargarResultados(actual.ListaBusquedaRespuesta, false);
                     }
                     else
                     {
+                        nroItems = actual.ResultadoListaVideos?.Items.Count ?? 0;
                         CargarResultados(actual.ResultadoListaVideos, false);
                         NombreArchivoUltResultTXBX.Text = actual.NombreArchivo;
                         if (actual.ResultadoListaVideos != null)
@@ -946,16 +976,21 @@ namespace GoogleScrapper
                 else
                 {
                     FiltrarResultados(actual, FiltrarBusquedaTituloYTTBX.Text, FiltrarBusquedaCanalYTTBX.Text);
-                }//TODO Ver esto para cuando uno descarga, etc
-
-                //TODO corregir cuando se hace check en cargar de archivo se selecciona todo cuando me muevo
+                }
+                //TODO ver que pasa cuando uno carga por primera vez
+                //Mantiene las selecciones de las otras paginas y si se presiono el boton seleccionar Todos tambien
                 if (MantenerSeleccionesCKBX.Checked && !SeleccionSimpleCKBX.Checked)
                 {
                     var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == IndexHistorial).ToList();
                     panelResultadoYoutubes.Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList().ForEach(x => x.OnSeleccionado());
+                    TodosPanelesYoutubeSeleccionados = historialItemSeleccionadosAux.Count == nroItems;
+                    CambiarLabelSeleccionarTodos(TodosPanelesYoutubeSeleccionados);
                 }
-                TodosPanelesYoutubeSeleccionados = false;
-                SeleccionarTodos();
+                else
+                {
+                    TodosPanelesYoutubeSeleccionados = false;
+                    CambiarLabelSeleccionarTodos(TodosPanelesYoutubeSeleccionados);
+                }
             }
         }
 
@@ -1042,6 +1077,7 @@ namespace GoogleScrapper
         #endregion
 
         #region funciones auxiliares
+
         private string GetNombreArchivoPlayList(HistorialBusquedaItem historialItem)
         {
             try
@@ -1065,6 +1101,7 @@ namespace GoogleScrapper
                 return 1;
             }
         }
+
         private int GetNroNroPaginaTotales(PlaylistItemListResponse searchListResponse)
         {
             try
@@ -1165,6 +1202,7 @@ namespace GoogleScrapper
                 }
             }
         }
+
         #endregion
 
         #endregion
@@ -1175,6 +1213,7 @@ namespace GoogleScrapper
         {
             DescargarVideos(string.Join(" ", URLsDDVideosRTB.Lines), URLsDDVideosRTB.Lines.Count(), 'D');
         }
+
         private void ComprimirVideosBTN_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -1198,6 +1237,7 @@ namespace GoogleScrapper
             edicionVideosForm.Activate();
             edicionVideosForm.Show();
         }
+
         private void AgregarThumbnailsBTN_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -1234,26 +1274,9 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al Obtener la Info del Video");
             }
         }
-        #endregion
 
-        private void VolverCargarApiBTN_Click(object sender, EventArgs e)
-        {
-            //Al presionar vuelve a cargar desde Api los datos ya cargados 
-            if (Historial.Any())
-            {
-                var actual = Historial.ElementAt(IndexHistorial);
-                if (actual != null && actual.Tipo == TipoRespuestaBusqYTApi.ListaVideos)
-                {
-                    var Id = actual?.InformacionLista?.Id;
-                    if (Id != null)
-                    {
-                        ObtenerVideosDesdeIDListaReproduccion(Id);
-                        Historial.Remove(actual);
-                        IndexHistorial = Historial.Count - 1;
-                    }
-                }
-            }
-        }
+        #endregion
+ 
     }
     public class HistorialBusquedaItem
     {
