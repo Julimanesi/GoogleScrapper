@@ -586,40 +586,14 @@ namespace GoogleScrapper
 
         private void AgregarEnviarSMplayerYoutbBTN_Click(object sender, EventArgs e)
         {
-            EjecucionProcesos.EnviarListaReproducASMPlayer(string.Join(" ", panelResultadoYoutubes.Where(j => j.seleccionado).Select(x => x.Link)));
+            EjecucionProcesos.EnviarListaReproducASMPlayer(string.Join(" ", ObtenerPanelesSeleccionados().Select(x => x.Link)));
         }
 
         private void DescargVideosYouTbBTN_Click(object sender, EventArgs e)
         {
             try
-            {   
-                List<PanelYoutube> PanelesADescargar = new List<PanelYoutube>();
-                //Si Mantengo las selecciones debo descargar los videos seleccionados en varias paginas
-                if (MantenerSeleccionesCKBX.Checked)
-                {   //Variable auxiliar que almacena todos los Paneles del Historial
-                    List<PanelYoutube> PanelesAux = new List<PanelYoutube>();
-                    foreach (var searchResult in Historial.SelectMany(x => x?.ResultadoListaVideos?.Items ?? new List<PlaylistItem>()))
-                    {
-                        try
-                        {
-                            PanelesAux.Add(new PanelYoutube(1, 1, searchResult, panelyoutubeClick));
-                        }
-                        catch (Exception ex)
-                        {
-                            continue;
-                        }
-                    }
-                    //De todos los paneles filtro por los que fueron seleccionados en varias paginas
-                    for (int i = 0; i < Historial.Count; i++)
-                    {
-                        PanelesADescargar.AddRange(ObtenerPanelesSeleccionadosMantenidosIndexPagina(i, PanelesAux));
-                    }
-                }
-                else
-                {
-                    //Sino simplemente los paneles de la pagina actual que fueron seleccionados
-                    PanelesADescargar = panelResultadoYoutubes.Where(j => j.seleccionado).ToList();
-                }
+            {
+                List<PanelYoutube> PanelesADescargar = ObtenerPanelesSeleccionados();
                 var listaLinks = PanelesADescargar.Select(x => x.Link);
                 DescargarVideos(string.Join(" ", listaLinks), listaLinks.Count(), 'Y', PanelesADescargar);
             }
@@ -1242,6 +1216,45 @@ namespace GoogleScrapper
         {
             var historialItemSeleccionadosAux = HistorialItemSeleccionados.Where(x => x.IndexHistorial == indexHistorial).ToList();
             return (panelYoutubesAux ?? panelResultadoYoutubes).Where(x => historialItemSeleccionadosAux.Any(y => y.ID == x.ID) && historialItemSeleccionadosAux.Any(y => y.TipoResultado == x.TipoResultado)).ToList();
+        }
+
+        private List<PanelYoutube> ObtenerPanelesSeleccionados()
+        {
+            List<PanelYoutube> PanelesADescargar = new List<PanelYoutube>();
+            try
+            {
+                //Si Mantengo las selecciones debo descargar los videos seleccionados en varias paginas
+                if (MantenerSeleccionesCKBX.Checked)
+                {   //Variable auxiliar que almacena todos los Paneles del Historial
+                    List<PanelYoutube> PanelesAux = new List<PanelYoutube>();
+                    foreach (var searchResult in Historial.SelectMany(x => x?.ResultadoListaVideos?.Items ?? new List<PlaylistItem>()))
+                    {
+                        try
+                        {
+                            PanelesAux.Add(new PanelYoutube(1, 1, searchResult, panelyoutubeClick));
+                        }
+                        catch (Exception ex)
+                        {
+                            continue;
+                        }
+                    }
+                    //De todos los paneles filtro por los que fueron seleccionados en varias paginas
+                    for (int i = 0; i < Historial.Count; i++)
+                    {
+                        PanelesADescargar.AddRange(ObtenerPanelesSeleccionadosMantenidosIndexPagina(i, PanelesAux));
+                    }
+                }
+                else
+                {
+                    //Sino simplemente los paneles de la pagina actual que fueron seleccionados
+                    PanelesADescargar = panelResultadoYoutubes.Where(j => j.seleccionado).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al Obtener Paneles Seleccionados");
+            }
+            return PanelesADescargar;
         }
 
         #endregion
