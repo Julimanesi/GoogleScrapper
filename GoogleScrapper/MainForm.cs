@@ -425,10 +425,14 @@ namespace GoogleScrapper
         {
             try
             {
-                string IdCanal = "";
-                if (IDCanalTXBX.Text.Contains("channel/"))
+                string IdCanal = IDCanalTXBX.Text;
+                if (IdCanal.Contains("channel/"))
                 {
-                    IdCanal = IDCanalTXBX.Text.Split("channel/")[1];
+                    IdCanal = IdCanal.Substring(IdCanal.IndexOf("channel/") + 8);
+                    if (IdCanal.Contains('?'))
+                        IdCanal = IdCanal.Remove(IdCanal.IndexOf('?'));
+                    else if (IdCanal.Contains('/'))
+                        IdCanal = IdCanal.Remove(IdCanal.IndexOf('/'));
                 }
                 else
                 {
@@ -462,7 +466,7 @@ namespace GoogleScrapper
                 if (IdlistaRep.Contains("list="))
                 {
                     IdlistaRep = IdlistaRep.Substring(IdlistaRep.IndexOf("list=") + 5);
-                    if(IdlistaRep.Contains('&'))
+                    if (IdlistaRep.Contains('&'))
                         IdlistaRep = IdlistaRep.Remove(IdlistaRep.IndexOf('&'));
                 }
                 else
@@ -1238,6 +1242,7 @@ namespace GoogleScrapper
                             continue;
                         }
                     }
+                    //TODO Usar programacion paralela para hacerlo más performante
                     //De todos los paneles filtro por los que fueron seleccionados en varias paginas
                     for (int i = 0; i < Historial.Count; i++)
                     {
@@ -1258,6 +1263,15 @@ namespace GoogleScrapper
         }
 
         #endregion
+
+        #endregion
+
+        #region Imagen Scrapper
+
+        private void BuscarImagenBTN_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
 
@@ -1330,7 +1344,7 @@ namespace GoogleScrapper
         }
 
         #endregion
- 
+
     }
     public class HistorialBusquedaItem
     {

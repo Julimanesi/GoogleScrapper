@@ -138,6 +138,11 @@
             label2 = new Label();
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
+            BusquedaImagenFiltrosPanel = new Panel();
+            BuscarImagenBTN = new Button();
+            textBox1 = new TextBox();
+            label28 = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             Descargatag = new TabPage();
             label27 = new Label();
             URLDDVideoTXBX = new TextBox();
@@ -163,6 +168,8 @@
             ((System.ComponentModel.ISupportInitialize)resultadoVideoBindingSource).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).BeginInit();
+            ImagenTag.SuspendLayout();
+            BusquedaImagenFiltrosPanel.SuspendLayout();
             Descargatag.SuspendLayout();
             SuspendLayout();
             // 
@@ -1275,6 +1282,8 @@
             // 
             // ImagenTag
             // 
+            ImagenTag.Controls.Add(BusquedaImagenFiltrosPanel);
+            ImagenTag.Controls.Add(flowLayoutPanel1);
             ImagenTag.Location = new Point(4, 29);
             ImagenTag.Name = "ImagenTag";
             ImagenTag.Padding = new Padding(3);
@@ -1282,6 +1291,51 @@
             ImagenTag.TabIndex = 1;
             ImagenTag.Text = "Imagen";
             ImagenTag.UseVisualStyleBackColor = true;
+            // 
+            // BusquedaImagenFiltrosPanel
+            // 
+            BusquedaImagenFiltrosPanel.Controls.Add(BuscarImagenBTN);
+            BusquedaImagenFiltrosPanel.Controls.Add(textBox1);
+            BusquedaImagenFiltrosPanel.Controls.Add(label28);
+            BusquedaImagenFiltrosPanel.Dock = DockStyle.Bottom;
+            BusquedaImagenFiltrosPanel.Location = new Point(3, 0);
+            BusquedaImagenFiltrosPanel.Name = "BusquedaImagenFiltrosPanel";
+            BusquedaImagenFiltrosPanel.Size = new Size(1165, 138);
+            BusquedaImagenFiltrosPanel.TabIndex = 5;
+            // 
+            // BuscarImagenBTN
+            // 
+            BuscarImagenBTN.Location = new Point(5, 103);
+            BuscarImagenBTN.Name = "BuscarImagenBTN";
+            BuscarImagenBTN.Size = new Size(94, 29);
+            BuscarImagenBTN.TabIndex = 4;
+            BuscarImagenBTN.Text = "Buscar";
+            BuscarImagenBTN.UseVisualStyleBackColor = true;
+            BuscarImagenBTN.Click += BuscarImagenBTN_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(66, 19);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(674, 27);
+            textBox1.TabIndex = 2;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(5, 26);
+            label28.Name = "label28";
+            label28.Size = new Size(55, 20);
+            label28.TabIndex = 3;
+            label28.Text = "Buscar:";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Dock = DockStyle.Bottom;
+            flowLayoutPanel1.Location = new Point(3, 138);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(1165, 758);
+            flowLayoutPanel1.TabIndex = 4;
             // 
             // Descargatag
             // 
@@ -1415,6 +1469,9 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).EndInit();
+            ImagenTag.ResumeLayout(false);
+            BusquedaImagenFiltrosPanel.ResumeLayout(false);
+            BusquedaImagenFiltrosPanel.PerformLayout();
             Descargatag.ResumeLayout(false);
             Descargatag.PerformLayout();
             ResumeLayout(false);
@@ -1541,5 +1598,10 @@
         private CheckBox MantenerSeleccionesCKBX;
         private Label AvisoYTPanelLB;
         private Button VolverCargarApiBTN;
+        private Label label28;
+        private TextBox textBox1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel BusquedaImagenFiltrosPanel;
+        private Button BuscarImagenBTN;
     }
 }
