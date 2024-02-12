@@ -139,10 +139,16 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             BusquedaImagenFiltrosPanel = new Panel();
+            label31 = new Label();
+            FechaImagenCBX = new ComboBox();
+            TipoImagenCBX = new ComboBox();
+            label30 = new Label();
+            label29 = new Label();
+            TamanioImagenCBX = new ComboBox();
             BuscarImagenBTN = new Button();
-            textBox1 = new TextBox();
+            BuscarImagenesTXBX = new TextBox();
             label28 = new Label();
-            flowLayoutPanel1 = new FlowLayoutPanel();
+            ImagenesFLPanel = new FlowLayoutPanel();
             Descargatag = new TabPage();
             label27 = new Label();
             URLDDVideoTXBX = new TextBox();
@@ -1283,7 +1289,7 @@
             // ImagenTag
             // 
             ImagenTag.Controls.Add(BusquedaImagenFiltrosPanel);
-            ImagenTag.Controls.Add(flowLayoutPanel1);
+            ImagenTag.Controls.Add(ImagenesFLPanel);
             ImagenTag.Location = new Point(4, 29);
             ImagenTag.Name = "ImagenTag";
             ImagenTag.Padding = new Padding(3);
@@ -1294,14 +1300,74 @@
             // 
             // BusquedaImagenFiltrosPanel
             // 
+            BusquedaImagenFiltrosPanel.Controls.Add(label31);
+            BusquedaImagenFiltrosPanel.Controls.Add(FechaImagenCBX);
+            BusquedaImagenFiltrosPanel.Controls.Add(TipoImagenCBX);
+            BusquedaImagenFiltrosPanel.Controls.Add(label30);
+            BusquedaImagenFiltrosPanel.Controls.Add(label29);
+            BusquedaImagenFiltrosPanel.Controls.Add(TamanioImagenCBX);
             BusquedaImagenFiltrosPanel.Controls.Add(BuscarImagenBTN);
-            BusquedaImagenFiltrosPanel.Controls.Add(textBox1);
+            BusquedaImagenFiltrosPanel.Controls.Add(BuscarImagenesTXBX);
             BusquedaImagenFiltrosPanel.Controls.Add(label28);
             BusquedaImagenFiltrosPanel.Dock = DockStyle.Bottom;
             BusquedaImagenFiltrosPanel.Location = new Point(3, 0);
             BusquedaImagenFiltrosPanel.Name = "BusquedaImagenFiltrosPanel";
             BusquedaImagenFiltrosPanel.Size = new Size(1165, 138);
             BusquedaImagenFiltrosPanel.TabIndex = 5;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(644, 61);
+            label31.Name = "label31";
+            label31.Size = new Size(50, 20);
+            label31.TabIndex = 10;
+            label31.Text = "Fecha:";
+            // 
+            // FechaImagenCBX
+            // 
+            FechaImagenCBX.FormattingEnabled = true;
+            FechaImagenCBX.Items.AddRange(new object[] { "Cualquier fecha", "Ultimas 24 horas", "Ultima semana", "Ultimo mes", "Ultimo año" });
+            FechaImagenCBX.Location = new Point(700, 58);
+            FechaImagenCBX.Name = "FechaImagenCBX";
+            FechaImagenCBX.Size = new Size(202, 28);
+            FechaImagenCBX.TabIndex = 9;
+            // 
+            // TipoImagenCBX
+            // 
+            TipoImagenCBX.FormattingEnabled = true;
+            TipoImagenCBX.Items.AddRange(new object[] { "Cualquier tipo", "Imagenes prediseñadas", "Dibujo de lineas", "GIF" });
+            TipoImagenCBX.Location = new Point(371, 58);
+            TipoImagenCBX.Name = "TipoImagenCBX";
+            TipoImagenCBX.Size = new Size(255, 28);
+            TipoImagenCBX.TabIndex = 8;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(323, 61);
+            label30.Name = "label30";
+            label30.Size = new Size(42, 20);
+            label30.TabIndex = 7;
+            label30.Text = "Tipo:";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(5, 61);
+            label29.Name = "label29";
+            label29.Size = new Size(64, 20);
+            label29.TabIndex = 6;
+            label29.Text = "Tamaño:";
+            // 
+            // TamanioImagenCBX
+            // 
+            TamanioImagenCBX.FormattingEnabled = true;
+            TamanioImagenCBX.Items.AddRange(new object[] { "Cualquier tamaño", "Grandes", "Medianas", "Iconos" });
+            TamanioImagenCBX.Location = new Point(75, 58);
+            TamanioImagenCBX.Name = "TamanioImagenCBX";
+            TamanioImagenCBX.Size = new Size(242, 28);
+            TamanioImagenCBX.TabIndex = 5;
             // 
             // BuscarImagenBTN
             // 
@@ -1313,12 +1379,12 @@
             BuscarImagenBTN.UseVisualStyleBackColor = true;
             BuscarImagenBTN.Click += BuscarImagenBTN_Click;
             // 
-            // textBox1
+            // BuscarImagenesTXBX
             // 
-            textBox1.Location = new Point(66, 19);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(674, 27);
-            textBox1.TabIndex = 2;
+            BuscarImagenesTXBX.Location = new Point(66, 19);
+            BuscarImagenesTXBX.Name = "BuscarImagenesTXBX";
+            BuscarImagenesTXBX.Size = new Size(674, 27);
+            BuscarImagenesTXBX.TabIndex = 2;
             // 
             // label28
             // 
@@ -1329,13 +1395,14 @@
             label28.TabIndex = 3;
             label28.Text = "Buscar:";
             // 
-            // flowLayoutPanel1
+            // ImagenesFLPanel
             // 
-            flowLayoutPanel1.Dock = DockStyle.Bottom;
-            flowLayoutPanel1.Location = new Point(3, 138);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1165, 758);
-            flowLayoutPanel1.TabIndex = 4;
+            ImagenesFLPanel.AutoScroll = true;
+            ImagenesFLPanel.Dock = DockStyle.Bottom;
+            ImagenesFLPanel.Location = new Point(3, 138);
+            ImagenesFLPanel.Name = "ImagenesFLPanel";
+            ImagenesFLPanel.Size = new Size(1165, 758);
+            ImagenesFLPanel.TabIndex = 4;
             // 
             // Descargatag
             // 
@@ -1599,9 +1666,15 @@
         private Label AvisoYTPanelLB;
         private Button VolverCargarApiBTN;
         private Label label28;
-        private TextBox textBox1;
-        private FlowLayoutPanel flowLayoutPanel1;
+        private TextBox BuscarImagenesTXBX;
+        private FlowLayoutPanel ImagenesFLPanel;
         private Panel BusquedaImagenFiltrosPanel;
         private Button BuscarImagenBTN;
+        private Label label29;
+        private ComboBox TamanioImagenCBX;
+        private Label label31;
+        private ComboBox FechaImagenCBX;
+        private ComboBox TipoImagenCBX;
+        private Label label30;
     }
 }

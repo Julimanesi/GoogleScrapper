@@ -84,6 +84,10 @@ namespace GoogleScrapper
             IdiomaComboBox.DataSource = alllanguages;
             IdiomaComboBox.DisplayMember = "DisplayName";
             IdiomaComboBox.ValueMember = "TwoLetterISOLanguageName";
+
+            TamanioImagenCBX.SelectedIndex = 0;
+            TipoImagenCBX.SelectedIndex = 0;
+            FechaImagenCBX.SelectedIndex = 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -1270,7 +1274,21 @@ namespace GoogleScrapper
 
         private void BuscarImagenBTN_Click(object sender, EventArgs e)
         {
+            ImagenesFLPanel.Controls.Clear();
+            ImagenScrapper imagenScrapper = new ImagenScrapper(BuscarImagenesTXBX.Text, TamanioImagenCBX.SelectedIndex, 0, TipoImagenCBX.SelectedIndex, FechaImagenCBX.SelectedIndex);
+            List<ResultadoImagen> links = imagenScrapper.ObtenerLinksImagenes();
+            foreach (ResultadoImagen link in links)
+            {
+                ImagenesFLPanel.Controls.Add(CargarImagenEnPictureBox(link.URL));
+            }
+        }
 
+        private PictureBox CargarImagenEnPictureBox(string imgURL)
+        {
+            PictureBox ImagenVideoPicBx = new PictureBox();
+            ImagenVideoPicBx.SizeMode = PictureBoxSizeMode.AutoSize;
+            ImagenVideoPicBx.ImageLocation = imgURL;
+            return ImagenVideoPicBx;
         }
 
         #endregion
