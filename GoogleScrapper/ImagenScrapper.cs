@@ -32,17 +32,17 @@ namespace GoogleScrapper
             List<ResultadoImagen> resultadoImagenList = new List<ResultadoImagen>();
             string request = MainForm.URLGoogle + NombreImagen.Replace(" ", "+") + videoURLSelect;
 
-            if (IndexTamanio != 0 || IndexColor != 0 || IndexTipo != 0 || IndexFecha != 0 )
+            if (IndexTamanio > 0 || IndexColor > 0 || IndexTipo > 0 || IndexFecha > 0 )
             {
                 request += "&tbs=";
                 List<string> tbsParam = new List<string>();
-                if (IndexTamanio != 0)
+                if (IndexTamanio > 0)
                     tbsParam.Add("isz:" + GetCodigoTamanio(IndexTamanio));
                 //if (IndexColor != 0)
                 //    tbsParam.Add();
-                if (IndexTipo != 0)
+                if (IndexTipo > 0)
                     tbsParam.Add("itp:" + GetCodigoTipo(IndexTipo));
-                if (IndexFecha != 0)
+                if (IndexFecha > 0)
                     tbsParam.Add("qdr:" + GetCodigoFecha(IndexFecha));
                 request += string.Join("%2C", tbsParam);
             }

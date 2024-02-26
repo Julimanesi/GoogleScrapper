@@ -139,6 +139,8 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             BusquedaImagenFiltrosPanel = new Panel();
+            SelecTodoImagBTN = new Button();
+            GuardarImagSelecBTN = new Button();
             label31 = new Label();
             FechaImagenCBX = new ComboBox();
             TipoImagenCBX = new ComboBox();
@@ -1017,7 +1019,7 @@
             VideoTag.Padding = new Padding(3);
             VideoTag.Size = new Size(1171, 899);
             VideoTag.TabIndex = 0;
-            VideoTag.Text = "General Videos";
+            VideoTag.Text = "Google Videos";
             VideoTag.UseVisualStyleBackColor = true;
             // 
             // panelResultado
@@ -1295,11 +1297,13 @@
             ImagenTag.Padding = new Padding(3);
             ImagenTag.Size = new Size(1171, 899);
             ImagenTag.TabIndex = 1;
-            ImagenTag.Text = "Imagen";
+            ImagenTag.Text = "Google Imagenes";
             ImagenTag.UseVisualStyleBackColor = true;
             // 
             // BusquedaImagenFiltrosPanel
             // 
+            BusquedaImagenFiltrosPanel.Controls.Add(SelecTodoImagBTN);
+            BusquedaImagenFiltrosPanel.Controls.Add(GuardarImagSelecBTN);
             BusquedaImagenFiltrosPanel.Controls.Add(label31);
             BusquedaImagenFiltrosPanel.Controls.Add(FechaImagenCBX);
             BusquedaImagenFiltrosPanel.Controls.Add(TipoImagenCBX);
@@ -1314,6 +1318,26 @@
             BusquedaImagenFiltrosPanel.Name = "BusquedaImagenFiltrosPanel";
             BusquedaImagenFiltrosPanel.Size = new Size(1165, 138);
             BusquedaImagenFiltrosPanel.TabIndex = 5;
+            // 
+            // SelecTodoImagBTN
+            // 
+            SelecTodoImagBTN.Location = new Point(145, 103);
+            SelecTodoImagBTN.Name = "SelecTodoImagBTN";
+            SelecTodoImagBTN.Size = new Size(139, 29);
+            SelecTodoImagBTN.TabIndex = 12;
+            SelecTodoImagBTN.Text = "Seleccionar Todo";
+            SelecTodoImagBTN.UseVisualStyleBackColor = true;
+            SelecTodoImagBTN.Click += SelecTodoImagBTN_Click;
+            // 
+            // GuardarImagSelecBTN
+            // 
+            GuardarImagSelecBTN.Location = new Point(374, 103);
+            GuardarImagSelecBTN.Name = "GuardarImagSelecBTN";
+            GuardarImagSelecBTN.Size = new Size(252, 29);
+            GuardarImagSelecBTN.TabIndex = 11;
+            GuardarImagSelecBTN.Text = "Guardar Imagenes Seleccionadas";
+            GuardarImagSelecBTN.UseVisualStyleBackColor = true;
+            GuardarImagSelecBTN.Click += GuardarImagSelecBTN_Click;
             // 
             // label31
             // 
@@ -1676,5 +1700,7 @@
         private ComboBox FechaImagenCBX;
         private ComboBox TipoImagenCBX;
         private Label label30;
+        private Button GuardarImagSelecBTN;
+        private Button SelecTodoImagBTN;
     }
 }

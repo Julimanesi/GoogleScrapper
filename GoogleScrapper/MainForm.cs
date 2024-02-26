@@ -1288,9 +1288,131 @@ namespace GoogleScrapper
             PictureBox ImagenVideoPicBx = new PictureBox();
             ImagenVideoPicBx.SizeMode = PictureBoxSizeMode.AutoSize;
             ImagenVideoPicBx.ImageLocation = imgURL;
+            ImagenVideoPicBx.Click += AlClickImagen;
+            ImagenVideoPicBx.DoubleClick += AlDobleClickImagen;
+            ImagenVideoPicBx.Tag = false;
             return ImagenVideoPicBx;
         }
 
+        private void AlClickImagen(object sender, EventArgs e)
+        {
+            try
+            {
+                PictureBox ImagenVideoPicBx = (PictureBox)sender;
+                Clipboard.SetImage(ImagenVideoPicBx.Image);
+                OnImagenSeleccionado(ImagenVideoPicBx);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar Reproducir el/los Video/s del Link");
+            }
+        }
+
+        private void AlDobleClickImagen(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar");
+            }
+        }
+
+        private void OnImagenSeleccionado(PictureBox ImagenVideoPicBx)
+        {
+            try
+            {
+                if ((bool)ImagenVideoPicBx.Tag)
+                {
+                    ImagenVideoPicBx.BorderStyle = BorderStyle.None;
+                    ImagenVideoPicBx.Padding = new Padding(0);
+                    ImagenVideoPicBx.BackColor = Color.Transparent;
+                }
+                else
+                {
+                    ImagenVideoPicBx.BorderStyle = BorderStyle.Fixed3D;
+                    ImagenVideoPicBx.Padding = new Padding(10);
+                    ImagenVideoPicBx.BackColor = Color.SkyBlue;
+                }
+                //Uso tag para marcar si la imagen fue seleccionada
+                ImagenVideoPicBx.Tag = !((bool)ImagenVideoPicBx.Tag);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar seleccionar las imagenes");
+            }
+        }
+
+        private void SeleccionarImagen(PictureBox ImagenVideoPicBx)
+        {
+            try
+            {
+                ImagenVideoPicBx.BorderStyle = BorderStyle.Fixed3D;
+                ImagenVideoPicBx.Padding = new Padding(10);
+                ImagenVideoPicBx.BackColor = Color.SkyBlue;               
+                //Uso tag para marcar si la imagen fue seleccionada
+                ImagenVideoPicBx.Tag = true;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void GuardarImagSelecBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GuardarImagenes(ImagenesFLPanel.Controls.Cast<PictureBox>().Where(x => (bool)x.Tag).Select(x => x.Image).ToList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar guardar las imagenes");
+            }
+        }
+
+        private void GuardarImagenes(List<Image> imagenes)
+        {
+            try
+            {
+                FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    int i = 1;
+                    foreach (Image imagen in imagenes)
+                    {
+                        string extension = TipoImagenCBX.SelectedIndex == 3 ? ".gif" : ".jpg";
+                        string direccion = Path.Combine(folderDialog.SelectedPath, $"{BuscarImagenesTXBX.Text} {i}{extension}");
+                        while (File.Exists(direccion))
+                        {
+                            i++;
+                            direccion = Path.Combine(folderDialog.SelectedPath, $"{BuscarImagenesTXBX.Text} {i}{extension}");
+                        }
+                        imagen.Save(direccion, TipoImagenCBX.SelectedIndex == 3 ? System.Drawing.Imaging.ImageFormat.Gif : System.Drawing.Imaging.ImageFormat.Jpeg);
+                        i++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar guardar las imagenes");
+            }
+        }
+
+        private void SelecTodoImagBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ImagenesFLPanel.Controls.Cast<PictureBox>().ToList().ForEach(pic => SeleccionarImagen(pic));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar seleccionar todas las imagenes");
+            }
+        }
         #endregion
 
         #region Descargar/Editar Videos Directamente
