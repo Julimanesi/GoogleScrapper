@@ -1276,7 +1276,7 @@ namespace GoogleScrapper
         {
             ImagenesFLPanel.Controls.Clear();
             ImagenScrapper imagenScrapper = new ImagenScrapper(BuscarImagenesTXBX.Text, TamanioImagenCBX.SelectedIndex, 0, TipoImagenCBX.SelectedIndex, FechaImagenCBX.SelectedIndex);
-            List<ResultadoImagen> links = imagenScrapper.ObtenerLinksImagenes();
+            List<ResultadoImagen> links = imagenScrapper.ObtenerLinksImagenes(ObtenerImagenURLCKBX.Checked);
             foreach (ResultadoImagen link in links)
             {
                 ImagenesFLPanel.Controls.Add(CargarImagenEnPictureBox(link.URL));
@@ -1351,13 +1351,13 @@ namespace GoogleScrapper
             {
                 ImagenVideoPicBx.BorderStyle = BorderStyle.Fixed3D;
                 ImagenVideoPicBx.Padding = new Padding(10);
-                ImagenVideoPicBx.BackColor = Color.SkyBlue;               
+                ImagenVideoPicBx.BackColor = Color.SkyBlue;
                 //Uso tag para marcar si la imagen fue seleccionada
                 ImagenVideoPicBx.Tag = true;
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -1378,18 +1378,18 @@ namespace GoogleScrapper
             try
             {
                 FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-
+                string nombreArchivo = ObtenerImagenURLCKBX.Checked ? BuscarImagenesTXBX.Text.Substring(BuscarImagenesTXBX.Text.LastIndexOf('/') + 1) : BuscarImagenesTXBX.Text;
                 if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
                     int i = 1;
                     foreach (Image imagen in imagenes)
                     {
                         string extension = TipoImagenCBX.SelectedIndex == 3 ? ".gif" : ".jpg";
-                        string direccion = Path.Combine(folderDialog.SelectedPath, $"{BuscarImagenesTXBX.Text} {i}{extension}");
+                        string direccion = Path.Combine(folderDialog.SelectedPath, $"{nombreArchivo} {i}{extension}");
                         while (File.Exists(direccion))
                         {
                             i++;
-                            direccion = Path.Combine(folderDialog.SelectedPath, $"{BuscarImagenesTXBX.Text} {i}{extension}");
+                            direccion = Path.Combine(folderDialog.SelectedPath, $"{nombreArchivo} {i}{extension}");
                         }
                         imagen.Save(direccion, TipoImagenCBX.SelectedIndex == 3 ? System.Drawing.Imaging.ImageFormat.Gif : System.Drawing.Imaging.ImageFormat.Jpeg);
                         i++;
@@ -1412,6 +1412,10 @@ namespace GoogleScrapper
             {
                 MessageBox.Show(ex.Message, "Error al intentar seleccionar todas las imagenes");
             }
+        }
+        private void ObtenerImagenURLCKBX_CheckedChanged(object sender, EventArgs e)
+        {
+            ImagControlesPanel.Visible = !ObtenerImagenURLCKBX.Checked;
         }
         #endregion
 

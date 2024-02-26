@@ -12,11 +12,11 @@ namespace GoogleScrapper
         private const string videoURLSelect = "&tbm=isch";
         private static HtmlWeb web = new HtmlWeb();
 
-        public int IndexTamanio { get; set; }
-        public int IndexColor{ get; set; }
-        public int IndexTipo{ get; set; }
-        public int IndexFecha{ get; set; }
-        public string NombreImagen { get; set; } = "";
+        private int IndexTamanio;
+        private int IndexColor;
+        private int IndexTipo;
+        private int IndexFecha;
+        private string NombreImagen = "";
 
         public ImagenScrapper(string nombreImagen, int indexTamanio, int indexColor, int indexTipo, int indexFecha) 
         {
@@ -27,10 +27,10 @@ namespace GoogleScrapper
             IndexFecha = indexFecha;
         }
 
-        public List<ResultadoImagen> ObtenerLinksImagenes()
+        public List<ResultadoImagen> ObtenerLinksImagenes(bool desdeURL = false)
         {
             List<ResultadoImagen> resultadoImagenList = new List<ResultadoImagen>();
-            string request = MainForm.URLGoogle + NombreImagen.Replace(" ", "+") + videoURLSelect;
+            string request = desdeURL ? NombreImagen : MainForm.URLGoogle + NombreImagen.Replace(" ", "+") + videoURLSelect;
 
             if (IndexTamanio > 0 || IndexColor > 0 || IndexTipo > 0 || IndexFecha > 0 )
             {
@@ -54,7 +54,7 @@ namespace GoogleScrapper
             {
                 foreach (var imagen in htmlNodePosBody.Descendants("img").Where(x => x.NodeType == HtmlNodeType.Element && x.HasAttributes))
                 {
-                    var href = imagen.Attributes.Where(x => x.Name == "data-src").FirstOrDefault();
+                    var href = desdeURL ? imagen.Attributes.Where(x => x.Name == "src" || x.Name == "data-src").FirstOrDefault() : imagen.Attributes.Where(x => x.Name == "data-src").FirstOrDefault();
                     if (href != null)
                     {
                         string link = href.Value;

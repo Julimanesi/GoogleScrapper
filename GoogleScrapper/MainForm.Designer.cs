@@ -139,14 +139,16 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             BusquedaImagenFiltrosPanel = new Panel();
-            SelecTodoImagBTN = new Button();
-            GuardarImagSelecBTN = new Button();
-            label31 = new Label();
-            FechaImagenCBX = new ComboBox();
-            TipoImagenCBX = new ComboBox();
-            label30 = new Label();
+            ImagControlesPanel = new Panel();
             label29 = new Label();
             TamanioImagenCBX = new ComboBox();
+            label30 = new Label();
+            TipoImagenCBX = new ComboBox();
+            label31 = new Label();
+            FechaImagenCBX = new ComboBox();
+            ObtenerImagenURLCKBX = new CheckBox();
+            SelecTodoImagBTN = new Button();
+            GuardarImagSelecBTN = new Button();
             BuscarImagenBTN = new Button();
             BuscarImagenesTXBX = new TextBox();
             label28 = new Label();
@@ -178,6 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)NumMinResultVideoNM).BeginInit();
             ImagenTag.SuspendLayout();
             BusquedaImagenFiltrosPanel.SuspendLayout();
+            ImagControlesPanel.SuspendLayout();
             Descargatag.SuspendLayout();
             SuspendLayout();
             // 
@@ -1297,19 +1300,15 @@
             ImagenTag.Padding = new Padding(3);
             ImagenTag.Size = new Size(1171, 899);
             ImagenTag.TabIndex = 1;
-            ImagenTag.Text = "Google Imagenes";
+            ImagenTag.Text = "Imagenes";
             ImagenTag.UseVisualStyleBackColor = true;
             // 
             // BusquedaImagenFiltrosPanel
             // 
+            BusquedaImagenFiltrosPanel.Controls.Add(ImagControlesPanel);
+            BusquedaImagenFiltrosPanel.Controls.Add(ObtenerImagenURLCKBX);
             BusquedaImagenFiltrosPanel.Controls.Add(SelecTodoImagBTN);
             BusquedaImagenFiltrosPanel.Controls.Add(GuardarImagSelecBTN);
-            BusquedaImagenFiltrosPanel.Controls.Add(label31);
-            BusquedaImagenFiltrosPanel.Controls.Add(FechaImagenCBX);
-            BusquedaImagenFiltrosPanel.Controls.Add(TipoImagenCBX);
-            BusquedaImagenFiltrosPanel.Controls.Add(label30);
-            BusquedaImagenFiltrosPanel.Controls.Add(label29);
-            BusquedaImagenFiltrosPanel.Controls.Add(TamanioImagenCBX);
             BusquedaImagenFiltrosPanel.Controls.Add(BuscarImagenBTN);
             BusquedaImagenFiltrosPanel.Controls.Add(BuscarImagenesTXBX);
             BusquedaImagenFiltrosPanel.Controls.Add(label28);
@@ -1318,6 +1317,84 @@
             BusquedaImagenFiltrosPanel.Name = "BusquedaImagenFiltrosPanel";
             BusquedaImagenFiltrosPanel.Size = new Size(1165, 138);
             BusquedaImagenFiltrosPanel.TabIndex = 5;
+            // 
+            // ImagControlesPanel
+            // 
+            ImagControlesPanel.Controls.Add(label29);
+            ImagControlesPanel.Controls.Add(TamanioImagenCBX);
+            ImagControlesPanel.Controls.Add(label30);
+            ImagControlesPanel.Controls.Add(TipoImagenCBX);
+            ImagControlesPanel.Controls.Add(label31);
+            ImagControlesPanel.Controls.Add(FechaImagenCBX);
+            ImagControlesPanel.Location = new Point(5, 52);
+            ImagControlesPanel.Name = "ImagControlesPanel";
+            ImagControlesPanel.Size = new Size(918, 46);
+            ImagControlesPanel.TabIndex = 14;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(3, 12);
+            label29.Name = "label29";
+            label29.Size = new Size(64, 20);
+            label29.TabIndex = 6;
+            label29.Text = "Tamaño:";
+            // 
+            // TamanioImagenCBX
+            // 
+            TamanioImagenCBX.FormattingEnabled = true;
+            TamanioImagenCBX.Items.AddRange(new object[] { "Cualquier tamaño", "Grandes", "Medianas", "Iconos" });
+            TamanioImagenCBX.Location = new Point(73, 9);
+            TamanioImagenCBX.Name = "TamanioImagenCBX";
+            TamanioImagenCBX.Size = new Size(242, 28);
+            TamanioImagenCBX.TabIndex = 5;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(321, 12);
+            label30.Name = "label30";
+            label30.Size = new Size(42, 20);
+            label30.TabIndex = 7;
+            label30.Text = "Tipo:";
+            // 
+            // TipoImagenCBX
+            // 
+            TipoImagenCBX.FormattingEnabled = true;
+            TipoImagenCBX.Items.AddRange(new object[] { "Cualquier tipo", "Imagenes prediseñadas", "Dibujo de lineas", "GIF" });
+            TipoImagenCBX.Location = new Point(369, 9);
+            TipoImagenCBX.Name = "TipoImagenCBX";
+            TipoImagenCBX.Size = new Size(255, 28);
+            TipoImagenCBX.TabIndex = 8;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(642, 12);
+            label31.Name = "label31";
+            label31.Size = new Size(50, 20);
+            label31.TabIndex = 10;
+            label31.Text = "Fecha:";
+            // 
+            // FechaImagenCBX
+            // 
+            FechaImagenCBX.FormattingEnabled = true;
+            FechaImagenCBX.Items.AddRange(new object[] { "Cualquier fecha", "Ultimas 24 horas", "Ultima semana", "Ultimo mes", "Ultimo año" });
+            FechaImagenCBX.Location = new Point(698, 9);
+            FechaImagenCBX.Name = "FechaImagenCBX";
+            FechaImagenCBX.Size = new Size(202, 28);
+            FechaImagenCBX.TabIndex = 9;
+            // 
+            // ObtenerImagenURLCKBX
+            // 
+            ObtenerImagenURLCKBX.AutoSize = true;
+            ObtenerImagenURLCKBX.Location = new Point(764, 23);
+            ObtenerImagenURLCKBX.Name = "ObtenerImagenURLCKBX";
+            ObtenerImagenURLCKBX.Size = new Size(159, 24);
+            ObtenerImagenURLCKBX.TabIndex = 13;
+            ObtenerImagenURLCKBX.Text = "Obtener desde URL";
+            ObtenerImagenURLCKBX.UseVisualStyleBackColor = true;
+            ObtenerImagenURLCKBX.CheckedChanged += ObtenerImagenURLCKBX_CheckedChanged;
             // 
             // SelecTodoImagBTN
             // 
@@ -1338,60 +1415,6 @@
             GuardarImagSelecBTN.Text = "Guardar Imagenes Seleccionadas";
             GuardarImagSelecBTN.UseVisualStyleBackColor = true;
             GuardarImagSelecBTN.Click += GuardarImagSelecBTN_Click;
-            // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Location = new Point(644, 61);
-            label31.Name = "label31";
-            label31.Size = new Size(50, 20);
-            label31.TabIndex = 10;
-            label31.Text = "Fecha:";
-            // 
-            // FechaImagenCBX
-            // 
-            FechaImagenCBX.FormattingEnabled = true;
-            FechaImagenCBX.Items.AddRange(new object[] { "Cualquier fecha", "Ultimas 24 horas", "Ultima semana", "Ultimo mes", "Ultimo año" });
-            FechaImagenCBX.Location = new Point(700, 58);
-            FechaImagenCBX.Name = "FechaImagenCBX";
-            FechaImagenCBX.Size = new Size(202, 28);
-            FechaImagenCBX.TabIndex = 9;
-            // 
-            // TipoImagenCBX
-            // 
-            TipoImagenCBX.FormattingEnabled = true;
-            TipoImagenCBX.Items.AddRange(new object[] { "Cualquier tipo", "Imagenes prediseñadas", "Dibujo de lineas", "GIF" });
-            TipoImagenCBX.Location = new Point(371, 58);
-            TipoImagenCBX.Name = "TipoImagenCBX";
-            TipoImagenCBX.Size = new Size(255, 28);
-            TipoImagenCBX.TabIndex = 8;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Location = new Point(323, 61);
-            label30.Name = "label30";
-            label30.Size = new Size(42, 20);
-            label30.TabIndex = 7;
-            label30.Text = "Tipo:";
-            // 
-            // label29
-            // 
-            label29.AutoSize = true;
-            label29.Location = new Point(5, 61);
-            label29.Name = "label29";
-            label29.Size = new Size(64, 20);
-            label29.TabIndex = 6;
-            label29.Text = "Tamaño:";
-            // 
-            // TamanioImagenCBX
-            // 
-            TamanioImagenCBX.FormattingEnabled = true;
-            TamanioImagenCBX.Items.AddRange(new object[] { "Cualquier tamaño", "Grandes", "Medianas", "Iconos" });
-            TamanioImagenCBX.Location = new Point(75, 58);
-            TamanioImagenCBX.Name = "TamanioImagenCBX";
-            TamanioImagenCBX.Size = new Size(242, 28);
-            TamanioImagenCBX.TabIndex = 5;
             // 
             // BuscarImagenBTN
             // 
@@ -1563,6 +1586,8 @@
             ImagenTag.ResumeLayout(false);
             BusquedaImagenFiltrosPanel.ResumeLayout(false);
             BusquedaImagenFiltrosPanel.PerformLayout();
+            ImagControlesPanel.ResumeLayout(false);
+            ImagControlesPanel.PerformLayout();
             Descargatag.ResumeLayout(false);
             Descargatag.PerformLayout();
             ResumeLayout(false);
@@ -1702,5 +1727,7 @@
         private Label label30;
         private Button GuardarImagSelecBTN;
         private Button SelecTodoImagBTN;
+        private CheckBox ObtenerImagenURLCKBX;
+        private Panel ImagControlesPanel;
     }
 }
