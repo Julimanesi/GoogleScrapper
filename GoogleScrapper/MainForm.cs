@@ -38,6 +38,8 @@ namespace GoogleScrapper
         private List<HistorialItemSeleccionado> HistorialItemSeleccionados = new List<HistorialItemSeleccionado>();
         public static string Aviso { get; set; } = string.Empty;
 
+        private List<ResultadoImagen> ImagenesLiks = new List<ResultadoImagen>();
+
         private string PathDirectorioResultadoBusqueda { get; } = Path.Combine(Directory.GetCurrentDirectory(), "Resultados de Busqueda");
 
         public MainForm()
@@ -88,6 +90,8 @@ namespace GoogleScrapper
             TamanioImagenCBX.SelectedIndex = 0;
             TipoImagenCBX.SelectedIndex = 0;
             FechaImagenCBX.SelectedIndex = 0;
+            FormatoImagenCBX.DataSource = Enum.GetValues(typeof(PictureBoxSizeMode));
+            FormatoImagenCBX.SelectedIndex = (int)PictureBoxSizeMode.AutoSize;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -1272,26 +1276,68 @@ namespace GoogleScrapper
 
         #region Imagen Scrapper
 
+        #region Eventos
+
         private void BuscarImagenBTN_Click(object sender, EventArgs e)
         {
-            ImagenesFLPanel.Controls.Clear();
-            ImagenScrapper imagenScrapper = new ImagenScrapper(BuscarImagenesTXBX.Text, TamanioImagenCBX.SelectedIndex, 0, TipoImagenCBX.SelectedIndex, FechaImagenCBX.SelectedIndex);
-            List<ResultadoImagen> links = imagenScrapper.ObtenerLinksImagenes(ObtenerImagenURLCKBX.Checked);
-            foreach (ResultadoImagen link in links)
+            try
             {
-                ImagenesFLPanel.Controls.Add(CargarImagenEnPictureBox(link.URL));
+                ImagenesFLPanel.Controls.Clear();
+                ImagenScrapper imagenScrapper = new ImagenScrapper(BuscarImagenesTXBX.Text, TamanioImagenCBX.SelectedIndex, 0, TipoImagenCBX.SelectedIndex, FechaImagenCBX.SelectedIndex);
+                ImagenesLiks = imagenScrapper.ObtenerLinksImagenes(ObtenerImagenURLCKBX.Checked);
+                foreach (ResultadoImagen link in ImagenesLiks)
+                {
+                    ImagenesFLPanel.Controls.Add(CargarImagenEnPictureBox(link.URL));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar buscar las imagenes");
+            }
+        }
+        private void SelecTodoImagBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ImagenesFLPanel.Controls.Cast<PictureBox>().ToList().ForEach(pic => SeleccionarImagen(pic));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar seleccionar todas las imagenes");
             }
         }
 
-        private PictureBox CargarImagenEnPictureBox(string imgURL)
+        private void ObtenerImagenURLCKBX_CheckedChanged(object sender, EventArgs e)
         {
-            PictureBox ImagenVideoPicBx = new PictureBox();
-            ImagenVideoPicBx.SizeMode = PictureBoxSizeMode.AutoSize;
-            ImagenVideoPicBx.ImageLocation = imgURL;
-            ImagenVideoPicBx.Click += AlClickImagen;
-            ImagenVideoPicBx.DoubleClick += AlDobleClickImagen;
-            ImagenVideoPicBx.Tag = false;
-            return ImagenVideoPicBx;
+            ImagControlesPanel.Visible = !ObtenerImagenURLCKBX.Checked;
+        }
+
+        private void GuardarImagSelecBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GuardarImagenes(ImagenesFLPanel.Controls.Cast<PictureBox>().Where(x => (bool)x.Tag).Select(x => x.Image).ToList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar guardar las imagenes");
+            }
+        }
+
+        private void FormatoImagenCBX_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ImagenesFLPanel.Controls.Clear();
+                foreach (ResultadoImagen link in ImagenesLiks)
+                {
+                    ImagenesFLPanel.Controls.Add(CargarImagenEnPictureBox(link.URL));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error al intentar recargar las imagenes");
+            }
         }
 
         private void AlClickImagen(object sender, EventArgs e)
@@ -1319,6 +1365,24 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al intentar");
             }
         }
+
+        #endregion
+
+        private PictureBox CargarImagenEnPictureBox(string imgURL)
+        {
+            PictureBox ImagenVideoPicBx = new PictureBox();
+            ImagenVideoPicBx.SizeMode = (PictureBoxSizeMode)FormatoImagenCBX.SelectedValue;
+            if (ImagenVideoPicBx.SizeMode != PictureBoxSizeMode.AutoSize)
+            {
+                int ancho = ImagenesFLPanel.Width / 2 - ImagenesFLPanel.Margin.Horizontal - 21;
+                ImagenVideoPicBx.Size = new Size(ancho, ancho);
+            }
+            ImagenVideoPicBx.ImageLocation = imgURL;
+            ImagenVideoPicBx.Click += AlClickImagen;
+            ImagenVideoPicBx.DoubleClick += AlDobleClickImagen;
+            ImagenVideoPicBx.Tag = false;
+            return ImagenVideoPicBx;
+        }        
 
         private void OnImagenSeleccionado(PictureBox ImagenVideoPicBx)
         {
@@ -1361,18 +1425,6 @@ namespace GoogleScrapper
             }
         }
 
-        private void GuardarImagSelecBTN_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                GuardarImagenes(ImagenesFLPanel.Controls.Cast<PictureBox>().Where(x => (bool)x.Tag).Select(x => x.Image).ToList());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al intentar guardar las imagenes");
-            }
-        }
-
         private void GuardarImagenes(List<Image> imagenes)
         {
             try
@@ -1401,22 +1453,7 @@ namespace GoogleScrapper
                 MessageBox.Show(ex.Message, "Error al intentar guardar las imagenes");
             }
         }
-
-        private void SelecTodoImagBTN_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ImagenesFLPanel.Controls.Cast<PictureBox>().ToList().ForEach(pic => SeleccionarImagen(pic));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error al intentar seleccionar todas las imagenes");
-            }
-        }
-        private void ObtenerImagenURLCKBX_CheckedChanged(object sender, EventArgs e)
-        {
-            ImagControlesPanel.Visible = !ObtenerImagenURLCKBX.Checked;
-        }
+       
         #endregion
 
         #region Descargar/Editar Videos Directamente
@@ -1489,6 +1526,7 @@ namespace GoogleScrapper
 
         #endregion
 
+        
     }
     public class HistorialBusquedaItem
     {

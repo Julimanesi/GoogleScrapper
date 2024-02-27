@@ -139,6 +139,7 @@
             NumMinResultVideoNM = new NumericUpDown();
             ImagenTag = new TabPage();
             BusquedaImagenFiltrosPanel = new Panel();
+            FormatoImagenCBX = new ComboBox();
             ImagControlesPanel = new Panel();
             label29 = new Label();
             TamanioImagenCBX = new ComboBox();
@@ -1305,6 +1306,7 @@
             // 
             // BusquedaImagenFiltrosPanel
             // 
+            BusquedaImagenFiltrosPanel.Controls.Add(FormatoImagenCBX);
             BusquedaImagenFiltrosPanel.Controls.Add(ImagControlesPanel);
             BusquedaImagenFiltrosPanel.Controls.Add(ObtenerImagenURLCKBX);
             BusquedaImagenFiltrosPanel.Controls.Add(SelecTodoImagBTN);
@@ -1317,6 +1319,15 @@
             BusquedaImagenFiltrosPanel.Name = "BusquedaImagenFiltrosPanel";
             BusquedaImagenFiltrosPanel.Size = new Size(1165, 138);
             BusquedaImagenFiltrosPanel.TabIndex = 5;
+            // 
+            // FormatoImagenCBX
+            // 
+            FormatoImagenCBX.FormattingEnabled = true;
+            FormatoImagenCBX.Location = new Point(679, 104);
+            FormatoImagenCBX.Name = "FormatoImagenCBX";
+            FormatoImagenCBX.Size = new Size(151, 28);
+            FormatoImagenCBX.TabIndex = 15;
+            FormatoImagenCBX.SelectedIndexChanged += FormatoImagenCBX_SelectedIndexChanged;
             // 
             // ImagControlesPanel
             // 
@@ -1729,5 +1740,6 @@
         private Button SelecTodoImagBTN;
         private CheckBox ObtenerImagenURLCKBX;
         private Panel ImagControlesPanel;
+        private ComboBox FormatoImagenCBX;
     }
 }
