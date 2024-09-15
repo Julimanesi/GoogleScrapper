@@ -65,6 +65,7 @@ namespace GoogleScrapper
                         var titulo = anchor.InnerText;
                         if (titulo != "" && link.Contains("http"))
                         {
+                            link = link.Substring(link.IndexOf("http"));
                             if (resultadoVideoList.Where(x => x.URLVideo == link).FirstOrDefault() != null)
                             {
                                 resultadoVideoList.Where(x => x.URLVideo == link).First().Title += "  Duracion:" + titulo;
@@ -98,7 +99,7 @@ namespace GoogleScrapper
 
             var htmlDoc = web.Load(request);
 
-            while (htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[3]/div/div/div[1]/a") != null || htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[4]/div/div/div[1]/a") != null)
+            while (htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[3]/div/div/div[1]/a") != null || htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/div[4]/div/div/div[1]/a") != null || htmlDoc.DocumentNode.SelectSingleNode("/html/body/div/footer/div[1]/div/div/a") != null)
             {
                 htmlDoc = web.Load($"{request}&start={nroPaginas * 10}");
                 nroPaginas++;
